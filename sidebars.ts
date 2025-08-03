@@ -104,7 +104,30 @@ const sidebars: SidebarsConfig = {
     'frontend-interview/frontend-engineer-resume-guide',
   ],
   reactInterviewSidebar: [
-    'react-interview/intro',
+    {
+      type: 'category',
+      label: 'Overview',
+      items: [
+        'react-interview/react-interview-intro',
+        'react-interview/react-landscape-history',
+        'react-interview/how-to-prepare-for-react-interviews',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Essential topics',
+      items: [
+        'react-interview/basic-react-concepts',
+        'react-interview/thinking-declaratively',
+        'react-interview/designing-state',
+        'react-interview/react-hooks',
+        'react-interview/event-handling',
+        'react-interview/forms',
+        'react-interview/signup-form-example',
+        'react-interview/data-fetching',
+        'react-interview/design-patterns',
+      ],
+    },
   ],
   behaviorInterviewSidebar: [
     'behavior-interview/intro',
