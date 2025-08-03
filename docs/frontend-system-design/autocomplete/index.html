@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-frontend-system-design/autocomplete" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.8.1">
+<title data-rh="true">System Design: Autocomplete | Frontend Interview Preparation</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://binhphanhai.github.io/frontend-system-design/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://binhphanhai.github.io/frontend-system-design/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://binhphanhai.github.io/frontend-system-design/docs/frontend-system-design/autocomplete"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="System Design: Autocomplete | Frontend Interview Preparation"><meta data-rh="true" name="description" content="Autocomplete is a classic front end system design interview question, asked at top companies like Apple, Airbnb, Google, LinkedIn, Lyft, Microsoft, OpenAI, Twitter, and Uber. It tests your ability to design a robust, accessible, high-performance, and flexible UI component. This summary is a comprehensive, in-depth guide to designing a modern autocomplete system, covering requirements, architecture, data modeling, API, performance, UX, accessibility, and real-world best practices."><meta data-rh="true" property="og:description" content="Autocomplete is a classic front end system design interview question, asked at top companies like Apple, Airbnb, Google, LinkedIn, Lyft, Microsoft, OpenAI, Twitter, and Uber. It tests your ability to design a robust, accessible, high-performance, and flexible UI component. This summary is a comprehensive, in-depth guide to designing a modern autocomplete system, covering requirements, architecture, data modeling, API, performance, UX, accessibility, and real-world best practices."><link data-rh="true" rel="icon" href="/frontend-system-design/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://binhphanhai.github.io/frontend-system-design/docs/frontend-system-design/autocomplete"><link data-rh="true" rel="alternate" href="https://binhphanhai.github.io/frontend-system-design/docs/frontend-system-design/autocomplete" hreflang="en"><link data-rh="true" rel="alternate" href="https://binhphanhai.github.io/frontend-system-design/docs/frontend-system-design/autocomplete" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"System Design: Autocomplete","item":"https://binhphanhai.github.io/frontend-system-design/docs/frontend-system-design/autocomplete"}]}</script><link rel="alternate" type="application/rss+xml" href="/frontend-system-design/blog/rss.xml" title="Frontend Interview Preparation RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/frontend-system-design/blog/atom.xml" title="Frontend Interview Preparation Atom Feed"><link rel="stylesheet" href="/frontend-system-design/assets/css/styles.9016c31d.css">
+<script src="/frontend-system-design/assets/js/runtime~main.d4a7c81b.js" defer="defer"></script>
+<script src="/frontend-system-design/assets/js/main.bf858a80.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t="light";var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",e||t),document.documentElement.setAttribute("data-theme-choice",e||t)}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/frontend-system-design/img/logo.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/frontend-system-design/"><div class="navbar__logo"><img src="/frontend-system-design/img/logo.svg" alt="Frontend Interview Preparation Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/frontend-system-design/img/logo.svg" alt="Frontend Interview Preparation Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Frontend Interview Prep</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/frontend-system-design/docs/frontend-system-design/intro">System Design</a><a class="navbar__item navbar__link" href="/frontend-system-design/docs/frontend-interview/frontend-interview-intro">Frontend Interview</a><a class="navbar__item navbar__link" href="/frontend-system-design/docs/react-interview/react-interview-intro">React Interview</a><a class="navbar__item navbar__link" href="/frontend-system-design/docs/behavior-interview/behavioral-interview-intro">Behavioral Interview</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/binhphanhai/frontend-system-design" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/frontend-system-design/docs/frontend-system-design/intro">Frontend System Design Guide</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/frontend-system-design/frontend-system-design-intro">Fundamentals</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/frontend-system-design/news-feed">Social &amp; Content Platforms</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/frontend-system-design/rich-text-editor">Text &amp; Document Editing</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/frontend-system-design/docs/frontend-system-design/autocomplete">Search &amp; Navigation</a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/frontend-system-design/docs/frontend-system-design/autocomplete">System Design: Autocomplete</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/frontend-system-design/docs/frontend-system-design/dropdown-menu">Dropdown Menu System Design</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/frontend-system-design/video-streaming">Media &amp; Entertainment</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/frontend-system-design/ecommerce-marketplace">E-commerce &amp; Business</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/frontend-system-design/modal-dialog">UI Components</a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/frontend-system-design/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Search &amp; Navigation</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">System Design: Autocomplete</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>System Design: Autocomplete</h1></header>
+<p>Autocomplete is a classic front end system design interview question, asked at top companies like Apple, Airbnb, Google, LinkedIn, Lyft, Microsoft, OpenAI, Twitter, and Uber. It tests your ability to design a robust, accessible, high-performance, and flexible UI component. This summary is a comprehensive, in-depth guide to designing a modern autocomplete system, covering requirements, architecture, data modeling, API, performance, UX, accessibility, and real-world best practices.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="1-problem-statement">1. Problem Statement<a href="#1-problem-statement" class="hash-link" aria-label="Direct link to 1. Problem Statement" title="Direct link to 1. Problem Statement">​</a></h2>
+<p><strong>Design an autocomplete UI component</strong> that allows users to enter a search term into a text box, see a list of search results in a popup, and select a result. The component should be generic, customizable, and suitable for use in a wide variety of applications.</p>
+<p><strong>Real-life examples:</strong></p>
+<ul>
+<li>Google search bar (text-based suggestions)</li>
+<li>Facebook search input (rich results: friends, celebrities, groups, pages, etc.)</li>
+</ul>
+<p><img decoding="async" loading="lazy" src="https://www.gfecdn.net/img/questions/autocomplete/google-search-autocomplete.png" alt="Google search example" class="img_ev3q"></p>
+<p>A backend API is provided to return a list of results based on the search query.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="2-requirements-exploration">2. Requirements Exploration<a href="#2-requirements-exploration" class="hash-link" aria-label="Direct link to 2. Requirements Exploration" title="Direct link to 2. Requirements Exploration">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="key-questions-to-clarify">Key Questions to Clarify<a href="#key-questions-to-clarify" class="hash-link" aria-label="Direct link to Key Questions to Clarify" title="Direct link to Key Questions to Clarify">​</a></h3>
+<ul>
+<li><strong>What kind of results should be supported?</strong>
+<ul>
+<li>Text, image, media (image + text), and potentially more. The component should be generic and extensible to support custom result types.</li>
+</ul>
+</li>
+<li><strong>What devices will this component be used on?</strong>
+<ul>
+<li>All: desktop, tablet, mobile. Must be responsive and touch-friendly.</li>
+</ul>
+</li>
+<li><strong>Do we need to support fuzzy search?</strong>
+<ul>
+<li>Not for the initial version, but should be extensible to support typo-tolerance and fuzzy matching in the future.</li>
+</ul>
+</li>
+<li><strong>How should the component be customized?</strong>
+<ul>
+<li>Theming, custom rendering, event hooks, and flexible API.</li>
+</ul>
+</li>
+<li><strong>What are the performance and accessibility requirements?</strong>
+<ul>
+<li>Fast, low-latency, accessible to all users, and scalable to large datasets.</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="core-requirements">Core Requirements<a href="#core-requirements" class="hash-link" aria-label="Direct link to Core Requirements" title="Direct link to Core Requirements">​</a></h3>
+<ul>
+<li><strong>Generic and reusable</strong>: Usable across different websites and use cases.</li>
+<li><strong>Customizable UI</strong>: Both the input field and results popup must be customizable (theming, rendering, etc.).</li>
+<li><strong>High performance</strong>: Fast response, low latency, efficient memory usage.</li>
+<li><strong>Accessible</strong>: Fully keyboard and screen reader accessible.</li>
+<li><strong>Mobile-friendly</strong>: Works well on all device types.</li>
+<li><strong>Robust error handling</strong>: Handles network errors, empty states, and offline gracefully.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="3-architecture">3. Architecture<a href="#3-architecture" class="hash-link" aria-label="Direct link to 3. Architecture" title="Direct link to 3. Architecture">​</a></h2>
+<p><img decoding="async" loading="lazy" src="https://www.gfecdn.net/img/questions/autocomplete/autocomplete-architecture.png" alt="Autocomplete architecture" class="img_ev3q"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="main-components">Main Components<a href="#main-components" class="hash-link" aria-label="Direct link to Main Components" title="Direct link to Main Components">​</a></h3>
+<ul>
+<li><strong>Input Field UI</strong>
+<ul>
+<li>Handles user input, focus, blur, and passes input to the controller.</li>
+<li>Supports custom rendering, theming, and event hooks.</li>
+</ul>
+</li>
+<li><strong>Results UI (Popup)</strong>
+<ul>
+<li>Receives results from the controller and presents them to the user.</li>
+<li>Handles user selection (mouse, touch, keyboard) and informs the controller.</li>
+<li>Supports custom rendering for each result type (text, image, etc.).</li>
+</ul>
+</li>
+<li><strong>Cache</strong>
+<ul>
+<li>Stores results for previous queries to avoid unnecessary server requests and enable instant display.</li>
+<li>Supports configurable cache strategies (TTL, eviction, etc.).</li>
+</ul>
+</li>
+<li><strong>Controller</strong>
+<ul>
+<li>The &quot;brain&quot; of the component (MVC pattern).</li>
+<li>Coordinates user input, cache, network requests, and result rendering.</li>
+<li>Handles debouncing, race conditions, and error states.</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="data-flow">Data Flow<a href="#data-flow" class="hash-link" aria-label="Direct link to Data Flow" title="Direct link to Data Flow">​</a></h3>
+<ol>
+<li>User types in the input field.</li>
+<li>Controller debounces input and checks cache for results.</li>
+<li>If not cached, controller fetches results from the server.</li>
+<li>Results are cached and passed to the Results UI for display.</li>
+<li>User selects a result (via mouse, touch, or keyboard), controller notifies parent component.</li>
+</ol>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="4-data-model">4. Data Model<a href="#4-data-model" class="hash-link" aria-label="Direct link to 4. Data Model" title="Direct link to 4. Data Model">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="controller-state">Controller State<a href="#controller-state" class="hash-link" aria-label="Direct link to Controller State" title="Direct link to Controller State">​</a></h3>
+<ul>
+<li><strong>Props/options</strong>: All configuration options passed to the component (API URL, debounce, theming, etc.).</li>
+<li><strong>Current search string</strong>: The current value of the input field.</li>
+<li><strong>Loading state</strong>: Whether a request is in progress.</li>
+<li><strong>Error state</strong>: Any error message to display.</li>
+<li><strong>Selected index</strong>: Which result is currently highlighted (for keyboard navigation).</li>
+<li><strong>Results</strong>: The current list of results to display.</li>
+<li><strong>Cache</strong>: See below.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="cache-structure">Cache Structure<a href="#cache-structure" class="hash-link" aria-label="Direct link to Cache Structure" title="Direct link to Cache Structure">​</a></h3>
+<ul>
+<li><strong>Initial results</strong>: Results to show when input is empty (e.g. trending, recent, or popular searches).</li>
+<li><strong>Cached results</strong>: Results for previous queries.</li>
+<li><strong>Cache structure options</strong>:<!-- -->
+<ol>
+<li><strong>Hash map (query string → results)</strong>: Fast lookup, but can use a lot of memory if not debounced.</li>
+<li><strong>Flat list of results</strong>: Less duplication, but requires client-side filtering (can be slow for large datasets).</li>
+<li><strong>Normalized map (ID → result, query string → list of IDs)</strong>: Combines fast lookup and deduplication. Inspired by Redux/Relay/normalizr.</li>
+</ol>
+</li>
+<li><strong>Cache metadata</strong>: Timestamps for TTL, source (network/cache), etc.</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="5-interface-definition-api">5. Interface Definition (API)<a href="#5-interface-definition-api" class="hash-link" aria-label="Direct link to 5. Interface Definition (API)" title="Direct link to 5. Interface Definition (API)">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="client-side-component-api">Client-side Component API<a href="#client-side-component-api" class="hash-link" aria-label="Direct link to Client-side Component API" title="Direct link to Client-side Component API">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="basic-api">Basic API<a href="#basic-api" class="hash-link" aria-label="Direct link to Basic API" title="Direct link to Basic API">​</a></h4>
+<ul>
+<li><strong>Number of results</strong>: How many results to show in the popup.</li>
+<li><strong>API URL</strong>: Endpoint to hit for queries.</li>
+<li><strong>Event listeners</strong>: Hooks for <code>&#x27;input&#x27;</code>, <code>&#x27;focus&#x27;</code>, <code>&#x27;blur&#x27;</code>, <code>&#x27;change&#x27;</code>, <code>&#x27;select&#x27;</code>, etc.</li>
+<li><strong>Custom rendering</strong>:<!-- -->
+<ul>
+<li>Theming options object (simple, less flexible)</li>
+<li>Classnames (for custom CSS)</li>
+<li>Render function/callback (maximum flexibility, e.g. React render prop)</li>
+</ul>
+</li>
+<li><strong>Accessibility options</strong>: ARIA attributes, keyboard navigation, etc.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="advanced-api">Advanced API<a href="#advanced-api" class="hash-link" aria-label="Direct link to Advanced API" title="Direct link to Advanced API">​</a></h4>
+<ul>
+<li><strong>Minimum query length</strong>: Only trigger search after a minimum number of characters (e.g. 3+).</li>
+<li><strong>Debounce duration</strong>: Debounce API calls to avoid excessive requests (e.g. 300ms after last keystroke).</li>
+<li><strong>API timeout duration</strong>: How long to wait before showing an error.</li>
+<li><strong>Cache options</strong>:<!-- -->
+<ul>
+<li>Initial results</li>
+<li>Results source: network only, network+cache, cache only</li>
+<li>Function to merge server and cache results</li>
+<li>Cache duration (TTL)</li>
+<li>Cache eviction strategy (LRU, TTL, manual)</li>
+</ul>
+</li>
+<li><strong>Pagination</strong>: Support for paginated results (infinite scroll or &quot;load more&quot;).</li>
+<li><strong>Fuzzy search</strong>: Optionally enable typo-tolerance (Levenshtein distance) on client or server.</li>
+<li><strong>Result selection callback</strong>: Custom handler for when a result is selected.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="server-api">Server API<a href="#server-api" class="hash-link" aria-label="Direct link to Server API" title="Direct link to Server API">​</a></h3>
+<ul>
+<li><strong>query</strong>: The search string</li>
+<li><strong>limit</strong>: Number of results per page</li>
+<li><strong>pagination</strong>: Page number (for scrolling through more results)</li>
+<li><strong>Result format</strong>: Should support flexible result types (text, image, etc.)</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="6-optimizations-and-deep-dive">6. Optimizations and Deep Dive<a href="#6-optimizations-and-deep-dive" class="hash-link" aria-label="Direct link to 6. Optimizations and Deep Dive" title="Direct link to 6. Optimizations and Deep Dive">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="network">Network<a href="#network" class="hash-link" aria-label="Direct link to Network" title="Direct link to Network">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="handling-concurrent-requests--race-conditions">Handling Concurrent Requests / Race Conditions<a href="#handling-concurrent-requests--race-conditions" class="hash-link" aria-label="Direct link to Handling Concurrent Requests / Race Conditions" title="Direct link to Handling Concurrent Requests / Race Conditions">​</a></h4>
+<ul>
+<li>If the user types quickly, multiple requests may be in flight. Responses can arrive out of order.</li>
+<li><strong>Solution:</strong> Attach a timestamp or unique ID to each request. Only display results for the latest request.</li>
+<li><strong>Better:</strong> Use a cache keyed by query string. Always display results matching the current input value.</li>
+<li><strong>Note:</strong> Aborting requests (e.g. with <code>AbortController</code>) is not always effective, as the server may have already processed the request.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="failed-requests-and-retries">Failed Requests and Retries<a href="#failed-requests-and-retries" class="hash-link" aria-label="Direct link to Failed Requests and Retries" title="Direct link to Failed Requests and Retries">​</a></h4>
+<ul>
+<li>Automatically retry failed requests, possibly with exponential backoff to avoid overloading the server.</li>
+<li>Show error messages and allow user to retry manually.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="offline-usage">Offline Usage<a href="#offline-usage" class="hash-link" aria-label="Direct link to Offline Usage" title="Direct link to Offline Usage">​</a></h4>
+<ul>
+<li>If offline, read from cache if available.</li>
+<li>Indicate offline status in the UI.</li>
+<li>Do not fire network requests when offline.</li>
+<li>Optionally, show a &quot;no network&quot; message or icon.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="cache">Cache<a href="#cache" class="hash-link" aria-label="Direct link to Cache" title="Direct link to Cache">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="why-cache">Why Cache?<a href="#why-cache" class="hash-link" aria-label="Direct link to Why Cache?" title="Direct link to Why Cache?">​</a></h4>
+<ul>
+<li>Improves performance and reduces server load by storing results for previous queries.</li>
+<li>Enables instant display of results for repeated queries.</li>
+<li>Allows for offline usage and better UX.</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="cache-structure-options">Cache Structure Options<a href="#cache-structure-options" class="hash-link" aria-label="Direct link to Cache Structure Options" title="Direct link to Cache Structure Options">​</a></h4>
+<ol>
+<li><strong>Hash map (query string → results)</strong>
+<ul>
+<li>Fast O(1) lookup, but can use a lot of memory if not debounced.</li>
+<li>Good for short-lived pages (e.g. Google search).</li>
+</ul>
+</li>
+<li><strong>Flat list of results</strong>
+<ul>
+<li>Less duplication, but requires client-side filtering (can be slow for large datasets).</li>
+</ul>
+</li>
+<li><strong>Normalized map (ID → result, query string → list of IDs)</strong>
+<ul>
+<li>Combines fast lookup and deduplication. Inspired by Redux/Relay/normalizr.</li>
+<li>Good for long-lived SPAs (e.g. Facebook).</li>
+</ul>
+</li>
+</ol>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="initial-results">Initial Results<a href="#initial-results" class="hash-link" aria-label="Direct link to Initial Results" title="Direct link to Initial Results">​</a></h4>
+<ul>
+<li>Show relevant results when the input is focused but empty (e.g. trending searches, recent history).</li>
+<li>Store these in the cache with an empty string as the key.</li>
+<li>Examples:<!-- -->
+<ul>
+<li>Google: Popular/trending searches, recent history</li>
+<li>Facebook: Recent searches</li>
+<li>Stock/crypto: Trending tickers</li>
+</ul>
+</li>
+</ul>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="caching-strategy">Caching Strategy<a href="#caching-strategy" class="hash-link" aria-label="Direct link to Caching Strategy" title="Direct link to Caching Strategy">​</a></h4>
+<ul>
+<li><strong>Data source</strong>: network only, network+cache, cache only</li>
+<li><strong>Cache duration/TTL</strong>: How long to keep results before evicting (e.g. 30 minutes for Facebook, hours for Google, none for real-time data like stock tickers)</li>
+<li><strong>Eviction</strong>: Purge cache when memory usage is high or entries are stale. Use LRU or TTL strategies.</li>
+<li><strong>Cache merging</strong>: Optionally merge results from cache and network for best freshness and performance.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="performance">Performance<a href="#performance" class="hash-link" aria-label="Direct link to Performance" title="Direct link to Performance">​</a></h3>
+<ul>
+<li><strong>Loading speed</strong>: Use cache for instant results. Preload initial results if possible.</li>
+<li><strong>Debouncing/throttling</strong>: Reduce network requests and CPU usage. Use a sensible debounce (e.g. 300ms).</li>
+<li><strong>Memory usage</strong>: Purge cache as needed. Monitor memory usage in long-lived SPAs.</li>
+<li><strong>Virtualized lists</strong>: Only render visible results for large result sets. Use libraries like <code>react-window</code> or <code>react-virtualized</code>.</li>
+<li><strong>Efficient DOM updates</strong>: Minimize re-renders and DOM thrashing.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="user-experience-ux">User Experience (UX)<a href="#user-experience-ux" class="hash-link" aria-label="Direct link to User Experience (UX)" title="Direct link to User Experience (UX)">​</a></h3>
+<ul>
+<li><strong>Autofocus</strong>: Automatically focus input on search pages (e.g. Google).</li>
+<li><strong>Handle different states</strong>: Show loading spinners, error messages, and offline indicators.</li>
+<li><strong>Handle long strings</strong>: Truncate or wrap long result text. Use tooltips for overflow.</li>
+<li><strong>Mobile-friendliness</strong>: Large tap targets, dynamic result count, helpful input attributes (<code>autocapitalize</code>, <code>autocomplete</code>, <code>autocorrect</code>, <code>spellcheck</code>).</li>
+<li><strong>Keyboard interaction</strong>: Support navigation and selection via keyboard (arrow keys, enter, escape, global shortcut like <code>/</code>).</li>
+<li><strong>Fuzzy search</strong>: Optionally support typo-tolerance (Levenshtein distance) on client or server. Useful for handling typos and misspellings.</li>
+<li><strong>Query results positioning</strong>: Display popup above input if there&#x27;s not enough space below. Use libraries like Popper.js for smart positioning.</li>
+<li><strong>Loading indicators</strong>: Use skeletons or shimmer effects for better perceived performance.</li>
+<li><strong>Result highlighting</strong>: Highlight matching substrings in results for better clarity.</li>
+<li><strong>Accessibility announcements</strong>: Use ARIA live regions to announce new results to screen readers.</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="accessibility">Accessibility<a href="#accessibility" class="hash-link" aria-label="Direct link to Accessibility" title="Direct link to Accessibility">​</a></h3>
+<ul>
+<li><strong>Screen readers</strong>:<!-- -->
+<ul>
+<li>Use semantic HTML (<code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code>) or ARIA roles (<code>role=&quot;listbox&quot;</code>, <code>role=&quot;option&quot;</code>).</li>
+<li><code>aria-label</code> for input, <code>role=&quot;combobox&quot;</code> for input.</li>
+<li><code>aria-haspopup</code>, <code>aria-expanded</code>, <code>aria-live</code>, <code>aria-autocomplete</code>.</li>
+<li>Google uses <code>aria-autocomplete=&quot;both&quot;</code>, Facebook/X use <code>aria-autocomplete=&quot;list&quot;</code>.</li>
+<li>Mark the results region with <code>aria-live</code> so screen readers are notified of updates.</li>
+</ul>
+</li>
+<li><strong>Keyboard interaction</strong>:<!-- -->
+<ul>
+<li>Enter to search, up/down to navigate, escape to dismiss, follow <a href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" target="_blank" rel="noopener noreferrer">WAI ARIA Combo Box</a> practices.</li>
+<li>Support wrapping navigation, home/end keys, and typeahead selection.</li>
+</ul>
+</li>
+<li><strong>Focus management</strong>:<!-- -->
+<ul>
+<li>Ensure focus is managed correctly when results appear/disappear.</li>
+<li>Trap focus within the popup when open.</li>
+</ul>
+</li>
+<li><strong>Contrast and color</strong>:<!-- -->
+<ul>
+<li>Ensure sufficient contrast for text and highlights.</li>
+<li>Support high-contrast and dark mode themes.</li>
+</ul>
+</li>
+<li><strong>Touch and pointer events</strong>:<!-- -->
+<ul>
+<li>Ensure all interactions are accessible via touch, mouse, and keyboard.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="7-real-world-comparison-google-facebook-and-x-twitter">7. Real-World Comparison: Google, Facebook, and X (Twitter)<a href="#7-real-world-comparison-google-facebook-and-x-twitter" class="hash-link" aria-label="Direct link to 7. Real-World Comparison: Google, Facebook, and X (Twitter)" title="Direct link to 7. Real-World Comparison: Google, Facebook, and X (Twitter)">​</a></h2>
+<table><thead><tr><th>HTML Attribute</th><th>Google</th><th>Facebook</th><th>X (Twitter)</th></tr></thead><tbody><tr><td>HTML Element</td><td><code>&lt;textarea&gt;</code></td><td><code>&lt;input&gt;</code></td><td><code>&lt;input&gt;</code></td></tr><tr><td>Within <code>&lt;form&gt;</code></td><td>Yes</td><td>No</td><td>Yes</td></tr><tr><td>type</td><td>&quot;text&quot;</td><td>&quot;search&quot;</td><td>&quot;text&quot;</td></tr><tr><td>autocapitalize</td><td>&quot;off&quot;</td><td>Absent</td><td>&quot;sentence&quot;</td></tr><tr><td>autocomplete</td><td>&quot;off&quot;</td><td>&quot;off&quot;</td><td>&quot;off&quot;</td></tr><tr><td>autocorrect</td><td>&quot;off&quot;</td><td>Absent</td><td>&quot;off&quot;</td></tr><tr><td>autofocus</td><td>Present</td><td>Absent</td><td>Present</td></tr><tr><td>placeholder</td><td>Absent</td><td>&quot;Search Facebook&quot;</td><td>&quot;Search&quot;</td></tr><tr><td>role</td><td>&quot;combobox&quot;</td><td>Absent</td><td>&quot;combobox&quot;</td></tr><tr><td>spellcheck</td><td>&quot;false&quot;</td><td>&quot;false&quot;</td><td>&quot;false&quot;</td></tr><tr><td>aria-activedescendant</td><td>Present</td><td>Absent</td><td>Present</td></tr><tr><td>aria-autocomplete</td><td>&quot;both&quot;</td><td>&quot;list&quot;</td><td>&quot;list&quot;</td></tr><tr><td>aria-expanded</td><td>Present</td><td>Present</td><td>Present</td></tr><tr><td>aria-haspopup</td><td>&quot;false&quot;</td><td>Absent</td><td>Absent</td></tr><tr><td>aria-invalid</td><td>Absent</td><td>&quot;false&quot;</td><td>Absent</td></tr><tr><td>aria-label</td><td>&quot;Search&quot;</td><td>&quot;Search Facebook&quot;</td><td>&quot;Search query&quot;</td></tr><tr><td>aria-owns</td><td>Present</td><td>Absent</td><td>Present</td></tr><tr><td>dir</td><td>Absent</td><td>&quot;ltr&quot;/&quot;rtl&quot;</td><td>&quot;auto&quot;</td></tr><tr><td>enterkeyhint</td><td>Absent</td><td>Absent</td><td>&quot;search&quot;</td></tr></tbody></table>
+<p><em>Note: This table is accurate at the time of writing; companies may update their implementations.</em></p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="8-references">8. References<a href="#8-references" class="hash-link" aria-label="Direct link to 8. References" title="Direct link to 8. References">​</a></h2>
+<ul>
+<li><a href="https://engineering.fb.com/2010/05/17/web/the-life-of-a-typeahead-query/" target="_blank" rel="noopener noreferrer">The Life of a Typeahead Query (Facebook Engineering)</a></li>
+<li><a href="https://adamsilver.io/blog/building-an-accessible-autocomplete-control/" target="_blank" rel="noopener noreferrer">Building an accessible autocomplete control (Adam Silver)</a></li>
+<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" target="_blank" rel="noopener noreferrer">WAI ARIA Combo Box Pattern</a></li>
+<li><a href="https://web.dev/virtualize-long-lists-react-window" target="_blank" rel="noopener noreferrer">Virtualize long lists with react-window</a></li>
+<li><a href="https://popper.js.org/" target="_blank" rel="noopener noreferrer">Popper.js for smart positioning</a></li>
+</ul>
+<hr>
+<p><em>This summary is a standalone, in-depth reference for designing a modern, accessible, and high-performance autocomplete component for front end system design interviews. For even more detail (e.g., code samples, diagrams, or deep dives into accessibility or performance), just ask!</em></p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/binhphanhai/frontend-system-design/tree/main/Summarize/docs/frontend-system-design/08-autocomplete.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/frontend-system-design/docs/frontend-system-design/email-client"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Email Client System Design (e.g. Microsoft Outlook)</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/frontend-system-design/docs/frontend-system-design/dropdown-menu"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Dropdown Menu System Design</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#1-problem-statement" class="table-of-contents__link toc-highlight">1. Problem Statement</a></li><li><a href="#2-requirements-exploration" class="table-of-contents__link toc-highlight">2. Requirements Exploration</a><ul><li><a href="#key-questions-to-clarify" class="table-of-contents__link toc-highlight">Key Questions to Clarify</a></li><li><a href="#core-requirements" class="table-of-contents__link toc-highlight">Core Requirements</a></li></ul></li><li><a href="#3-architecture" class="table-of-contents__link toc-highlight">3. Architecture</a><ul><li><a href="#main-components" class="table-of-contents__link toc-highlight">Main Components</a></li><li><a href="#data-flow" class="table-of-contents__link toc-highlight">Data Flow</a></li></ul></li><li><a href="#4-data-model" class="table-of-contents__link toc-highlight">4. Data Model</a><ul><li><a href="#controller-state" class="table-of-contents__link toc-highlight">Controller State</a></li><li><a href="#cache-structure" class="table-of-contents__link toc-highlight">Cache Structure</a></li></ul></li><li><a href="#5-interface-definition-api" class="table-of-contents__link toc-highlight">5. Interface Definition (API)</a><ul><li><a href="#client-side-component-api" class="table-of-contents__link toc-highlight">Client-side Component API</a></li><li><a href="#server-api" class="table-of-contents__link toc-highlight">Server API</a></li></ul></li><li><a href="#6-optimizations-and-deep-dive" class="table-of-contents__link toc-highlight">6. Optimizations and Deep Dive</a><ul><li><a href="#network" class="table-of-contents__link toc-highlight">Network</a></li><li><a href="#cache" class="table-of-contents__link toc-highlight">Cache</a></li><li><a href="#performance" class="table-of-contents__link toc-highlight">Performance</a></li><li><a href="#user-experience-ux" class="table-of-contents__link toc-highlight">User Experience (UX)</a></li><li><a href="#accessibility" class="table-of-contents__link toc-highlight">Accessibility</a></li></ul></li><li><a href="#7-real-world-comparison-google-facebook-and-x-twitter" class="table-of-contents__link toc-highlight">7. Real-World Comparison: Google, Facebook, and X (Twitter)</a></li><li><a href="#8-references" class="table-of-contents__link toc-highlight">8. References</a></li></ul></div></div></div></div></main></div></div></div></div>
+</body>
+</html>

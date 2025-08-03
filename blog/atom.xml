@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://binhphanhai.github.io/frontend-system-design/blog</id>
-    <title>Frontend System Design Blog</title>
+    <title>Frontend Interview Preparation Blog</title>
     <updated>2021-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://binhphanhai.github.io/frontend-system-design/blog"/>
-    <subtitle>Frontend System Design Blog</subtitle>
+    <subtitle>Frontend Interview Preparation Blog</subtitle>
     <icon>https://binhphanhai.github.io/frontend-system-design/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Welcome]]></title>
