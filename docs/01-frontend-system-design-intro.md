@@ -12,7 +12,6 @@ However, the open-ended nature of these interviews makes them harder to practice
 
 **GreatFrontEnd's front end system design resources aim to fill this gap, providing comprehensive guidance to help you succeed in front end system design interviews.**
 
-![System Design Interview Illustration](https://raw.githubusercontent.com/GreatFrontEnd/assets/main/system-design-interview.png)
 
 ## Front End vs Back End / Full Stack System Design
 

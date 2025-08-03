@@ -8,8 +8,6 @@ Understanding and avoiding common mistakes can greatly improve your performance 
 - **Mistake:** Starting to answer without clarifying requirements or assumptions.
 - **Advice:** Take time to gather requirements and ask clarifying questions. It's better to answer the right question poorly than the wrong question well.
 
-![Clarify before answering](https://i.imgur.com/2yQw1kA.png)
-
 ---
 
 ## 2. Approaching the Question in an Unstructured Manner

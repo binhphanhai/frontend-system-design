@@ -14,7 +14,6 @@ In front end system design interviews, the systems you are asked to design are o
 - **I**nterfaces
 - **O**ptimizations
 
-![RADIO Framework Overview](https://raw.githubusercontent.com/GreatFrontEnd/assets/main/radio-framework.png)
 
 ## What is RADIO about?
 

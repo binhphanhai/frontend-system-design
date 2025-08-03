@@ -9,7 +9,6 @@ Front end system design interviews typically feature two main types of questions
 1. **Applications**
 2. **UI Components**
 
-![Types of Front End System Design Questions](https://raw.githubusercontent.com/GreatFrontEnd/assets/main/frontend-system-design-types.png)
 
 ## Applications
 

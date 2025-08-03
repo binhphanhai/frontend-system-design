@@ -83,6 +83,5 @@ The table below shows how each evaluation axis maps to the RADIO framework:
 
 ---
 
-![RADIO Evaluation Mapping](https://i.imgur.com/1Q9Qw2w.png)
 
 *By keeping these criteria in mind and demonstrating them confidently, you will maximize your chances of success in front end system design interviews.*

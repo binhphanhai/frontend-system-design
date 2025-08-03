@@ -14,7 +14,6 @@ A structured approach to answering system design questions:
 4. **Interface definition (API)**: Define the interface (API) between components, the functionality of each API, their parameters, and responses.
 5. **Optimizations and deep dive**: Discuss possible optimization opportunities and specific areas of interest when building the product.
 
-![RADIO Framework](https://i.imgur.com/8Qw1k2A.png)
 
 ---
 
@@ -42,7 +41,6 @@ Avoid these frequent pitfalls:
 - Going down a rabbit hole and spending too much time on unimportant areas.
 - Using buzzwords without being able to explain them.
 
-![Avoid common mistakes](https://i.imgur.com/2yQw1kA.png)
 
 ---
 
