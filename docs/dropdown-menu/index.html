@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-dropdown-menu" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.8.1">
+<title data-rh="true">Dropdown Menu System Design | Frontend System Design</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://binhphanhai.github.io/frontend-system-design/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://binhphanhai.github.io/frontend-system-design/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://binhphanhai.github.io/frontend-system-design/docs/dropdown-menu"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Dropdown Menu System Design | Frontend System Design"><meta data-rh="true" name="description" content="System design interview question: Design a dropdown menu component that can reveal a menu containing a list of actions."><meta data-rh="true" property="og:description" content="System design interview question: Design a dropdown menu component that can reveal a menu containing a list of actions."><link data-rh="true" rel="icon" href="/frontend-system-design/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://binhphanhai.github.io/frontend-system-design/docs/dropdown-menu"><link data-rh="true" rel="alternate" href="https://binhphanhai.github.io/frontend-system-design/docs/dropdown-menu" hreflang="en"><link data-rh="true" rel="alternate" href="https://binhphanhai.github.io/frontend-system-design/docs/dropdown-menu" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Dropdown Menu System Design","item":"https://binhphanhai.github.io/frontend-system-design/docs/dropdown-menu"}]}</script><link rel="alternate" type="application/rss+xml" href="/frontend-system-design/blog/rss.xml" title="Frontend System Design RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/frontend-system-design/blog/atom.xml" title="Frontend System Design Atom Feed"><link rel="stylesheet" href="/frontend-system-design/assets/css/styles.9016c31d.css">
+<script src="/frontend-system-design/assets/js/runtime~main.3a11511f.js" defer="defer"></script>
+<script src="/frontend-system-design/assets/js/main.e87fd7d2.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t="light";var e=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",e||t),document.documentElement.setAttribute("data-theme-choice",e||t)}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/frontend-system-design/img/logo.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/frontend-system-design/"><div class="navbar__logo"><img src="/frontend-system-design/img/logo.svg" alt="Frontend System Design Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"><img src="/frontend-system-design/img/logo.svg" alt="Frontend System Design Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"></div><b class="navbar__title text--truncate">Frontend System Design</b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/frontend-system-design/docs/intro">Documentation</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/binhphanhai/frontend-system-design" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/frontend-system-design/docs/intro">Frontend System Design Guide</a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/frontend-system-design-intro">Fundamentals</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/news-feed">Social &amp; Content Platforms</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/rich-text-editor">Text &amp; Document Editing</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/frontend-system-design/docs/autocomplete">Search &amp; Navigation</a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/frontend-system-design/docs/autocomplete">System Design: Autocomplete</a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/frontend-system-design/docs/dropdown-menu">Dropdown Menu System Design</a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/video-streaming">Media &amp; Entertainment</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/ecommerce-marketplace">E-commerce &amp; Business</a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/frontend-system-design/docs/modal-dialog">UI Components</a></div></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/frontend-system-design/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Search &amp; Navigation</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Dropdown Menu System Design</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header><h1>Dropdown Menu System Design</h1></header>
+<p><em>System design interview question: Design a dropdown menu component that can reveal a menu containing a list of actions.</em></p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="table-of-contents">Table of Contents<a href="#table-of-contents" class="hash-link" aria-label="Direct link to Table of Contents" title="Direct link to Table of Contents">​</a></h2>
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#requirements-exploration">Requirements Exploration</a></li>
+<li><a href="#architecture--high-level-design">Architecture &amp; High-Level Design</a></li>
+<li><a href="#data-model">Data Model</a></li>
+<li><a href="#interface-definition-api">Interface Definition (API)</a></li>
+<li><a href="#rendering-positioning-and-state-management">Rendering, Positioning, and State Management</a></li>
+<li><a href="#accessibility-a11y">Accessibility (a11y)</a></li>
+<li><a href="#customization-theming-and-animation">Customization, Theming, and Animation</a></li>
+<li><a href="#performance-security-and-analytics">Performance, Security, and Analytics</a></li>
+<li><a href="#internationalization-i18n">Internationalization (i18n)</a></li>
+<li><a href="#references">References</a></li>
+</ol>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="1-overview">1. Overview<a href="#1-overview" class="hash-link" aria-label="Direct link to 1. Overview" title="Direct link to 1. Overview">​</a></h2>
+<p>Dropdown menus are a fundamental UI component for revealing a list of actions or options. They are used in navigation bars, toolbars, context menus, and more. A robust dropdown menu must be accessible, customizable, performant, and work across all devices. This document provides a deep, technical dive into the architecture, data model, APIs, rendering, accessibility, customization, and real-world trade-offs for building a modern dropdown menu component.</p>
+<p><img decoding="async" loading="lazy" src="https://www.gfecdn.net/img/questions/dropdown-menu/dropdown-menu-example.png" alt="Dropdown Menu Example" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="2-requirements-exploration">2. Requirements Exploration<a href="#2-requirements-exploration" class="hash-link" aria-label="Direct link to 2. Requirements Exploration" title="Direct link to 2. Requirements Exploration">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="core-features">Core Features<a href="#core-features" class="hash-link" aria-label="Direct link to Core Features" title="Direct link to Core Features">​</a></h3>
+<ul>
+<li>Reveal a menu containing a list of actions</li>
+<li>Multiple dropdowns can be open at once</li>
+<li>Menu contains only text (no focusable elements inside items)</li>
+<li>No fixed maximum number of items, but UX best with &lt;20</li>
+<li>Customizable: colors, fonts, padding, icons, animation, etc. for branding</li>
+<li>Works on all devices: mobile, tablet, desktop</li>
+<li>Keyboard, mouse, and touch support</li>
+<li>Support for right-to-left (RTL) languages</li>
+<li>Menu can be opened by click, tap, or keyboard</li>
+<li>Menu closes on outside click, escape, or item selection</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="real-life-examples">Real-Life Examples<a href="#real-life-examples" class="hash-link" aria-label="Direct link to Real-Life Examples" title="Direct link to Real-Life Examples">​</a></h3>
+<ul>
+<li><a href="https://getbootstrap.com/docs/5.3/components/dropdowns" target="_blank" rel="noopener noreferrer">Bootstrap Dropdowns</a></li>
+<li><a href="https://mui.com/material-ui/react-menu/" target="_blank" rel="noopener noreferrer">Material UI Menu</a></li>
+<li><a href="https://www.radix-ui.com/docs/primitives/components/dropdown-menu" target="_blank" rel="noopener noreferrer">Radix UI Dropdown Menu</a></li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="3-architecture--high-level-design">3. Architecture &amp; High-Level Design<a href="#3-architecture--high-level-design" class="hash-link" aria-label="Direct link to 3. Architecture &amp; High-Level Design" title="Direct link to 3. Architecture &amp; High-Level Design">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="example-usage-react">Example Usage (React)<a href="#example-usage-react" class="hash-link" aria-label="Direct link to Example Usage (React)" title="Direct link to Example Usage (React)">​</a></h3>
+<div class="language-jsx codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-jsx codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name" style="color:#00009f">DropdownMenu</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain-text">  </span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name" style="color:#00009f">DropdownMenu.Button</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text">Actions</span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag class-name" style="color:#00009f">DropdownMenu.Button</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain-text">  </span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name" style="color:#00009f">DropdownMenu.List</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain-text">    </span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name" style="color:#00009f">DropdownMenu.Item</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text">New File</span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag class-name" style="color:#00009f">DropdownMenu.Item</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain-text">    </span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name" style="color:#00009f">DropdownMenu.Item</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text">Save</span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag class-name" style="color:#00009f">DropdownMenu.Item</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain-text">    </span><span class="token tag punctuation" style="color:#393A34">&lt;</span><span class="token tag class-name" style="color:#00009f">DropdownMenu.Item</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text">Delete</span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag class-name" style="color:#00009f">DropdownMenu.Item</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain-text">  </span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag class-name" style="color:#00009f">DropdownMenu.List</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><span class="token plain-text"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain-text"></span><span class="token tag punctuation" style="color:#393A34">&lt;/</span><span class="token tag class-name" style="color:#00009f">DropdownMenu</span><span class="token tag punctuation" style="color:#393A34">&gt;</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="component-roles">Component Roles<a href="#component-roles" class="hash-link" aria-label="Direct link to Component Roles" title="Direct link to Component Roles">​</a></h3>
+<table><thead><tr><th>Component</th><th>Role</th></tr></thead><tbody><tr><td>DropdownMenu</td><td>Root, coordinates events, provides context, manages state</td></tr><tr><td>DropdownMenu.Button</td><td>Button that toggles menu open/close</td></tr><tr><td>DropdownMenu.List</td><td>Contains the list of items</td></tr><tr><td>DropdownMenu.Item</td><td>Individual list items</td></tr></tbody></table>
+<ul>
+<li>Use React context to share state (open, active item, config) between components</li>
+<li>Context provider in <code>&lt;DropdownMenu&gt;</code> supplies state to children</li>
+<li>State and event handlers are colocated for predictable updates</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="4-data-model">4. Data Model<a href="#4-data-model" class="hash-link" aria-label="Direct link to 4. Data Model" title="Direct link to 4. Data Model">​</a></h2>
+<table><thead><tr><th>State</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>isOpen</td><td>boolean</td><td>Whether the menu is currently open or closed</td></tr><tr><td>activeItem</td><td>string</td><td>Menu item that is focused (for keyboard/hover navigation)</td></tr><tr><td>items</td><td>array</td><td>List of menu items (text, value, disabled, icon, etc.)</td></tr><tr><td>config</td><td>object</td><td>Customization options (theme, size, direction, animation, etc.)</td></tr></tbody></table>
+<ul>
+<li>State is managed in <code>&lt;DropdownMenu&gt;</code> and provided via context</li>
+<li>Configuration options (customization) are also part of the data model</li>
+<li>Items can be static or dynamic (fetched from API)</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="5-interface-definition-api">5. Interface Definition (API)<a href="#5-interface-definition-api" class="hash-link" aria-label="Direct link to 5. Interface Definition (API)" title="Direct link to 5. Interface Definition (API)">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="general-props">General Props<a href="#general-props" class="hash-link" aria-label="Direct link to General Props" title="Direct link to General Props">​</a></h3>
+<table><thead><tr><th>Prop</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>children</td><td>React.Node</td><td>Children of the component</td></tr><tr><td>as</td><td>string</td><td>Component</td></tr><tr><td>className</td><td>string</td><td>Custom classnames for styling</td></tr></tbody></table>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="dropdownmenu">DropdownMenu<a href="#dropdownmenu" class="hash-link" aria-label="Direct link to DropdownMenu" title="Direct link to DropdownMenu">​</a></h3>
+<table><thead><tr><th>Prop</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>isInitiallyOpen</td><td>boolean</td><td>Whether the menu is initially open or closed</td></tr><tr><td>size</td><td>string</td><td>Customize size (optional)</td></tr><tr><td>direction</td><td>string</td><td>&#x27;ltr&#x27; or &#x27;rtl&#x27; for language support</td></tr><tr><td>theme</td><td>string</td><td>Theme name or object for theming</td></tr></tbody></table>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="dropdownmenubutton">DropdownMenu.Button<a href="#dropdownmenubutton" class="hash-link" aria-label="Direct link to DropdownMenu.Button" title="Direct link to DropdownMenu.Button">​</a></h3>
+<table><thead><tr><th>Prop</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>onClick</td><td>function</td><td>Additional logic on click (analytics, etc.)</td></tr><tr><td>...button</td><td>*</td><td>All standard <code>&lt;button&gt;</code> props (e.g., disabled)</td></tr></tbody></table>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="dropdownmenulist">DropdownMenu.List<a href="#dropdownmenulist" class="hash-link" aria-label="Direct link to DropdownMenu.List" title="Direct link to DropdownMenu.List">​</a></h3>
+<table><thead><tr><th>Prop</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>maxHeight</td><td>number</td><td>undefined</td></tr><tr><td>position</td><td>string</td><td>Position of list relative to button</td></tr><tr><td>animation</td><td>string</td><td>Animation style (fade, slide, scale, etc.)</td></tr></tbody></table>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="dropdownmenuitem">DropdownMenu.Item<a href="#dropdownmenuitem" class="hash-link" aria-label="Direct link to DropdownMenu.Item" title="Direct link to DropdownMenu.Item">​</a></h3>
+<table><thead><tr><th>Prop</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>onClick</td><td>function</td><td>Triggered when item is activated</td></tr><tr><td>disabled</td><td>boolean</td><td>Whether item is disabled (skipped in keyboard navigation)</td></tr><tr><td>icon</td><td>React.Node</td><td>Optional icon for the item</td></tr></tbody></table>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="customizing-appearance">Customizing Appearance<a href="#customizing-appearance" class="hash-link" aria-label="Direct link to Customizing Appearance" title="Direct link to Customizing Appearance">​</a></h3>
+<ul>
+<li>Customization via props, className, CSS variables, or theme provider</li>
+<li>See <a href="https://frontendinterviewhandbook.com/user-interface-components-api-design-principles" target="_blank" rel="noopener noreferrer">UI Components API Design Principles</a></li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="6-rendering-positioning-and-state-management">6. Rendering, Positioning, and State Management<a href="#6-rendering-positioning-and-state-management" class="hash-link" aria-label="Direct link to 6. Rendering, Positioning, and State Management" title="Direct link to 6. Rendering, Positioning, and State Management">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="rendering">Rendering<a href="#rendering" class="hash-link" aria-label="Direct link to Rendering" title="Direct link to Rendering">​</a></h3>
+<ul>
+<li><strong>Relative to Button:</strong>
+<ul>
+<li>Menu is absolutely positioned relative to a parent <code>&lt;div&gt;</code> with <code>position: relative</code></li>
+<li>Simple, but can be clipped by parent with <code>overflow: hidden</code> or have z-index issues</li>
+<li>Used by <a href="https://headlessui.com/react/menu" target="_blank" rel="noopener noreferrer">Headless UI</a>, <a href="https://getbootstrap.com/docs/5.3/components/dropdowns/" target="_blank" rel="noopener noreferrer">Bootstrap</a></li>
+</ul>
+</li>
+<li><strong>Relative to Page (Portal):</strong>
+<ul>
+<li>Menu is rendered as a child of <code>&lt;body&gt;</code>, positioned absolutely to the page</li>
+<li>Use <a href="https://react.dev/reference/react-dom/createPortal" target="_blank" rel="noopener noreferrer">React Portal</a></li>
+<li>Avoids clipping/z-index issues, but must recalculate position on resize/scroll</li>
+<li>Used by <a href="https://www.radix-ui.com/docs/primitives/components/dropdown-menu" target="_blank" rel="noopener noreferrer">Radix UI</a>, <a href="https://reach.tech/menu-button" target="_blank" rel="noopener noreferrer">Reach UI</a></li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="positioning">Positioning<a href="#positioning" class="hash-link" aria-label="Direct link to Positioning" title="Direct link to Positioning">​</a></h3>
+<ul>
+<li>Support alignment in all directions (top, bottom, left, right)</li>
+<li>Customizable via <code>position</code> prop</li>
+<li>Example: left/right-aligned menus</li>
+<li><strong>Automatic Flipping:</strong>
+<ul>
+<li>Menu flips if not enough space below button (autoflipping)</li>
+<li>Calculate menu position using <code>window.innerHeight</code>, <code>getBoundingClientRect()</code></li>
+<li><img decoding="async" loading="lazy" src="https://www.gfecdn.net/img/questions/dropdown-menu/dropdown-menu-autoflip.png" alt="Dropdown Menu Autoflipping example" class="img_ev3q"></li>
+<li>Optionally, disable window scroll when menu is open (Material UI)</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="maximum-height">Maximum Height<a href="#maximum-height" class="hash-link" aria-label="Direct link to Maximum Height" title="Direct link to Maximum Height">​</a></h3>
+<ul>
+<li>Default max height (200-300px), scrollable if more items</li>
+<li>Customizable via <code>maxHeight</code> prop</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="rendering-in-html-vs-javascript">Rendering in HTML vs. JavaScript<a href="#rendering-in-html-vs-javascript" class="hash-link" aria-label="Direct link to Rendering in HTML vs. JavaScript" title="Direct link to Rendering in HTML vs. JavaScript">​</a></h3>
+<ul>
+<li><strong>HTML:</strong> Menu is in DOM, hidden via <code>display: none</code>/<code>opacity: 0</code> until shown</li>
+<li><strong>JS:</strong> Menu is rendered on demand when opened</li>
+<li>HTML approach is better for performance, JS for lighter DOM</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="state-management">State Management<a href="#state-management" class="hash-link" aria-label="Direct link to State Management" title="Direct link to State Management">​</a></h3>
+<ul>
+<li>State colocated in root, shared via context</li>
+<li>Menu open/close state, active item, focus management</li>
+<li>Support for controlled/uncontrolled open state</li>
+<li>Support for multiple open menus (independent state)</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="7-accessibility-a11y">7. Accessibility (a11y)<a href="#7-accessibility-a11y" class="hash-link" aria-label="Direct link to 7. Accessibility (a11y)" title="Direct link to 7. Accessibility (a11y)">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="mouse-interactions">Mouse Interactions<a href="#mouse-interactions" class="hash-link" aria-label="Direct link to Mouse Interactions" title="Direct link to Mouse Interactions">​</a></h3>
+<ul>
+<li>Click button toggles menu</li>
+<li>Click outside closes menu (except clicks inside menu/button)</li>
+<li>Use event listeners to detect outside clicks</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="touch-interactions">Touch Interactions<a href="#touch-interactions" class="hash-link" aria-label="Direct link to Touch Interactions" title="Direct link to Touch Interactions">​</a></h3>
+<ul>
+<li>Tap to open/close menu</li>
+<li>Tap outside to close</li>
+<li>Support for touch devices (mobile/tablet)</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="focus-management">Focus Management<a href="#focus-management" class="hash-link" aria-label="Direct link to Focus Management" title="Direct link to Focus Management">​</a></h3>
+<ul>
+<li>Trap focus in menu when open</li>
+<li>Return focus to button when closed</li>
+<li>Focus indicators for all interactive elements</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="keyboard-interactions">Keyboard Interactions<a href="#keyboard-interactions" class="hash-link" aria-label="Direct link to Keyboard Interactions" title="Direct link to Keyboard Interactions">​</a></h3>
+<ul>
+<li><strong>Button:</strong>
+<ul>
+<li>Enter/Space: Open menu, focus first item</li>
+<li>ArrowDown/ArrowUp: Open menu, focus first/last item</li>
+</ul>
+</li>
+<li><strong>Menu:</strong>
+<ul>
+<li>Enter/Space: Activate item, close menu</li>
+<li>ArrowDown/ArrowUp: Move focus, wrap if needed</li>
+<li>Home/End: Jump to first/last item</li>
+<li>Esc: Close menu, return focus to button</li>
+</ul>
+</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="wai-aria-roles-states-and-properties">WAI-ARIA Roles, States, and Properties<a href="#wai-aria-roles-states-and-properties" class="hash-link" aria-label="Direct link to WAI-ARIA Roles, States, and Properties" title="Direct link to WAI-ARIA Roles, States, and Properties">​</a></h3>
+<ul>
+<li>Button: <code>role=&quot;button&quot;</code>, <code>aria-haspopup=&quot;menu&quot;</code>, <code>aria-expanded</code>, <code>aria-controls</code></li>
+<li>Menu: <code>role=&quot;menu&quot;</code>, <code>aria-labelledby</code> or <code>aria-label</code></li>
+<li>Menu items: <code>role=&quot;menuitem&quot;</code>, <code>aria-disabled</code> if disabled</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="8-customization-theming-and-animation">8. Customization, Theming, and Animation<a href="#8-customization-theming-and-animation" class="hash-link" aria-label="Direct link to 8. Customization, Theming, and Animation" title="Direct link to 8. Customization, Theming, and Animation">​</a></h2>
+<ul>
+<li><strong>Customizable appearance:</strong> Colors, fonts, padding, border, icons, etc.</li>
+<li><strong>Theming:</strong> Support for dark/light mode, theme provider, CSS variables</li>
+<li><strong>Animation:</strong> Fade, slide, scale, or custom transitions for menu open/close</li>
+<li><strong>Icon support:</strong> Optional icons for menu items</li>
+<li><strong>Responsive design:</strong> Adapts to device size, touch targets</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="9-performance-security-and-analytics">9. Performance, Security, and Analytics<a href="#9-performance-security-and-analytics" class="hash-link" aria-label="Direct link to 9. Performance, Security, and Analytics" title="Direct link to 9. Performance, Security, and Analytics">​</a></h2>
+<ul>
+<li><strong>Performance:</strong>
+<ul>
+<li>Minimize DOM nodes, lazy render menus</li>
+<li>Virtualize long lists if &gt;20 items</li>
+<li>Code splitting for menu logic</li>
+</ul>
+</li>
+<li><strong>Security:</strong>
+<ul>
+<li>Prevent XSS in menu item labels</li>
+<li>Sanitize user-provided content</li>
+<li>Avoid leaking sensitive data in menu</li>
+</ul>
+</li>
+<li><strong>Analytics:</strong>
+<ul>
+<li>Track menu open/close, item selection</li>
+<li>A/B test menu placement, animation, item order</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="10-internationalization-i18n">10. Internationalization (i18n)<a href="#10-internationalization-i18n" class="hash-link" aria-label="Direct link to 10. Internationalization (i18n)" title="Direct link to 10. Internationalization (i18n)">​</a></h2>
+<ul>
+<li>User-facing strings can be long in some languages; truncate or wrap as needed</li>
+<li>For RTL languages, flip menu/button horizontally (via <code>direction</code> prop)</li>
+<li>All ARIA labels and tooltips should be localizable</li>
+<li><img decoding="async" loading="lazy" src="https://www.gfecdn.net/img/questions/dropdown-menu/dropdown-menu-rtl.png" alt="Dropdown Menu Right-to-left example" class="img_ev3q"></li>
+</ul>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="11-references">11. References<a href="#11-references" class="hash-link" aria-label="Direct link to 11. References" title="Direct link to 11. References">​</a></h2>
+<ul>
+<li><a href="https://getbootstrap.com/docs/5.3/components/dropdowns" target="_blank" rel="noopener noreferrer">Dropdowns · Bootstrap v5.3</a></li>
+<li><a href="https://mui.com/material-ui/react-menu/" target="_blank" rel="noopener noreferrer">React Menu component - Material UI</a></li>
+<li><a href="https://www.radix-ui.com/docs/primitives/components/dropdown-menu" target="_blank" rel="noopener noreferrer">Dropdown Menu — Radix UI</a></li>
+<li><a href="https://reach.tech/menu-button" target="_blank" rel="noopener noreferrer">Menu Button — Reach UI</a></li>
+<li><a href="https://headlessui.com/react/menu" target="_blank" rel="noopener noreferrer">Menu (Dropdown) - Headless UI</a></li>
+<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/menubutton/" target="_blank" rel="noopener noreferrer">Menu Button Pattern (WAI-ARIA)</a></li>
+<li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/menu/" target="_blank" rel="noopener noreferrer">Menu Pattern (WAI-ARIA)</a></li>
+</ul>
+<hr>
+<p>This document provides an exhaustive, technical overview of the design and implementation of a modern dropdown menu component. It covers architectural decisions, data modeling, API, rendering, accessibility, customization, internationalization, security, analytics, and real-world trade-offs, serving as a reference for advanced system design interviews and production-grade implementations.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col"><a href="https://github.com/binhphanhai/frontend-system-design/tree/main/Summarize/docs/17-dropdown-menu.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/frontend-system-design/docs/autocomplete"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">System Design: Autocomplete</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/frontend-system-design/docs/video-streaming"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Video Streaming System Design (e.g. Netflix, YouTube)</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#table-of-contents" class="table-of-contents__link toc-highlight">Table of Contents</a></li><li><a href="#1-overview" class="table-of-contents__link toc-highlight">1. Overview</a></li><li><a href="#2-requirements-exploration" class="table-of-contents__link toc-highlight">2. Requirements Exploration</a><ul><li><a href="#core-features" class="table-of-contents__link toc-highlight">Core Features</a></li><li><a href="#real-life-examples" class="table-of-contents__link toc-highlight">Real-Life Examples</a></li></ul></li><li><a href="#3-architecture--high-level-design" class="table-of-contents__link toc-highlight">3. Architecture &amp; High-Level Design</a><ul><li><a href="#example-usage-react" class="table-of-contents__link toc-highlight">Example Usage (React)</a></li><li><a href="#component-roles" class="table-of-contents__link toc-highlight">Component Roles</a></li></ul></li><li><a href="#4-data-model" class="table-of-contents__link toc-highlight">4. Data Model</a></li><li><a href="#5-interface-definition-api" class="table-of-contents__link toc-highlight">5. Interface Definition (API)</a><ul><li><a href="#general-props" class="table-of-contents__link toc-highlight">General Props</a></li><li><a href="#dropdownmenu" class="table-of-contents__link toc-highlight">DropdownMenu</a></li><li><a href="#dropdownmenubutton" class="table-of-contents__link toc-highlight">DropdownMenu.Button</a></li><li><a href="#dropdownmenulist" class="table-of-contents__link toc-highlight">DropdownMenu.List</a></li><li><a href="#dropdownmenuitem" class="table-of-contents__link toc-highlight">DropdownMenu.Item</a></li><li><a href="#customizing-appearance" class="table-of-contents__link toc-highlight">Customizing Appearance</a></li></ul></li><li><a href="#6-rendering-positioning-and-state-management" class="table-of-contents__link toc-highlight">6. Rendering, Positioning, and State Management</a><ul><li><a href="#rendering" class="table-of-contents__link toc-highlight">Rendering</a></li><li><a href="#positioning" class="table-of-contents__link toc-highlight">Positioning</a></li><li><a href="#maximum-height" class="table-of-contents__link toc-highlight">Maximum Height</a></li><li><a href="#rendering-in-html-vs-javascript" class="table-of-contents__link toc-highlight">Rendering in HTML vs. JavaScript</a></li><li><a href="#state-management" class="table-of-contents__link toc-highlight">State Management</a></li></ul></li><li><a href="#7-accessibility-a11y" class="table-of-contents__link toc-highlight">7. Accessibility (a11y)</a><ul><li><a href="#mouse-interactions" class="table-of-contents__link toc-highlight">Mouse Interactions</a></li><li><a href="#touch-interactions" class="table-of-contents__link toc-highlight">Touch Interactions</a></li><li><a href="#focus-management" class="table-of-contents__link toc-highlight">Focus Management</a></li><li><a href="#keyboard-interactions" class="table-of-contents__link toc-highlight">Keyboard Interactions</a></li><li><a href="#wai-aria-roles-states-and-properties" class="table-of-contents__link toc-highlight">WAI-ARIA Roles, States, and Properties</a></li></ul></li><li><a href="#8-customization-theming-and-animation" class="table-of-contents__link toc-highlight">8. Customization, Theming, and Animation</a></li><li><a href="#9-performance-security-and-analytics" class="table-of-contents__link toc-highlight">9. Performance, Security, and Analytics</a></li><li><a href="#10-internationalization-i18n" class="table-of-contents__link toc-highlight">10. Internationalization (i18n)</a></li><li><a href="#11-references" class="table-of-contents__link toc-highlight">11. References</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/frontend-system-design/docs/intro">Tutorial</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://stackoverflow.com/questions/tagged/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Stack Overflow<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://discordapp.com/invite/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://x.com/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">X<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/frontend-system-design/blog">Blog</a></li><li class="footer__item"><a href="https://github.com/facebook/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 My Project, Inc. Built with Docusaurus.</div></div></div></footer></div>
+</body>
+</html>
