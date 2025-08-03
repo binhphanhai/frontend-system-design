@@ -130,7 +130,26 @@ const sidebars: SidebarsConfig = {
     },
   ],
   behaviorInterviewSidebar: [
-    'behavior-interview/intro',
+    {
+      type: 'category',
+      label: 'Overview',
+      items: [
+        'behavior-interview/behavioral-interview-intro',
+        'behavior-interview/important-questions',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Solving common questions',
+      items: [
+        'behavior-interview/tell-me-about-yourself',
+        'behavior-interview/why-work-here',
+        'behavior-interview/questions-to-ask',
+        'behavior-interview/problem-solving',
+        'behavior-interview/collaboration',
+        'behavior-interview/growth-mindset',
+      ],
+    },
   ],
 };
 
