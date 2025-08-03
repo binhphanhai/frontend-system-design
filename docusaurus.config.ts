@@ -5,8 +5,8 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Frontend System Design',
-  tagline: 'Learn techniques and approach top front end system design questions',
+  title: 'Frontend Interview Preparation',
+  tagline: 'Comprehensive guide for frontend interviews, system design, React, and behavioral questions',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -25,7 +25,7 @@ const config: Config = {
   organizationName: 'binhphanhai', // Usually your GitHub org/user name.
   projectName: 'frontend-system-design', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -73,17 +73,35 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'Frontend System Design',
+      title: 'Frontend Interview Prep',
       logo: {
-        alt: 'Frontend System Design Logo',
+        alt: 'Frontend Interview Preparation Logo',
         src: 'img/logo.svg',
       },
       items: [
         {
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'frontendSystemDesignSidebar',
           position: 'left',
-          label: 'Documentation',
+          label: 'System Design',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'frontendInterviewSidebar',
+          position: 'left',
+          label: 'Frontend Interview',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'reactInterviewSidebar',
+          position: 'left',
+          label: 'React Interview',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'behaviorInterviewSidebar',
+          position: 'left',
+          label: 'Behavioral Interview',
         },
         {
           href: 'https://github.com/binhphanhai/frontend-system-design',

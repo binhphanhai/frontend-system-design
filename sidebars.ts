@@ -13,71 +13,101 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
  Create as many sidebars as you want.
  */
 const sidebars: SidebarsConfig = {
-  tutorialSidebar: [
-    'intro',
+  frontendSystemDesignSidebar: [
+    'frontend-system-design/intro',
     {
       type: 'category',
       label: 'Fundamentals',
       items: [
-        'frontend-system-design-intro',
-        'types-of-frontend-system-design-questions',
-        'radio-framework',
-        'evaluation-criteria',
-        'common-mistakes',
-        'cheatsheet',
+        'frontend-system-design/frontend-system-design-intro',
+        'frontend-system-design/types-of-frontend-system-design-questions',
+        'frontend-system-design/radio-framework',
+        'frontend-system-design/evaluation-criteria',
+        'frontend-system-design/common-mistakes',
+        'frontend-system-design/cheatsheet',
       ],
     },
     {
       type: 'category',
       label: 'Social & Content Platforms',
       items: [
-        'news-feed',
-        'photo-sharing',
-        'chat-app',
-        'pinterest',
+        'frontend-system-design/news-feed',
+        'frontend-system-design/photo-sharing',
+        'frontend-system-design/chat-app',
+        'frontend-system-design/pinterest',
       ],
     },
     {
       type: 'category',
       label: 'Text & Document Editing',
       items: [
-        'rich-text-editor',
-        'google-docs',
-        'email-client',
+        'frontend-system-design/rich-text-editor',
+        'frontend-system-design/google-docs',
+        'frontend-system-design/email-client',
       ],
     },
     {
       type: 'category',
       label: 'Search & Navigation',
       items: [
-        'autocomplete',
-        'dropdown-menu',
+        'frontend-system-design/autocomplete',
+        'frontend-system-design/dropdown-menu',
       ],
     },
     {
       type: 'category',
       label: 'Media & Entertainment',
       items: [
-        'video-streaming',
-        'image-carousel',
+        'frontend-system-design/video-streaming',
+        'frontend-system-design/image-carousel',
       ],
     },
     {
       type: 'category',
       label: 'E-commerce & Business',
       items: [
-        'ecommerce-marketplace',
-        'travel-booking',
+        'frontend-system-design/ecommerce-marketplace',
+        'frontend-system-design/travel-booking',
       ],
     },
     {
       type: 'category',
       label: 'UI Components',
       items: [
-        'modal-dialog',
-        'poll-widget',
+        'frontend-system-design/modal-dialog',
+        'frontend-system-design/poll-widget',
       ],
     },
+  ],
+  frontendInterviewSidebar: [
+    'frontend-interview/frontend-interview-intro',
+    {
+      type: 'category',
+      label: 'Coding interviews',
+      items: [
+        'frontend-interview/frontend-coding-interviews',
+        'frontend-interview/javascript-coding-interviews',
+        'frontend-interview/data-structures-algorithms-interviews',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'User interface interviews',
+      items: [
+        'frontend-interview/user-interface-coding-interviews',
+        'frontend-interview/ui-interview-cheatsheet',
+        'frontend-interview/ui-component-api-design',
+      ],
+    },
+    'frontend-interview/fe-system-design-quickstart',
+    'frontend-interview/fe-quiz-interview-questions',
+    'frontend-interview/frontend-engineer-resume-guide',
+  ],
+  reactInterviewSidebar: [
+    'react-interview/intro',
+  ],
+  behaviorInterviewSidebar: [
+    'behavior-interview/intro',
   ],
 };
 
