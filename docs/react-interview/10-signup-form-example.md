@@ -1,8 +1,6 @@
 # Signup Form Example in React
 
-*A step-by-step guide to building an accessible React signup form with uncontrolled inputs, proper labeling, browser validation, and client-side submission*
-
----
+_A step-by-step guide to building an accessible React signup form with uncontrolled inputs, proper labeling, browser validation, and client-side submission_
 
 ---
 
@@ -53,6 +51,7 @@ Next, the elements should be wrapped within a `<form>`. This enables the browser
 ## 4. Form Attributes
 
 The `<form>` tag accepts these attributes:
+
 - `action`: Specifies the URL of the server that will receive the submitted form data.
 - `method`: Defines the HTTP method used to send the form data. Common values are:
   - `POST`: Form data is sent as part of the request body.
@@ -107,6 +106,7 @@ An alternative way to create a submit button is by using the `<input>` tag with 
 ```
 
 With the `name` attribute specified, when the form is submitted:
+
 - For `<form method="GET">`, a HTTP GET request will be made to `/users/signup?userEmail=john.doe@gmail.com`.
 - For `<form method="POST">`, a HTTP POST request will be made to `/users/signup` with the body as `userEmail=john.doe@gmail.com`.
 
@@ -143,9 +143,22 @@ By specifying attributes like `required`, `minlength`, `pattern` on `<input>`, t
 ```html
 <form method="POST" action="/users/signup">
   <label htmlFor="email-input">Email</label>
-  <input autocomplete="email" id="email-input" name="userEmail" required type="email" />
+  <input
+    autocomplete="email"
+    id="email-input"
+    name="userEmail"
+    required
+    type="email"
+  />
   <label htmlFor="password-input">Password</label>
-  <input autocomplete="new-password" id="password-input" minlength="8" name="userPassword" required type="password" />
+  <input
+    autocomplete="new-password"
+    id="password-input"
+    minlength="8"
+    name="userPassword"
+    required
+    type="password"
+  />
   <button>Sign up</button>
 </form>
 ```
@@ -161,7 +174,13 @@ For `<input>`s which benefit from additional descriptions or hint text, they can
 ```html
 <form method="POST" action="/users/signup">
   <label htmlFor="email-input">Email</label>
-  <input autocomplete="email" id="email-input" name="userEmail" required type="email" />
+  <input
+    autocomplete="email"
+    id="email-input"
+    name="userEmail"
+    required
+    type="email"
+  />
   <label htmlFor="password-input">Password</label>
   <input
     aria-describedby="password-hint"
@@ -188,6 +207,7 @@ When a user focuses on the password input field, assistive technologies like scr
 The current form will make a HTTP POST request to `/users/signup` upon submission, which causes a full page navigation and that might not always be desirable.
 
 We can modify the form to make a client-side HTTP POST request via `fetch()`. The main changes to make are:
+
 - Call `event.preventDefault()` to prevent the browser from navigating away
 - Use `new FormData(formElement)` to get the input fields data from the form element
 - Send the data to the server API endpoint via `fetch()`
@@ -199,13 +219,13 @@ function SignupForm() {
     event.preventDefault();
     const formElement = event.target;
     const formData = new FormData(formElement);
-    const response = await fetch('/users/signup', {
-      method: 'POST',
+    const response = await fetch("/users/signup", {
+      method: "POST",
       body: JSON.stringify({
-        email: formData.get('userEmail'),
-        password: formData.get('userPassword'),
+        email: formData.get("userEmail"),
+        password: formData.get("userPassword"),
       }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
     const data = await response.json();
     if (!response.ok) {

@@ -1,8 +1,6 @@
 # Answering Collaboration Behavioral Questions
 
-*Learn how to answer "Tell me about a time..." styled questions for evaluating your collaboration skills.*
-
----
+_Learn how to answer "Tell me about a time..." styled questions for evaluating your collaboration skills._
 
 ---
 
@@ -11,6 +9,7 @@ As mentioned in our [behavioral interview preparation overview](/behavioral-inte
 Collaboration questions are probably the most common behavioral questions asked in front end behavioral interviews, as they encompass a large number of related traits which can be grouped for ease of story/project preparation.
 
 **In this guide, you will learn how to tackle them:**
+
 1. Evaluation criteria in detail
 2. Abstracting possible questions into common themes
 3. Suggested answer framework
@@ -23,6 +22,7 @@ Collaboration questions are probably the most common behavioral questions asked 
 ## Evaluation Criteria in Detail
 
 When rating candidates under this category, interviewers are often looking at the following criteria:
+
 - Handling disagreements
 - Working as a team
 - Working with diverse personalities and skills
@@ -39,18 +39,23 @@ It is impractical to prepare answers specifically for every behavioral question 
 Collaboration is such a theme which can group sub-requirements like communication, teamwork, adaptability, and coachability. For each sub-requirement, we have summarized the common questions and also abstracted out the **traits that interviewers are looking out for across these questions**:
 
 ### Communication
+
 **Example questions:**
+
 - Can you describe a time when you had to effectively communicate technical information to a non-technical audience and how you approached it?
 - Can you describe a time when you had to adapt your communication style to effectively communicate with someone who had a different background or perspective?
 - Can you give an example of a time when you had to communicate important information under time pressure or in a high-stress situation?
 - How do you ensure that your message is understood and well-received by your audience?
 
 **Traits interviewers look out for:**
+
 - Convey complex ideas simply
 - Active listening
 
 ### Teamwork
+
 **Example questions:**
+
 - Can you describe a past project where you had to work with a difficult stakeholder or teammate and how you dealt with it?
 - Can you tell me about a time when you had to give constructive feedback to a team member or coworker?
 - How do you approach working with teammates who are not meeting their deadlines or responsibilities?
@@ -62,6 +67,7 @@ Collaboration is such a theme which can group sub-requirements like communicatio
 - Can you describe a time when you had to collaborate with people from different departments or organizations to complete a project?
 
 **Traits interviewers look out for:**
+
 - Working as a team
 - Working with diverse working styles, skills, and personalities
 - Handling disagreements (others and own)
@@ -76,6 +82,7 @@ As always, the [STAR format](https://www.indeed.com/career-advice/interviewing/h
 Based on the abstraction above, interviewers are looking for specific traits for every sub-requirement. Here is a quick cheatsheet for suggested approaches to exhibit these desired traits:
 
 ### Convey Complex Ideas Simply
+
 1. Understand your audience's level of knowledge. Put yourself in their shoes, explain in their language
 2. Understand what they need to know (and want to know) and prioritize the key takeaways
 3. Only dive deeper where appropriate for important details
@@ -86,6 +93,7 @@ Based on the abstraction above, interviewers are looking for specific traits for
 > **Note:** For communication, traits like conveying complex ideas simply and active listening may be evaluated through your actual interview performance instead—e.g. do you interrupt the interviewer, do you listen and understand their question correctly, do you communicate your thought process in an easy to digest manner.
 
 ### Active Listening
+
 1. Focus on understanding rather than replying
 2. Withhold judgment until the person is done talking
 3. Use non-verbal cues to show that you are engaged
@@ -94,12 +102,14 @@ Based on the abstraction above, interviewers are looking for specific traits for
 6. Never interrupt
 
 ### Working as a Team
+
 1. Set clear goals and ensure that everyone understands them. Proactively seek alignment and perspectives
 2. Assign and communicate roles and responsibilities. Collaborate and delegate
 3. Set up regular progress check-ins and address blockers. Always include the appropriate stakeholders and share timely information with them
 4. Measure impact and recognize achievements
 
 ### Working with Diverse Working Styles, Skills, and Personalities
+
 1. Openly recognize unique perspectives and skills that each team member can bring to the table
 2. Encourage open and honest communication, and active listening
 3. Create a welcoming and supportive environment even to differences in opinions. Use them as opportunities to grow
@@ -107,6 +117,7 @@ Based on the abstraction above, interviewers are looking for specific traits for
 5. Provide equal opportunities to every team member, including access to channels, resources, and support
 
 ### Handling Disagreements
+
 1. Facilitate open and productive communication between relevant parties
 2. Frame conflict as a way to enhance teamwork and improve current solutions
 3. Clarify the source of conflict (and whether there actually is conflict)
@@ -117,6 +128,7 @@ Based on the abstraction above, interviewers are looking for specific traits for
 8. Agree on the best solution and determine each party's responsibilities. Bring in relevant parties to support resolutions
 
 ### Giving Constructive Feedback
+
 1. Give the feedback in private
 2. Remind them of what you already appreciate of them
 3. Describe specific behaviors that were directly observed (not inferred) and can be changed, e.g. "did not study the documentation" versus "not prepared"
@@ -125,6 +137,7 @@ Based on the abstraction above, interviewers are looking for specific traits for
 6. Offer actionable suggestions
 
 Although there seem to be a large number of required traits, you can cover 90% of them with a very common situation that occurs in engineering teams:
+
 - You had to work within a cross-functional team (e.g. with business stakeholders or product managers or designers) on a high pressure situation, where priorities and requirements were changing rapidly
 - There's a conflict of interest between business/design and engineering, such as business/design pushing for tighter deadlines, while from engineering perspective rushing for those deadlines will result in large tech debt
 - You had to provide constructive feedback to business/design on the problem
@@ -139,14 +152,17 @@ Although there seem to be a large number of required traits, you can cover 90% o
 Here's a sample story using the STAR format.
 
 **Situation:**
+
 - In my current job as front end engineer in a startup, I had to lead development on a highly urgent marketing project, working cross functionally with marketing and design
 - At some point, marketing had expected the feature to ship within the next week, but there was a significant roadblock from engineering due to dependencies on a partner API team whose deliverables were delayed due to recent departures of two senior members
 - The situation had become heated as marketing did not understand the roadblocks engineering had faced
 
 **Task:**
+
 - I had to resolve the misunderstanding to ensure smooth working relationship between both teams
 
 **Actions:**
+
 - Spoke to marketing privately and gave them time to clearly explain the urgency and concerns or misconceptions marketing might have towards engineering
 - Explained the role of the partner teams, focusing specifically on their impact on the feature as opposed to complex technical information
 - Brainstormed different ways we could ship the feature even without the external dependencies
@@ -154,6 +170,7 @@ Here's a sample story using the STAR format.
 - Solicited feedback on how engineering could better collaborate with marketing to avoid such misunderstandings in future
 
 **Results:**
+
 - Due to the tight collaboration between engineering and marketing, we were able to ship the feature in a timely manner
 - As marketing prioritized timelines and accountability, we started providing regular updates and discussed alternatives for every potential blocker
 - With this, every feature was successfully and smoothly delivered thereafter
@@ -163,11 +180,13 @@ Here's a sample story using the STAR format.
 ## Possible Nature of Follow-Up Questions
 
 Interviewers are encouraged to rely more on follow-up questions to really understand the candidate's thought process and motivations, which typically fall under these categories:
+
 - Why do you think you did (insert action)?
 - Why did you not do (insert action)?
 - How would you do things differently in hindsight?
 
 For questions on collaboration, interviewers will most likely probe for questions to help them understand a bit more about:
+
 - **Understanding if and why certain stakeholders were involved or not involved**
   - Which stakeholders were involved in the discussion, and why?
   - Why were certain stakeholders like (insert stakeholder) excluded from the group?

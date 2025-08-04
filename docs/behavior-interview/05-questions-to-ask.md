@@ -1,12 +1,11 @@
 # Questions to Ask at End of Interview
 
-*Learn the best questions to ask at the end of your front end interviews.*
-
----
+_Learn the best questions to ask at the end of your front end interviews._
 
 ---
 
 In our anxiety to secure a job, some of us might forget that joining a bad team might be worse than waiting it out for a good opportunity. An interview is in fact an invaluable opportunity for the candidate to speak to someone who actually works in the company and find out more about the practices there. A few key aspects you should evaluate about a job before joining:
+
 - Will the work be interesting to you?
 - Is there room for career growth?
 - Are the teammates/your manager collaborative and easy to work with?
@@ -75,6 +74,7 @@ As a front end developer / web developer, rounds with the engineering team usual
 ## Rounds with Your Potential Manager
 
 In these rounds, it is useful to take the chance to find out your manager's managerial style, the performance review process/criteria, as well as his/her expectations of the role (which could give you an idea of how well you might perform on the job):
+
 - Can you tell me about the kind of supervision you provide?
 - Thinking back to people you've seen do this work previously, what differentiated the ones who were good from the ones who were really great at it?
 - What are you hoping this person will accomplish in their first six months and in their first year?
@@ -85,11 +85,13 @@ In these rounds, it is useful to take the chance to find out your manager's mana
 ## Rounds with Roles Outside the Team (Who Might Not Know Specifically About Team's Operations)
 
 ### Questions to Ask the Founder
+
 - What are the current goals that the company is focused on, and how does this team work to support hitting those goals?
 - What direction do you see this company heading in over the next few years?
 - What are the current focus areas for the company as a whole?
 
 ### Questions to Ask the Team's Collaborators
+
 - What's one challenge you occasionally or regularly face in your job?
 - Can you tell me about the team I'll be working with?
 - What learning and professional development opportunities are available in the company?
@@ -101,6 +103,7 @@ In these rounds, it is useful to take the chance to find out your manager's mana
 Here are a few examples of what not to ask at the end of your interview:
 
 ### Avoid Asking About Salary and Benefits Early On
+
 - What's the starting salary?
 - Can you tell me about your health insurance?
 - What are your paid leave policies?
@@ -110,6 +113,7 @@ Here are a few examples of what not to ask at the end of your interview:
 - What kind of perks and benefits can I expect?
 
 ### Avoid Asking Questions That Should Be Public Information
+
 - What does the company do?
 - Where are the offices of the company located?
 - Who is the CEO of the company?

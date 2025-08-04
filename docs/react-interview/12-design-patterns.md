@@ -1,8 +1,6 @@
 # Design Patterns for React Interviews
 
-*An exploration of React design patterns, including higher-order components, render props, and container/presentational patterns, to help you build clean, reusable, and scalable applications*
-
----
+_An exploration of React design patterns, including higher-order components, render props, and container/presentational patterns, to help you build clean, reusable, and scalable applications_
 
 ---
 
@@ -17,7 +15,7 @@ A Higher-order component (HOC) is a function that takes a component and returns 
 ```jsx
 function withAuth(Component) {
   return function WrappedComponent(props) {
-    const isAuthenticated = localStorage.getItem('token'); // Check auth status
+    const isAuthenticated = localStorage.getItem("token"); // Check auth status
     return isAuthenticated ? <Component {...props} /> : <p>Access Denied</p>;
   };
 }
@@ -30,6 +28,7 @@ const ProtectedDashboard = withAuth(Dashboard);
 ```
 
 **HOCs are useful for:**
+
 - Reusing logic across multiple components (e.g., authentication, analytics, logging, fetching data)
 - Adding behavior without modifying original components
 - Scenarios where hooks aren't an option, such as class components
@@ -54,8 +53,8 @@ function MouseTracker({ render }) {
     const handleMouseMove = (event) => {
       setPosition({ x: event.clientX, y: event.clientY });
     };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return render(position);
@@ -75,6 +74,7 @@ function App() {
 ```
 
 **Render props are useful for:**
+
 - Sharing logic between components while keeping UI flexible
 - Scenarios where hooks aren't an option, such as class components
 - Headless components that provide logic and behavior while allowing customization of appearance
@@ -90,6 +90,7 @@ The Container/presentational pattern is a design pattern used in React to separa
 On the client, data can come from the user's input, fetched from an API, `localStorage`, WebSockets, etc. Not assuming where the data comes from is a good way to structure your components.
 
 ### Presentational Components
+
 - Focus only on rendering the UI
 - Do not contain state (except local UI state like toggles)
 - Receive all data via props and use event handlers (e.g. `onClick`, `onChange`)
@@ -111,6 +112,7 @@ function UserList({ users }) {
 ```
 
 ### Container Components
+
 - Manage state, API calls, and business logic
 - Pass data and functions as props to presentational components
 - Do not contain UI code (minimal JSX except for wrapping presentational components)
@@ -120,7 +122,7 @@ function UserListContainer() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
@@ -130,11 +132,13 @@ function UserListContainer() {
 ```
 
 **This pattern allows:**
+
 - Reusing UI components with different data sources
 - A clear separation between UI and state logic
 - Making UI components easier to test
 
 #### Alternative Approaches
+
 - **Custom hooks (e.g. `useUser` hook for fetching users):** A more modern approach that keeps logic reusable across multiple components
 - **State management libraries (Redux, Zustand):** Handle global state separately without needing explicit container components
 
@@ -152,6 +156,7 @@ Further reading: [Container/Presentational Pattern (patterns.dev)](https://www.p
 ## Practice Questions
 
 **Quiz:**
+
 - [What are higher order components in React?](/questions/quiz/what-are-higher-order-components-in-react?framework=react&tab=quiz)
 - [What is the Flux pattern and what are its benefits?](/questions/quiz/what-is-the-flux-pattern-and-what-are-its-benefits?framework=react&tab=quiz)
 - [Explain the presentational vs container component pattern in React](/questions/quiz/explain-the-presentational-vs-container-component-pattern-in-react?framework=react&tab=quiz)

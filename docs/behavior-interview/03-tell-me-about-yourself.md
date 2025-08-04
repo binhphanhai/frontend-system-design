@@ -1,14 +1,13 @@
 # Answering "Tell Me About Yourself"
 
-*A guide to answering self introduction questions effectively in different interview contexts, for front end engineers.*
-
----
+_A guide to answering self introduction questions effectively in different interview contexts, for front end engineers._
 
 ---
 
 The self introduction is one of the things you can always expect to encounter in an interview, regardless of interview format. Hence the return on investment of preparing for it is rather high. Most of the time, your self introduction should be short and sweet, delivering a good impression in the fewest amount of words.
 
 **In this article you will find:**
+
 1. Recommended preparation for different interview settings
 2. The 1-min pitch formula
 3. Portfolio or case study showcase
@@ -25,11 +24,11 @@ The self introduction is one of the things you can always expect to encounter in
 - In behavioral interviews or technical interviews in a startup or a company which prioritizes practical experience over LeetCode-style interviews, you may want to extend your self introduction to a **quick portfolio showcase**, or allude to the fact that you have a portfolio of your projects that they could view after the interview or allocate around 5 min at the end of the interview to run through.
 - In coding interviews with a fixed format, keep your self introduction short to ensure you have **more time on the actual coding test**. Any extra time you take on your self introduction will be taken away from the time you have to answer technical questions.
 
-| Interview format                | Company type                                 | Duration | Content                                 |
-|---------------------------------|----------------------------------------------|----------|------------------------------------------|
-| Coding or technical interviews  | Big tech with fixed evaluation criteria      | < 1 min  | 1 min pitch                              |
-| Coding or technical interviews  | Others (less emphasis on LeetCode)           | ~1 min   | 1 min pitch + allude to portfolio        |
-| Behavioral or culture fit       | Any                                         | ~1 min   | 1 min pitch + allude to portfolio        |
+| Interview format               | Company type                            | Duration | Content                           |
+| ------------------------------ | --------------------------------------- | -------- | --------------------------------- |
+| Coding or technical interviews | Big tech with fixed evaluation criteria | < 1 min  | 1 min pitch                       |
+| Coding or technical interviews | Others (less emphasis on LeetCode)      | ~1 min   | 1 min pitch + allude to portfolio |
+| Behavioral or culture fit      | Any                                     | ~1 min   | 1 min pitch + allude to portfolio |
 
 To tackle all the possible cases, you should prepare a 1-min pitch and a project portfolio (optional but recommended).
 
@@ -40,6 +39,7 @@ To tackle all the possible cases, you should prepare a 1-min pitch and a project
 ### The Big Picture
 
 Most of the time, pitches will cover these 4 items:
+
 1. Breadth and depth of job experience
 2. Top achievements
 3. If less than 5 years of working experience, educational background
@@ -51,6 +51,7 @@ When developing your pitch, keep the objective in mind — you want to leave a *
 - As software engineers, we prove our mettle through projects and code. Talking too much too early may come off as over-eager and words alone don't hold much value.
 
 To hiring managers, the self introduction serves to answer these questions about the candidate:
+
 1. Is this candidate passionate about front end / software engineering?
 2. Can they describe things in a clear and concise way?
 3. What kind of person are they? Confident or arrogant?
@@ -60,12 +61,12 @@ To hiring managers, the self introduction serves to answer these questions about
 
 Front end hiring managers typically focus on the following **4 criteria**:
 
-| Criteria | Example |
-|----------|---------|
-| Understanding of front end fundamentals: HTML, CSS, JavaScript and related areas | "I have been building front end applications for a few years now and also contributed to popular open source projects like Lodash and jQuery."<br /><br />"I was a Teaching Assistant for my college's web development course and mentored students working on projects which involved building full stack web applications." |
-| Breadth and depth of front end technologies the candidate knows | "I used React, Tailwind, Next.js, Prisma and MySQL to build a Twitter clone as part of my software engineering team project." |
-| Initiative to keep up with modern front end technologies | "I learnt Astro and rebuilt my personal blog using it because Astro is great for building content-driven websites." |
-| Relevant front end projects that the candidate has worked on, complexity of those projects | "In my spare time I built a crypto price tracking app in React to learn how to build data visualization-heavy client apps and also solve a personal pain point of tracking my portfolio." |
+| Criteria                                                                                   | Example                                                                                                                                                                                                                                                                                                                       |
+| ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Understanding of front end fundamentals: HTML, CSS, JavaScript and related areas           | "I have been building front end applications for a few years now and also contributed to popular open source projects like Lodash and jQuery."<br /><br />"I was a Teaching Assistant for my college's web development course and mentored students working on projects which involved building full stack web applications." |
+| Breadth and depth of front end technologies the candidate knows                            | "I used React, Tailwind, Next.js, Prisma and MySQL to build a Twitter clone as part of my software engineering team project."                                                                                                                                                                                                 |
+| Initiative to keep up with modern front end technologies                                   | "I learnt Astro and rebuilt my personal blog using it because Astro is great for building content-driven websites."                                                                                                                                                                                                           |
+| Relevant front end projects that the candidate has worked on, complexity of those projects | "In my spare time I built a crypto price tracking app in React to learn how to build data visualization-heavy client apps and also solve a personal pain point of tracking my portfolio."                                                                                                                                     |
 
 ---
 
@@ -74,6 +75,7 @@ Front end hiring managers typically focus on the following **4 criteria**:
 If you were to extend into a showcase of your portfolio, you would want to ensure that your portfolio is minimal and easy to run through during the interview.
 
 The description for each project should encompass:
+
 - Purpose of project – What it does for users
 - Frameworks/technologies used
 - Technical complexity involved

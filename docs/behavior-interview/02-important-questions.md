@@ -1,8 +1,6 @@
 # Important Behavioral Interview Questions to Prepare for
 
-*Efficiently prepare for your behavioral interviews by tackling the most commonly asked questions first.*
-
----
+_Efficiently prepare for your behavioral interviews by tackling the most commonly asked questions first._
 
 ---
 

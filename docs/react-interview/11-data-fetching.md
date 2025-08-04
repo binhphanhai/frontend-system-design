@@ -1,8 +1,6 @@
 # Data Fetching in React Interviews
 
-*A comprehensive guide to efficiently fetching data in React, covering client-side and server-side techniques, dynamic queries, error handling, caching, and advanced optimizations with query libraries*
-
----
+_A comprehensive guide to efficiently fetching data in React, covering client-side and server-side techniques, dynamic queries, error handling, caching, and advanced optimizations with query libraries_
 
 ---
 
@@ -17,7 +15,7 @@ Data can be fetched either on the server (server-side rendering) or on the clien
 The built-in `fetch` API is a straightforward way to make HTTP requests in JavaScript. Here's a simple example using the `useEffect` hook to fetch data from an API:
 
 ```jsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function Page() {
   const [data, setData] = useState(null);
@@ -25,10 +23,10 @@ function Page() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Error response');
+          throw new Error("Error response");
         }
         return response.json();
       })
@@ -69,11 +67,11 @@ Often you will need to fetch data based on a dynamic parameter, such as a blog p
 The following "live search" example fetches data based on a user-provided search term as you type:
 
 ```jsx
-import { useState } from 'react';
-import axios from 'axios';
+import { useState } from "react";
+import axios from "axios";
 
 function SearchResults() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -86,10 +84,12 @@ function SearchResults() {
     setError(null);
     try {
       const response = await fetch(
-        `https://jsonplaceholder.typicode.com/posts?q=${encodeURIComponent(query)}`
+        `https://jsonplaceholder.typicode.com/posts?q=${encodeURIComponent(
+          query
+        )}`
       );
       if (!response.ok) {
-        throw new Error('Error response');
+        throw new Error("Error response");
       }
       const data = await response.json();
       setData(data);
@@ -128,10 +128,12 @@ function SearchResults() {
 ### Problems and Improvements
 
 #### 1. A `fetch` request is made per keystroke
+
 - Every keystroke triggers a new request. Typing 'tomato' results in 6 requests.
 - **Solution:** Debounce the query so the API request is only made after the user has stopped typing for a specific duration.
 
 #### 2. Race conditions
+
 - Multiple requests can return out of order, so the displayed results may not match the current search term.
 - **Solutions:**
   - **Debouncing**: Reduces the chance of race conditions but is not foolproof.
@@ -139,13 +141,14 @@ function SearchResults() {
   - **Ignore/discard outdated responses**: Only display results for the latest query.
 
 #### 3. Setting state after unmount
+
 - If the user navigates away before a response returns, calling `setData` on an unmounted component causes a React warning.
 - **Solution:** Use a cleanup function in `useEffect` to set an `isMounted` flag to `false` or use `AbortController` to cancel fetch requests.
 
 ```jsx
 useEffect(() => {
   let isMounted = true;
-  fetch('https://jsonplaceholder.typicode.com/posts/1')
+  fetch("https://jsonplaceholder.typicode.com/posts/1")
     .then((response) => response.json())
     .then((data) => {
       if (isMounted) {
@@ -159,6 +162,7 @@ useEffect(() => {
 ```
 
 #### 4. Redundant duplicate requests
+
 - Typing, deleting, and retyping the same query triggers duplicate requests.
 - **Solution:** Use a cache (e.g., `Map<query, results>`) to avoid refetching data for queries that have already been fetched.
 
@@ -173,6 +177,7 @@ Data fetching isn't only limited to querying; there's also mutations. A data mut
 Optimistic updates are a technique where the UI updates before receiving a response from the server, making the application feel faster and more responsive.
 
 **Typical mutation flow:**
+
 1. Trigger the API request (POST, PUT, DELETE)
 2. Show a loading state while the request is in progress
 3. Wait for the response from the server
@@ -180,6 +185,7 @@ Optimistic updates are a technique where the UI updates before receiving a respo
 5. On error, show an error message
 
 **Optimistic update flow:**
+
 1. Update the UI immediately with the assumed successful change
 2. Send the API request in the background
 3. If the request succeeds, keep the UI as is
@@ -189,7 +195,7 @@ Optimistic updates are a technique where the UI updates before receiving a respo
 const handleLike = async () => {
   setLike((count) => count + 1); // Update UI optimistically
   try {
-    await fetch('/api/posts/4/like', { method: 'POST' });
+    await fetch("/api/posts/4/like", { method: "POST" });
   } catch (error) {
     setLike((count) => count - 1); // Rollback on failure
   }
@@ -211,14 +217,14 @@ Query libraries are designed to handle data fetching, caching, synchronization, 
 **Example with TanStack Query:**
 
 ```jsx
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 function DataFetchingComponent() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['posts'],
+    queryKey: ["posts"],
     queryFn: async () => {
-      const response = await axios.get('/api/posts');
+      const response = await axios.get("/api/posts");
       return response.data;
     },
     staleTime: 5000, // Cache data for 5 seconds
@@ -242,14 +248,14 @@ function DataFetchingComponent() {
 
 **Advantages:**
 
-| Feature            | `useEffect` + `fetch` | Query Libraries         |
-|--------------------|----------------------|------------------------|
-| Caching            | No caching           | Automatic caching      |
-| Error handling     | Needs try/catch      | Built-in retries       |
-| Optimistic updates | Manual rollback      | Automatic rollback     |
-| Pagination         | Manual logic         | Built-in support       |
-| Background updates | Manual polling       | Handles automatically  |
-| Refetching         | Manual               | Automatic              |
+| Feature            | `useEffect` + `fetch` | Query Libraries       |
+| ------------------ | --------------------- | --------------------- |
+| Caching            | No caching            | Automatic caching     |
+| Error handling     | Needs try/catch       | Built-in retries      |
+| Optimistic updates | Manual rollback       | Automatic rollback    |
+| Pagination         | Manual logic          | Built-in support      |
+| Background updates | Manual polling        | Handles automatically |
+| Refetching         | Manual                | Automatic             |
 
 ---
 
@@ -293,11 +299,13 @@ However, CSR vs SSR is a common discussion topic during system design rounds and
 ## Practice Questions
 
 **Quiz:**
+
 - [How do you handle asynchronous data loading in React applications?](/questions/quiz/how-do-you-handle-asynchronous-data-loading-in-react-applications?framework=react&tab=quiz)
 - [Explain server-side rendering of React applications and its benefits?](/questions/quiz/explain-server-side-rendering-of-react-applications-and-its-benefits?framework=react&tab=quiz)
 - [What are some common pitfalls when doing data fetching in React?](/questions/quiz/what-are-some-common-pitfalls-when-doing-data-fetching-in-react?framework=react&tab=quiz)
 
 **Coding:**
+
 - [Like Button](/questions/user-interface/like-button/react?framework=react&tab=coding)
 - [Birth Year Histogram](/questions/user-interface/birth-year-histogram/react?framework=react&tab=coding)
 - [Job Board](/questions/user-interface/job-board/react?framework=react&tab=coding)

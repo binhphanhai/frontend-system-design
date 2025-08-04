@@ -1,8 +1,6 @@
 # Event Handling in React Interviews
 
-*Guide to React's synthetic event system, covering best practices for handling, intercepting, and optimizing mouse, input, form, focus, and keyboard events for interview success*
-
----
+_Guide to React's synthetic event system, covering best practices for handling, intercepting, and optimizing mouse, input, form, focus, and keyboard events for interview success_
 
 ---
 
@@ -16,13 +14,13 @@ React's synthetic event system provides consistency across different browsers an
 
 - **Vanilla JS:**
   ```js
-  document.getElementById('btn').addEventListener('click', (event) => {
-    console.log('Clicked!');
+  document.getElementById("btn").addEventListener("click", (event) => {
+    console.log("Clicked!");
   });
   ```
 - **React:**
   ```jsx
-  <button onClick={() => console.log('Clicked!')}>Click Me</button>
+  <button onClick={() => console.log("Clicked!")}>Click Me</button>
   ```
 
 React uses event delegation: events are attached to the root of the React application (not the document root) instead of individual elements to improve performance.
@@ -56,13 +54,14 @@ Mouse event handlers receive the [`MouseEvent`](https://developer.mozilla.org/en
 ```jsx
 function ClickButton() {
   function handleClick() {
-    alert('Button clicked!');
+    alert("Button clicked!");
   }
   return <button onClick={handleClick}>Click me</button>;
 }
 ```
 
 You should know the following mouse events:
+
 - `onClick`: Fires when an element is clicked (mousedown + mouseup). Commonly used in interviews
 - `onMouseEnter`: Fires when the mouse enters an element. Does not bubble (useful for hover interactions)
 - `onMouseLeave`: Fires when the mouse leaves an element. Does not bubble
@@ -75,6 +74,7 @@ You should know the following mouse events:
 **Key difference:** `onMouseEnter`/`onMouseLeave` do **not** [bubble up the DOM](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Event_bubbling), while `onMouseOver`/`onMouseOut` do.
 
 **Accessibility:**
+
 - Do not add `onClick` handlers to non-interactive (non-clickable and non-focusable) elements.
 - 90% of the time, use `onClick` only on `<button>`s. `<a href="#" onClick={...}>` is an anti-pattern; use `<button onClick={...}>` and style accordingly.
 - For hover styles, prefer CSS's `:hover` pseudo-class over JS event handlers.
@@ -89,10 +89,10 @@ Input event handlers receive the [`InputEvent`](https://developer.mozilla.org/en
 
 ```jsx
 function Foo() {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   return (
     <input
-      onChange={event => setValue(event.target.value)}
+      onChange={(event) => setValue(event.target.value)}
       value={value}
       placeholder="Type here"
     />
@@ -101,6 +101,7 @@ function Foo() {
 ```
 
 You should know the following input events:
+
 - `onChange`: Fires when the value of an input changes
 - `onInput`: Fires when the user inputs data (similar to `onChange`). Most of the time, use `onChange` instead
 
@@ -118,14 +119,14 @@ For most event handlers in React, the `onEventName` attribute is the same as doi
 
 **Key differences:**
 
-| Feature                                 | `onChange` (React) | `onInput` |
-|-----------------------------------------|:------------------:|:---------:|
-| Triggers on every keystroke?            | ✅                 | ✅        |
-| Triggers on copy-paste?                 | ✅                 | ✅        |
-| Triggers on IME (Chinese, Japanese...)? | ❌ (only on commit)| ✅        |
-| Triggers on speech-to-text input?       | ❌ (only on commit)| ✅        |
-| Works with `contenteditable`?           | ❌                 | ✅        |
-| Detects programmatic value updates?     | ❌                 | ✅        |
+| Feature                                 | `onChange` (React)  | `onInput` |
+| --------------------------------------- | :-----------------: | :-------: |
+| Triggers on every keystroke?            |         ✅          |    ✅     |
+| Triggers on copy-paste?                 |         ✅          |    ✅     |
+| Triggers on IME (Chinese, Japanese...)? | ❌ (only on commit) |    ✅     |
+| Triggers on speech-to-text input?       | ❌ (only on commit) |    ✅     |
+| Works with `contenteditable`?           |         ❌          |    ✅     |
+| Detects programmatic value updates?     |         ❌          |    ✅     |
 
 When in doubt during interviews, use `onChange`.
 
@@ -140,7 +141,7 @@ Form event handlers (`onSubmit` and `onReset`) only work on `<form>` elements.
 
 ```jsx
 function SimpleForm() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   function handleSubmit(event) {
     event.preventDefault(); // Prevents page reload
     alert(`Form submitted with: ${input}`);
@@ -150,7 +151,7 @@ function SimpleForm() {
       <input
         type="text"
         value={input}
-        onChange={e => setInput(e.target.value)}
+        onChange={(e) => setInput(e.target.value)}
         placeholder="Enter something"
       />
       <button type="submit">Submit</button>
@@ -160,6 +161,7 @@ function SimpleForm() {
 ```
 
 You should know the following form events:
+
 - `onSubmit`: Fires when a form is submitted. Only fires when triggered by a `<button type="submit">` or `<input type="submit">` within a `<form>`
 - `onReset`: Fires when a form is reset. Only fires when triggered by a `<button type="reset">` or `<input type="reset">` within a `<form>`
 
@@ -184,33 +186,35 @@ function FocusBlurExample() {
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         style={{
-          border: focused ? '2px solid blue' : '2px solid gray',
-          outline: 'none',
-          padding: '5px',
+          border: focused ? "2px solid blue" : "2px solid gray",
+          outline: "none",
+          padding: "5px",
         }}
       />
-      <p>{focused ? 'Input is focused' : 'Input is blurred'}</p>
+      <p>{focused ? "Input is focused" : "Input is blurred"}</p>
     </div>
   );
 }
 ```
 
 You should know the following focus events:
+
 - `onFocus`: Fires when an element gains focus
 - `onBlur`: Fires when an element loses focus
 
 While the above example uses `onFocus`/`onBlur` for adding focus styles, it's better to use CSS's `:focus` pseudo-class. There is no need to use JavaScript when CSS is able to do the job.
 
 **Tabbable elements:**
+
 - Elements with `tabIndex` defined become focusable
 - Non-focusable elements (like `<div>`, `<span>`, `<p>`) need `tabIndex` to receive focus
 
-| Element type                                 | Supports `onFocus` | Supports `onBlur` | Notes                        |
-|----------------------------------------------|:------------------:|:----------------:|------------------------------|
-| Form Inputs (`<input>`, `<textarea>`, etc)   | ✅ Yes             | ✅ Yes           | Standard usage               |
-| Interactive Elements (`<button>`, `<a>`, etc)| ✅ Yes             | ✅ Yes           | Automatically focusable      |
-| Elements with `tabIndex` defined             | ✅ Yes             | ✅ Yes           | Becomes focusable            |
-| Non-focusable elements (`<div>`, `<span>`)   | ❌ No              | ❌ No            | Needs `tabIndex`             |
+| Element type                                  | Supports `onFocus` | Supports `onBlur` | Notes                   |
+| --------------------------------------------- | :----------------: | :---------------: | ----------------------- |
+| Form Inputs (`<input>`, `<textarea>`, etc)    |       ✅ Yes       |      ✅ Yes       | Standard usage          |
+| Interactive Elements (`<button>`, `<a>`, etc) |       ✅ Yes       |      ✅ Yes       | Automatically focusable |
+| Elements with `tabIndex` defined              |       ✅ Yes       |      ✅ Yes       | Becomes focusable       |
+| Non-focusable elements (`<div>`, `<span>`)    |       ❌ No        |       ❌ No       | Needs `tabIndex`        |
 
 Focus handling is an important accessibility topic that goes beyond the scope of this guide.
 
@@ -224,8 +228,8 @@ Keyboard event handlers receive the [`KeyboardEvent`](https://developer.mozilla.
 
 ```jsx
 function handleKeyPress(event) {
-  if (event.key === 'Enter') {
-    alert('Enter key pressed!');
+  if (event.key === "Enter") {
+    alert("Enter key pressed!");
   }
 }
 
@@ -233,24 +237,26 @@ function handleKeyPress(event) {
 ```
 
 You should know the following keyboard events:
+
 - `onKeyDown`: Fires when a key is pressed down. Fires continuously if the key is held
 - `onKeyUp`: Fires when a key is released after being pressed
 - `onKeyPress`: (Deprecated) Similar to `onKeyDown`, but does not detect special keys
 
 **KeyboardEvent properties:**
 
-| Property         | Description                        | Example output (`A` key) |
-|------------------|------------------------------------|-------------------------|
-| `event.key`      | The key as a string                | `'a'` or `'A'`          |
-| `event.code`     | The physical key on the keyboard   | `'KeyA'`                |
-| `event.which`    | (deprecated) Numeric code          | `65`                    |
-| `event.keyCode`  | (deprecated) Numeric code          | `65`                    |
-| `event.shiftKey` | `true` if `Shift` is held          | `true` / `false`        |
-| `event.ctrlKey`  | `true` if `Ctrl` is held           | `true` / `false`        |
+| Property         | Description                      | Example output (`A` key) |
+| ---------------- | -------------------------------- | ------------------------ |
+| `event.key`      | The key as a string              | `'a'` or `'A'`           |
+| `event.code`     | The physical key on the keyboard | `'KeyA'`                 |
+| `event.which`    | (deprecated) Numeric code        | `65`                     |
+| `event.keyCode`  | (deprecated) Numeric code        | `65`                     |
+| `event.shiftKey` | `true` if `Shift` is held        | `true` / `false`         |
+| `event.ctrlKey`  | `true` if `Ctrl` is held         | `true` / `false`         |
 
 See the [full list of KeyboardEvent properties on MDN](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent#instance_properties).
 
 **Best practices for handling keyboard events in React:**
+
 - Use `onKeyDown` instead of `onKeyPress` (since `onKeyPress` is deprecated)
 - Use `event.key` instead of `event.which` or `event.keyCode` (they're deprecated)
 - Use `event.preventDefault()` when needed (e.g., prevent `Enter` from submitting a form)
@@ -274,15 +280,21 @@ This is useful, for example, when clicking inside a dropdown should not close th
 ```jsx
 function Dropdown() {
   function handleParentClick() {
-    console.log('Parent div clicked!');
+    console.log("Parent div clicked!");
   }
   function handleChildClick(event) {
     event.stopPropagation(); // Prevents bubbling to the parent
-    console.log('Dropdown item clicked!');
+    console.log("Dropdown item clicked!");
   }
   return (
-    <div onClick={handleParentClick} style={{ padding: '20px', border: '2px solid black' }}>
-      <div onClick={handleChildClick} style={{ padding: '10px', border: '1px solid blue' }}>
+    <div
+      onClick={handleParentClick}
+      style={{ padding: "20px", border: "2px solid black" }}
+    >
+      <div
+        onClick={handleChildClick}
+        style={{ padding: "10px", border: "1px solid blue" }}
+      >
         Click inside dropdown
       </div>
     </div>
@@ -302,7 +314,7 @@ Another form of event interception is preventing default browser actions using `
 function PreventFormSubmit() {
   function handleSubmit(event) {
     event.preventDefault(); // Prevents full-page reload
-    console.log('Form submitted without reloading!');
+    console.log("Form submitted without reloading!");
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -339,6 +351,7 @@ Further reading: [Preventing default behavior](https://react.dev/learn/respondin
 ## Practice Questions
 
 **Coding:**
+
 - [Temperature Converter](/questions/user-interface/temperature-converter/react?framework=react&tab=coding)
 - [Dice Roller](/questions/user-interface/dice-roller/react?framework=react&tab=coding)
 - [Grid Lights](/questions/user-interface/grid-lights/react?framework=react&tab=coding)

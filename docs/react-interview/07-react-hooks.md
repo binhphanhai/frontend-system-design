@@ -1,8 +1,6 @@
 # React Hooks for Interviews
 
-*Master React hooks for interviews, covering key hooks like useState, useEffect, useContext, common pitfalls, and best practices for building reusable logic*
-
----
+_Master React hooks for interviews, covering key hooks like useState, useEffect, useContext, common pitfalls, and best practices for building reusable logic_
 
 ---
 
@@ -21,17 +19,18 @@ const [state, setState] = useState(initialState);
 ```
 
 **Parameters:**
+
 - `initialState` (Required): The initial value of the state. If it is a function, that function will be called to lazily initialize the state.
 
 When updating based on the previous state, use the function version of `setState`:
 
 ```jsx
-import { useState } from 'react';
+import { useState } from "react";
 
 function Counter() {
   const [count, setCount] = useState(0);
   return (
-    <button onClick={() => setCount(prevCount => prevCount + 1)}>
+    <button onClick={() => setCount((prevCount) => prevCount + 1)}>
       Count: {count}
     </button>
   );
@@ -39,6 +38,7 @@ function Counter() {
 ```
 
 **Pitfalls:**
+
 - Directly mutating state instead of using the setter function (`setState`) or not passing a new object to the setter function
 - Referencing stale values in closures and updating with stale values; use the function version of `setState` if possible
 - Using `useState` when a value doesn't affect rendering; use [`useRef`](#useref) instead
@@ -48,7 +48,7 @@ Further reading: [useState - React](https://react.dev/reference/react/useState)
 ### Common mistake: mutating state directly
 
 ```js
-const [user, setUser] = useState({ name: 'Alice', age: 25 });
+const [user, setUser] = useState({ name: "Alice", age: 25 });
 user.age = 26; // ❌ This won't trigger a re-render
 ```
 
@@ -64,7 +64,7 @@ function onClick() {
 Instead, create a new object:
 
 ```js
-setUser(prevUser => ({ ...prevUser, age: 26 }));
+setUser((prevUser) => ({ ...prevUser, age: 26 }));
 ```
 
 ### Common mistake: updating state without considering previous state
@@ -76,7 +76,7 @@ setCount(count + 1); // Potential stale state issue if used within intervals or 
 One way to fix this is to use the functional version of the setter if your new state relies on the previous state:
 
 ```js
-setCount(prevCount => prevCount + 1);
+setCount((prevCount) => prevCount + 1);
 ```
 
 ---
@@ -90,37 +90,39 @@ useEffect(effectFunction, dependencyArray);
 ```
 
 **Parameters:**
+
 1. `effectFunction` (Required): A function that contains the side effect logic
 2. `dependencies` (Optional): An array of values that determine when the effect runs
 
 Depending on when the effect should run, the `dependencies` array is defined accordingly:
 
-| When should the effect run?         | Dependency array      | Example                                   |
-|-------------------------------------|----------------------|-------------------------------------------|
-| After every render                  | None                 | `useEffect(() => {...});`                 |
-| Once on mount                       | `[]` (empty)         | `useEffect(() => {...}, []);`             |
-| When any dependency changes         | `[var1, var2]`       | `useEffect(() => {...}, [var1, var2]);`   |
-| Cleaning up (on unmount or re-run)  | Varies               | `useEffect(() => { return () => {...}; }, []);` |
+| When should the effect run?        | Dependency array | Example                                         |
+| ---------------------------------- | ---------------- | ----------------------------------------------- |
+| After every render                 | None             | `useEffect(() => {...});`                       |
+| Once on mount                      | `[]` (empty)     | `useEffect(() => {...}, []);`                   |
+| When any dependency changes        | `[var1, var2]`   | `useEffect(() => {...}, [var1, var2]);`         |
+| Cleaning up (on unmount or re-run) | Varies           | `useEffect(() => { return () => {...}; }, []);` |
 
 `useEffect` is primarily for side effects / interacting with external services and that isn't too common during interviews. If you find yourself reaching for `useEffect` in your solutions, consider if there are alternatives.
 
 ```jsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function DataFetcher() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch('/api/data')
-      .then(response => response.json())
+    fetch("/api/data")
+      .then((response) => response.json())
       .then(setData);
   }, []);
 
-  return <div>{data ? JSON.stringify(data) : 'Loading...'}</div>;
+  return <div>{data ? JSON.stringify(data) : "Loading..."}</div>;
 }
 ```
 
 **Pitfalls:**
+
 - Not adding dependencies in the dependency array leading to stale closures
 - Causing infinite loops by updating state inside `useEffect` without proper dependency management
 - Unnecessary re-renders due to using objects/arrays in the dependency array
@@ -167,17 +169,17 @@ In the following example, the effect should only run when `filteredTodos` change
 ```jsx
 function TodoList({ todos }) {
   const [count, setCount] = useState(0);
-  const [status, setStatus] = useState('in_progress');
-  const filteredTodos = todos.filter(todo => todo.status === status);
+  const [status, setStatus] = useState("in_progress");
+  const filteredTodos = todos.filter((todo) => todo.status === status);
 
   useEffect(() => {
-    console.log('filteredTodos have changed');
+    console.log("filteredTodos have changed");
   }, [filteredTodos]);
 
   return (
     <div>
       <button onClick={() => setCount(count + 1)}>Force re-render</button>
-      <button onClick={() => setStatus('complete')}>Change status</button>
+      <button onClick={() => setStatus("complete")}>Change status</button>
     </div>
   );
 }
@@ -188,20 +190,20 @@ Use `useMemo` to memoize the object, ensuring that `filteredTodos` retain the sa
 ```jsx
 function TodoList({ todos }) {
   const [count, setCount] = useState(0);
-  const [status, setStatus] = useState('in_progress');
+  const [status, setStatus] = useState("in_progress");
   const filteredTodos = useMemo(
-    () => todos.filter(todo => todo.status === status),
+    () => todos.filter((todo) => todo.status === status),
     [todos, status]
   );
 
   useEffect(() => {
-    console.log('filteredTodos have changed');
+    console.log("filteredTodos have changed");
   }, [filteredTodos]);
 
   return (
     <div>
       <button onClick={() => setCount(count + 1)}>Force re-render</button>
-      <button onClick={() => setStatus('complete')}>Change status</button>
+      <button onClick={() => setStatus("complete")}>Change status</button>
     </div>
   );
 }
@@ -212,7 +214,7 @@ function TodoList({ todos }) {
 ```js
 useEffect(() => {
   const interval = setInterval(() => {
-    console.log('Running...');
+    console.log("Running...");
   }, 1000);
 }, []); // No cleanup
 ```
@@ -222,7 +224,7 @@ Return a cleanup function when needed:
 ```js
 useEffect(() => {
   const interval = setInterval(() => {
-    console.log('Running...');
+    console.log("Running...");
   }, 1000);
   return () => clearInterval(interval);
 }, []);
@@ -235,15 +237,15 @@ useEffect(() => {
 `useContext` provides a way to share state across components without prop drilling. It's useful for global state like themes, authentication, or user settings.
 
 ```jsx
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
-const ThemeContext = createContext('light');
+const ThemeContext = createContext("light");
 
 function App() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
   return (
     <ThemeContext.Provider value={theme}>
-      <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+      <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
         Toggle theme
       </button>
       <ThemedComponent />
@@ -254,7 +256,7 @@ function App() {
 function ThemedComponent() {
   const theme = useContext(ThemeContext);
   return (
-    <div style={{ backgroundColor: theme === 'dark' ? '#000' : '#fff' }}>
+    <div style={{ backgroundColor: theme === "dark" ? "#000" : "#fff" }}>
       Theme: {theme}
     </div>
   );
@@ -266,6 +268,7 @@ function ThemedComponent() {
 React automatically re-renders all the children that use a particular context starting from the provider that receives a different value.
 
 **Pitfalls:**
+
 - Using objects/functions as context values without memoization, leading to unnecessary re-renders
 - Overusing `useContext` for deeply nested state that might be better managed with a state management library
 
@@ -278,11 +281,11 @@ Here the context value is a list of todos. Whenever `TodoListContainer` re-rende
 ```jsx
 function TodoListContainer() {
   const [todos, setTodos] = useState([
-    { title: 'Fix bug', status: 'in_progress' },
-    { title: 'Add button', status: 'completed' },
+    { title: "Fix bug", status: "in_progress" },
+    { title: "Add button", status: "completed" },
   ]);
-  const [status, setStatus] = useState('in_progress');
-  const filteredTodos = todos.filter(todo => todo.status === status);
+  const [status, setStatus] = useState("in_progress");
+  const filteredTodos = todos.filter((todo) => todo.status === status);
 
   return (
     <TodoListContext.Provider value={filteredTodos}>
@@ -297,12 +300,12 @@ We can use `useMemo` to memoize `filteredTodos`, so it's only recalculated when 
 ```jsx
 function TodoListContainer() {
   const [todos, setTodos] = useState([
-    { title: 'Fix bug', status: 'in_progress' },
-    { title: 'Add button', status: 'completed' },
+    { title: "Fix bug", status: "in_progress" },
+    { title: "Add button", status: "completed" },
   ]);
-  const [status, setStatus] = useState('in_progress');
+  const [status, setStatus] = useState("in_progress");
   const filteredTodos = useMemo(
-    () => todos.filter(todo => todo.status === status),
+    () => todos.filter((todo) => todo.status === status),
     [todos, status]
   );
 
@@ -319,12 +322,13 @@ function TodoListContainer() {
 ## `useRef`
 
 `useRef` stores a mutable reference that persists across renders, commonly used for:
+
 - References data that is specific to the component instance
 - Storing references to the DOM
 - Storing data that does not affect the UI of the component (e.g. timeout or interval IDs). Mutating the ref values does not cause re-renders
 
 ```jsx
-import { useRef } from 'react';
+import { useRef } from "react";
 
 function FocusInput() {
   const inputRef = useRef(null);
@@ -338,6 +342,7 @@ function FocusInput() {
 ```
 
 **Pitfalls:**
+
 - Overusing `useRef` for state instead of [`useState`](#usestate)
 
 Further reading: [useRef - React](https://react.dev/reference/react/useRef)
@@ -349,7 +354,7 @@ Further reading: [useRef - React](https://react.dev/reference/react/useRef)
 `useId` is a hook introduced in React 18 that generates unique IDs for accessibility attributes and form elements. It ensures that the IDs are unique within a component tree, even when server-rendering.
 
 ```jsx
-import { useId } from 'react';
+import { useId } from "react";
 
 function Form() {
   const id = useId();
@@ -367,6 +372,7 @@ function Form() {
 - Avoiding having to manually generate unique IDs with libraries or global counters
 
 **Pitfalls:**
+
 - Do not use `useId` for keys in lists. Use stable values like database IDs instead
 - It is only useful for generating static IDs and should not be used to track dynamic state
 
@@ -430,7 +436,7 @@ function App() {
 
 function useCounter() {
   const [count, setCount] = useState(0);
-  return [count, () => setCount(x => x + 1)];
+  return [count, () => setCount((x) => x + 1)];
 }
 ```
 
@@ -525,6 +531,7 @@ They follow the same rules as React hooks but enable better code reuse, abstract
 4. **Encapsulation of side effects:** Custom hooks allow managing side effects (like API calls) separately, making debugging and testing easier
 
 A custom hook:
+
 - Is a JavaScript function that starts with `use` (e.g., `useCounter`, `useFetch`)
 - Must call other React hooks (e.g., `useState`, `useEffect`). If a custom hook does not call any React hooks, then it doesn't need to be a hook
 - Keep them focused – one purpose per hook
@@ -533,7 +540,7 @@ A custom hook:
 Here's an example of a `useCounter` custom hook. The value of such a hook is that it does not expose the `setCount` function and users of the hook are restricted to the exposed operations, they can only increment, decrement, or reset the value.
 
 ```js
-import { useState } from 'react';
+import { useState } from "react";
 
 function useCounter(initialValue = 0) {
   const [count, setCount] = useState(initialValue);
@@ -576,6 +583,7 @@ Further reading: [Reusing Logic with Custom Hooks](https://react.dev/learn/reusi
 ## Practice Questions
 
 **Quiz:**
+
 - [What are the benefits of using hooks in React?](/questions/quiz/what-are-the-benefits-of-using-hooks-in-react?framework=react&tab=quiz)
 - [What are the rules of React hooks?](/questions/quiz/what-are-the-rules-of-react-hooks?framework=react&tab=quiz)
 - [What is the difference between `useEffect` and `useLayoutEffect` in React?](/questions/quiz/what-is-the-difference-between-useeffect-and-uselayouteffect-in-react?framework=react&tab=quiz)
@@ -589,6 +597,7 @@ Further reading: [Reusing Logic with Custom Hooks](https://react.dev/learn/reusi
 - [What is `forwardRef()` in React used for?](/questions/quiz/what-is-forwardref-in-react-used-for?framework=react&tab=quiz)
 
 **Coding:**
+
 - [Progress Bars](/questions/user-interface/progress-bars/react?framework=react&tab=coding)
 - [Tabs](/questions/user-interface/tabs/react?framework=react&tab=coding)
 - [Analog Clock](/questions/user-interface/analog-clock/react?framework=react&tab=coding)

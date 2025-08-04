@@ -1,14 +1,13 @@
 # Answering Problem Solving Behavioral Questions
 
-*Learn how to answer "Tell me about a time..." styled questions for evaluating your problem solving skills.*
-
----
+_Learn how to answer "Tell me about a time..." styled questions for evaluating your problem solving skills._
 
 ---
 
 As mentioned in our [behavioral interview preparation overview](/behavioral-interview-playbook/introduction), **problem solving and drive for results** is one of the 8 main categories of questions to prepare for.
 
 **In this guide, you will learn how to tackle them:**
+
 1. Evaluation criteria in detail
 2. Abstracting possible questions into common themes
 3. Suggested answer framework
@@ -42,6 +41,7 @@ When rating candidates under this category, interviewers are often looking at th
 It is impractical to prepare answers specifically for every behavioral question out there. However, by batching specific questions into similar themes and preparing stories that cover a large number of question requirements, you can reduce the number of stories to prepare to around 3-5 stories.
 
 There are many types of problem solving and drive for results behavioral questions, such as:
+
 - Can you tell me about a time when you had to **use data to drive engineering decisions**?
 - Can you provide an example of a time when you had to **troubleshoot and fix a complex issue** in a project?
 - Can you describe a time you **creatively solved** an engineering problem or achieved meaningful metric improvement?
@@ -69,6 +69,7 @@ You just have to ensure that at least one of your [prepared stories or projects]
 You might need to tailor the details of your story to focus on the specific aspect asked in the specific question.
 
 We recommend you also pick problem solving stories that can doubly serve to get signals on the following:
+
 - **Proactivity/initiative-taking:** You took the initiative to look into the problem, gather information, and solve it
 - **Leadership:** You led the problem solving process
 - **Teamwork:** You had to work as part of a team to solve the problem
@@ -80,12 +81,15 @@ We recommend you also pick problem solving stories that can doubly serve to get 
 Here's a sample story using the STAR format.
 
 **Situation:**
+
 > I was the tech lead for an e-commerce website selling luxury goods. The website was built as an Angular 1.5 single-page application. In recent years, the product was showing its age – developer experience was not great and the website performance was poor. Initial loading speed was over 3 seconds and the conversion rate was around 0.8%.
 
 **Task:**
+
 > I was tasked with improving the performance and conversion of the website.
 
 **Actions:**
+
 1. **Problem identification**
    - Conversion is tied to website performance and UX
    - Website performance has been on a gradual decline over the past few years as there wasn't a person to oversee the overall architecture of the website and track performance metrics
@@ -112,6 +116,7 @@ Here's a sample story using the STAR format.
    - Countries with lower conversion rates saw nearly 50% improvement
 
 **Results:**
+
 - Lighthouse score improved to 92
 - Loading speed improved to 1.5 seconds
 - Conversion improved to 2.5%
@@ -124,11 +129,13 @@ Here's a sample story using the STAR format.
 ## Possible Nature of Follow-Up Questions
 
 Interviewers are encouraged to rely more on follow-up questions to really understand the candidate's thought process and motivations, which typically fall under these categories:
+
 - Why do you think you did (insert action)?
 - Why did you not do (insert action)?
 - How would you do things differently in hindsight?
 
 For questions on problem solving or drive for results, interviewers will most likely probe for questions to help them understand more about:
+
 - **The source of the task/problem/objective** (proactivity/initiative):
   - Was the project or task initiated by you? To what extent?
   - Was the underlying idea from you, or just the plan to execute?

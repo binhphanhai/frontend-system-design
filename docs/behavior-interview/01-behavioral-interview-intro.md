@@ -1,8 +1,6 @@
 # Behavioral Interview Playbook for Front End Engineers
 
-*Find out about evaluation criteria at big tech, efficient strategies to prepare, and top behavioral interview questions.*
-
----
+_Find out about evaluation criteria at big tech, efficient strategies to prepare, and top behavioral interview questions._
 
 ---
 
@@ -16,6 +14,7 @@ However, there are a few common challenges faced when preparing for them:
    Many candidates struggle to appear likable in an interview setting and to connect with the interviewer. We will cover some tips to tackle this based on our experience.
 
 **In this article, we will cover:**
+
 1. Behavioral interview signals and evaluation criteria
 2. Recommended preparation strategy
 3. Best way to conduct oneself on the actual interview
@@ -40,6 +39,7 @@ In addition to these, interviewers can also mark if there wasn't sufficient info
 Ratings have to be done with regard to the situation's complexity. A more difficult or complex situation handled well will typically receive a higher rating and leveling recommendation.
 
 At the end of the interview, they reconcile all the ratings and qualitative feedback to decide:
+
 - Whether to pass or fail the candidate
 - If passed, what level the candidate should receive
 
@@ -48,6 +48,7 @@ The implication is that we can typically expect behavioral interviews in big tec
 Additionally, it is important for candidates to avoid rambling on for long periods of time on one question as interviewers may run out of time. Poor communication or missing the point of the question could also constitute insufficient signals.
 
 Apart from that, interviewers are typically encouraged to utilize follow-up questions to dig deeper into the candidate's actual motivations and understanding behind their surface-level actions:
+
 1. Why do you think you did (insert action)?
 2. Why did you not do (insert action)?
 3. How would you do things differently in hindsight?
@@ -59,6 +60,7 @@ Hence, candidates should also prepare a solid understanding of each alternative 
 Here are the common evaluation categories and criteria from our experience conducting behavioral interviews for software engineers in big tech companies:
 
 #### 1. Collaboration
+
 - Handling disagreements
 - Working as a team
 - Working with diverse personalities and skills
@@ -67,6 +69,7 @@ Here are the common evaluation categories and criteria from our experience condu
 - Active listening
 
 #### 2. Driving Results and Problem Solving
+
 - Impact-driven mindset
   - Proactivity to make progress despite obstacles or roadblocks
   - Influencing others to deliver against objectives
@@ -80,6 +83,7 @@ Here are the common evaluation categories and criteria from our experience condu
   - Measuring results, iterating and following through
 
 #### 3. Growth Mindset
+
 - Having self-awareness of strengths and development areas
 - Actively soliciting feedback from others and creating feedback loops
 - Taking feedback and setbacks well, viewing them as opportunities
@@ -88,6 +92,7 @@ Here are the common evaluation categories and criteria from our experience condu
 - Energized by setting and working towards challenging goals
 
 #### 4. Adaptability and Flexibility
+
 - Performing well in uncertainty
 - Remaining calm and focused, serving as stable presence for others
 - Flexible and quick to adapt to unexpected situations
@@ -99,11 +104,13 @@ Behavioral interviews are one of the interview formats where it is possible for 
 Understand the expected behaviors for the commonly-defined engineering levels and craft your responses ensuring they match your current level or the level you are targeting.
 
 #### Junior Software Engineer (L3)
+
 - Takes direction from managers and/or senior members of the team.
 - Executes on well-defined tasks without too much guidance.
 - Primarily improves their own skills and craft.
 
 #### Software Engineer (L4)
+
 - Understands project purpose and helps to achieve the team's objectives.
 - Splits larger projects (typically feature work) given to them into smaller tasks for timely execution.
 - Suitably balances between delegating tasks and performing tasks themselves.
@@ -111,6 +118,7 @@ Understand the expected behaviors for the commonly-defined engineering levels an
 - Collaborates cross-functionally with guidance from senior members of the team.
 
 #### Senior Software Engineer (L5)
+
 - Leads development on complex tasks and projects within the team.
   - Identifies well thought out solutions to ambiguous projects of large scope
   - Breaks solution down into smaller projects and delegates some of them to team members.
@@ -119,6 +127,7 @@ Understand the expected behaviors for the commonly-defined engineering levels an
 - Works cross-functionally independently and drives complex, ambiguous discussions.
 
 #### Staff Software Engineer (L6)
+
 - Understands business goals and advises managers and organization leaders to achieve the goals.
 - Leads or greatly influences direction of a team of engineers.
 - Demonstrates domain expertise and is looked up to by other engineers.
@@ -127,6 +136,7 @@ Understand the expected behaviors for the commonly-defined engineering levels an
 - Works on projects requiring interactions with engineers and cross-functional partners across multiple teams.
 
 #### Senior Staff Software Engineer (L7) and beyond
+
 - Owns organization/company-wide business/engineering goals and delivers on them.
 - Influences or leads product and engineering roadmaps within the organization/company.
 - Leads solution development and delivery for highly complex and ambiguous areas.
@@ -156,6 +166,7 @@ There is quite a lot of variance in terms of the questions that could be asked. 
 The general strategy to tackle the large variance of "Tell me about a time when..." questions to be asked is to prepare 3-5 general and well-thought out stories that could be used to address multiple required traits. For instance, an experience collaborating extensively with others could display your traits in communication, teamwork, leadership, conflict management, etc. Whenever an interviewer asks you a question, you could run through the stories you have prepared and adapt them to answer the specific question.
 
 **Tips to select and prepare good project experiences as stories:**
+
 - Check against the evaluation criteria above and try to pick broad experiences which can be used to address multiple criteria. Then, write down short bullet points of how you exhibited behavior that fulfilled required traits.
 - Choose experiences that showcase your level expectations. For instance, if you are applying for a Staff Software Engineer position, ensure that your experiences exhibit your influence on the direction of entire teams.
 - Do not reuse the same stories too much in the same interview loop. Interviewers tend to discuss candidate performance together, hence overusing the same story could come off as repetitive and insufficient breadth of experience.
@@ -164,12 +175,14 @@ The general strategy to tackle the large variance of "Tell me about a time when.
 ### Structure Initial Answers with the STAR Framework
 
 Having prepared a story you could use, you need to structure them well when answering specific questions. One requirement interviewers are always asked to look out for is the candidate's actual ability to communicate during the interview (as opposed to what they claim), which is evaluated as follows:
+
 - Well-organized and easy to follow thought process
 - Good intuition on which details should be elaborated and which to keep simple
 - Leaves others clear on purpose and actions
 - Demonstrates active listening
 
 To achieve the above, you need to structure your answers well to ensure that it is concise and gets to the point below 3 minutes. One rough guideline you could use is a framework like STAR:
+
 - **Situation:** Present basic details of the scenario, just enough to understand the challenge you were in. (Do not spend too much time on this)
 - **Task:** What did you need to achieve or do in the scenario? (Do not spend too much time on this)
 - **Action:** What did you do? This is where you exhibit required traits based on the approach you took to solve the challenge or situation.
@@ -180,12 +193,15 @@ To achieve the above, you need to structure your answers well to ensure that it 
 > **Question:** Tell me about a time you had to manage multiple conflicting priorities and how you handled it.
 
 **Situation:**
+
 > In my current job as Front End Engineer in a startup, I was once in a situation where I had to deliver several important features for an e-commerce campaign at very short notice, since different teams were making feature requests at the time.
 
 **Task:**
+
 > As I recognized that it was not possible for me to achieve all of them with good quality and also in a timely manner. I had to find a way to deconflict their priorities.
 
 **Action:**
+
 - Arranged a quick meeting with all relevant product and engineering stakeholders to co-prioritize and assign the appropriate resources to support this project.
 - Listed the features requested from every team and worked with all the relevant stakeholders to identify each feature's contribution to business objectives, while also roughly estimating the engineering effort for each one.
 - Helped deprioritize features that had very high engineering effort but little contribution to the objectives.
@@ -193,6 +209,7 @@ To achieve the above, you need to structure your answers well to ensure that it 
 - Broke down my features into smaller tasks and planned them into daily and weekly milestones, reviewing my progress regularly with the team.
 
 **Result:**
+
 > With this co-prioritization and planning effort, I was able to achieve all the required features by the stipulated timeline.
 
 ### Important Warning About Your Answers
@@ -214,6 +231,7 @@ Some candidates think of behavioral interviews as a test or an exam, where you h
 A behavioral interview usually happens after the technical rounds are completed. Candidates that have passed the technical rounds are considered technically competent. However, as a manager, you hardly really know this stranger (the candidate). Interviews are a conversation for you to get to know this stranger as a person. It's just like a typical chat in a social setting, somewhat like a speed date, except the interviewer needs to get to know you enough to decide if you can work well.
 
 Understandably, as an interviewer, you would generally try to sieve out:
+
 - Is this candidate going to be a **poor performer**? (e.g. Often misses deadlines, not accountable, not driven, gets into regular conflict with others, communicates poorly, does not take feedback well. Are they lying or exaggerating on their CV?)
 - Is the candidate going to be a **superstar, driven teammate**? (e.g. communicates well, resourceful and independent in solving problems, able to manage stakeholders, proactive and works hard in enacting new initiatives to drive the team forward.)
 - Is the candidate going to be **easy to manage**? (e.g. takes feedback well, likable, sociable and does not give you problems.)
@@ -227,6 +245,7 @@ Interviewers always mention team "fit" as a criteria for evaluating you. But the
 One way to do so is to ask the recruiter or other interviewers in prior rounds to the behavioral round. Commonly, prior to starting the resume screening / interview process, the hiring managers would have aligned internally on the key criteria they are looking out for in the new candidate. For example, they could be looking for someone who is primarily more proactive as they want more independent drivers in the team. As such, interviewers will tend to look out for those specific traits and ask questions to sieve out those traits.
 
 However, some fail-safe, general tips to conduct yourself:
+
 1. **Friendly and positive:** Friendly and positive people tend to fit well in any team.
 2. **Proactive and driven:** Go-getters are correlated with higher performance.
 3. **Enthusiastic:** Demonstrate clear interest about the role, team, and the company.

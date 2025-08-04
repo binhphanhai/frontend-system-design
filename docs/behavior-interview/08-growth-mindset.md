@@ -1,14 +1,13 @@
 # Answering Growth Mindset Behavioral Questions
 
-*Learn how to answer "Tell me about a time..." styled questions for evaluating if you have a strong growth mindset.*
-
----
+_Learn how to answer "Tell me about a time..." styled questions for evaluating if you have a strong growth mindset._
 
 ---
 
 As mentioned in our [behavioral interview preparation overview](/behavioral-interview-playbook/introduction), **growth mindset** is one of the 8 main categories of questions to prepare for.
 
 **In this guide, you will learn how to tackle them:**
+
 1. Evaluation criteria in detail
 2. Abstracting possible questions into common themes
 3. Suggested answer framework
@@ -19,6 +18,7 @@ As mentioned in our [behavioral interview preparation overview](/behavioral-inte
 ## Evaluation Criteria in Detail
 
 When evaluating candidates under this category, interviewers are often looking at the following criteria:
+
 - Having self awareness of strengths and development areas
 - Actively soliciting feedback from others and creating feedback loops
 - Taking feedback and setbacks well, viewing them as opportunities
@@ -32,6 +32,7 @@ When evaluating candidates under this category, interviewers are often looking a
 ## Abstracting Growth Mindset Questions
 
 ### Common Questions
+
 - What do you think is your greatest area for improvement?
 - Can you tell me about a time you improved upon your work upon receiving criticism or feedback?
 - Tell me about a time you set a difficult goal for yourself and achieved it
@@ -42,9 +43,11 @@ When evaluating candidates under this category, interviewers are often looking a
 - Imagine you need to implement a new system that you do not have much experience with. What steps do you take to gather information and ensure successful execution?
 
 ### Themes Identified
+
 As with other behavioral categories, it is impractical to prepare answers for every possible question. By batching questions into similar themes and preparing stories that cover a large number of requirements, you can reduce the number of stories to prepare to around 3-5.
 
 Recurring themes:
+
 - Receiving and managing feedback
 - Mindset towards challenges and stretch goals
 - Continued learning
@@ -58,6 +61,7 @@ As always, the [STAR format](https://www.indeed.com/career-advice/interviewing/h
 Here are recommended approaches for each identified theme:
 
 ### Receiving and Managing Feedback/Setbacks
+
 1. Actively solicit feedback from others where possible (e.g. after every large project)
 2. Take personal accountability for mistakes and produce an action plan to address them
 3. Have a healthy mindset towards feedback/setbacks:
@@ -66,13 +70,16 @@ Here are recommended approaches for each identified theme:
 4. Take steps to reflect upon past experiences in order to model best practices and put them into action in the next relevant situation
 
 ### Mindset Towards Challenges / Stretch Goals
+
 1. Derive energy from setting and working towards stretch goals, seeing them as opportunities for growth
 2. Display consistency and discipline in following through with a detailed plan
 
 ### Continued Learning
+
 A good answer combines a consistent schedule and effort placed into learning, as well as how the learning was proactively applied to work. For example: "I learned about X because I was doing Y. This impacted the way that I was tackling Z at work because it made me realize W and V."
 
 Key ideas to structure your answer around technical learning (add concrete examples of events, newsletters, or communities you have participated in):
+
 1. Follow relevant blogs, newsletters, podcasts that cover the latest developments in front end technologies and techniques. Give some examples (which you do actually follow) and the content or tech they provide.
    - **Front End Influencers:**
      - [Dan Abramov](https://twitter.com/dan_abramov) — Co-creator of Redux, React core team
@@ -106,6 +113,7 @@ Key ideas to structure your answer around technical learning (add concrete examp
 > To make this learning process more fun and collaborative, I started a front end social club within my company by creating a new Slack channel and inviting a few like-minded coworkers to join. Anyone can share front end news they find interesting there and discuss front end technologies. It has been pretty well-received, with over 30 people currently in the channel and activity nearly everyday. A side effect of this initiative is that people also start asking questions about front end issues they are facing at work, and we created another Slack channel for people to get help on front end issues. Feedback has been really positive so far!
 
 **This answer demonstrates:**
+
 - **Passion:** Keen to learn more about front end domain
 - **Growth:** Identified that the lack of growth would be a problem
 - **Initiative:** Acted on the problem of lack of growth
@@ -122,6 +130,7 @@ Key ideas to structure your answer around technical learning (add concrete examp
 > Within two months, I felt like I had learnt so much and was comfortable with most of the code base. I could build full stack features without much guidance from my mentor. To help future new employees who might face the same onboarding challenge, I jotted down my learnings in our internal wiki along with links to the best resources for learning the topic. My manager appreciated the initiative and commended me for that. Today, it is part of our official engineering onboarding resource and I update it every once in a while. A few new joiners have also thanked me for sharing my knowledge in the wiki and making their onboarding process smoother.
 
 **This answer demonstrates:**
+
 - **Coachable:** Follows guidance/suggestions by the mentor
 - **Problem solving:** Came up with a few ways to help themselves onboard faster
 - **Initiative:** Initiative to start the wiki

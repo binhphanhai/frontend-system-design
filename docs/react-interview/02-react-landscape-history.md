@@ -1,8 +1,6 @@
 # Landscape and History of React
 
-*A overview of React's evolution, from its Facebook origins to its current dominance as a versatile, battle-tested library with a vast ecosystem of tools and innovations*
-
----
+_A overview of React's evolution, from its Facebook origins to its current dominance as a versatile, battle-tested library with a vast ecosystem of tools and innovations_
 
 ---
 
@@ -44,18 +42,23 @@ The React ecosystem is vast and consists of several official and community-drive
 Aim to be familiar and gain experience with at least one technology in each category.
 
 ### State Management
+
 React has built-in state management (`useState`, `useReducer`, and Context API), but external solutions are often used for managing global state.
+
 - [Redux](https://redux.js.org/): A predictable state container often used for large applications
 - [Zustand](https://zustand-demo.pmnd.rs/): A lightweight alternative to Redux with a simple API
 - [Jotai](https://jotai.pmnd.rs/): A minimal atomic state library for React
 
 ### UI Components
+
 Many UI libraries provide styled and themeable components for React applications.
+
 - [MUI (Material UI)](https://mui.com/): A popular and themeable component library based originally on Material Design
 - [Mantine](https://mantine.dev/): A modern, fully-featured React component library with built-in accessibility, dark mode support, and a flexible styling API
 - [Ant Design](https://ant.design/): A popular enterprise-focused UI component library
 
 Headless UI libraries provide unstyled, fully accessible components that give developers full control over styling while maintaining functionality and accessibility best practices.
+
 - [Headless UI](https://headlessui.com/): Developed by the Tailwind team, it provides fully accessible, unstyled components like modals, dropdowns, and accordions
 - [Radix UI](https://radix-ui.com/): A set of highly composable, accessible components designed for low-level UI building with full styling flexibility
 - [Base UI](https://base-ui.com/): Headless, unstyled component library from creators of Radix UI, and Material UI team
@@ -63,25 +66,33 @@ Headless UI libraries provide unstyled, fully accessible components that give de
 - [Ariakit](https://ariakit.org/): Open-source library with unstyled, primitive components, with a collection of styled examples that you can copy and paste into your apps
 
 ### Data Fetching
+
 React apps frequently fetch data from HTTP APIs and libraries have been built to make it easier to fetch data, incorporating useful features like caching, retries, and pagination.
+
 - [React Query (TanStack Query)](https://tanstack.com/query): Popular server state management tool for React. It optimizes caching, background syncing, and pagination
 - [SWR](https://swr.vercel.app/): A lightweight data fetching library by Vercel, optimized for performance
 - [Apollo Client](https://www.apollographql.com/): The most widely-used GraphQL client for React
 - [Relay](https://relay.dev/): A GraphQL client by Meta that is optimized for performance
 
 ### Form Validation
+
 Libraries for client-side validation of forms built in React.
+
 - [React Hook Form](https://react-hook-form.com/): A lightweight, performant library built entirely with React hooks. Minimizes re-renders and supports both built‑in validation rules and schema-based validation (with Yup, Zod, etc.), making it ideal for both small and complex forms
 - [Formik](https://formik.org/): Although no longer maintained, it was one of the most popular form libraries that offers a declarative way to manage form state, validation, and error handling. Formik is often paired with Yup for schema validation but tends to be more opinionated and slightly heavier compared to React Hook Form
 
 ### Routing & Metaframeworks
+
 Several frameworks extend React (known as metaframeworks) by adding routing, server-side rendering, and full stack capabilities.
+
 - [Next.js](https://nextjs.org/): A full stack React framework by Vercel that supports various rendering approaches (e.g. server-side rendering (SSR), static site generation (SSG)) and nested routing
 - [Remix](https://remix.run/) & [React Router](https://reactrouter.com/): A full-stack React framework that emphasizes progressive enhancement and nested routing, from the creators of React Router. The Remix team [merged Remix's features into React Router v7](https://remix.run/blog/merging-remix-and-react-router)
 - [TanStack Start](https://tanstack.com/start): Full-stack React framework powered by TanStack Router
 
 ### Testing & Debugging
+
 React applications often require unit, integration, and end-to-end testing.
+
 - [Jest](https://jestjs.io/): A popular testing framework for unit and integration tests
 - [Vitest](https://vitest.dev/): A testing framework that uses Vite bundling and config
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/): A user-focused testing library that simulates real user interactions
@@ -90,13 +101,17 @@ React applications often require unit, integration, and end-to-end testing.
 - [React DevTools](https://react.dev/tools): An official browser extension for debugging React components
 
 ### Bundlers
+
 Bundlers help convert your modular code (with imports, JSX, CSS, images, etc.) into optimized bundles that can be efficiently served in development and production.
+
 - [Vite](https://vitejs.dev/): A very fast development server and bundler for web apps, with great support for React
 - [Parcel](https://parceljs.org/): A zero-config bundler for JavaScript apps, including React
 - [webpack](https://webpack.js.org/): Highly configurable module bundler that has been the industry standard for many years. Succeeded by [Turbopack](https://turbo.build/pack/docs)
 
 ### Animation & Effects
+
 Animation has traditionally been quite difficult to build in React. Thankfully, various animation and transition libraries were created to make animation easier.
+
 - [Motion](https://motion.dev/): A popular and powerful animation library with a declarative API. Previously Framer Motion
 - [React Spring](https://react-spring.dev/): Provides fluid, physics-based animations
 - [GSAP (GreenSock)](https://greensock.com/gsap/): A high-performance JavaScript animation library compatible with React
