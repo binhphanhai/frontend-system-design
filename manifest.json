@@ -1,0 +1,32 @@
+{
+  "name": "Frontend Interview Preparation",
+  "short_name": "Frontend Prep",
+  "description": "Comprehensive guide for frontend interviews, system design, React, and behavioral questions",
+  "start_url": "/frontend-system-design/",
+  "display": "standalone",
+  "theme_color": "#2e8555",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/frontend-system-design/img/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/frontend-system-design/img/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["education", "reference"],
+  "screenshots": [
+    {
+      "src": "/frontend-system-design/img/docusaurus-social-card.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    }
+  ]
+}
