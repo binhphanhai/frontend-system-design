@@ -166,6 +166,12 @@ const config: Config = {
           label: 'Behavioral Interview',
         },
         {
+          type: 'docSidebar',
+          sidebarId: 'javascriptPracticalSidebar',
+          position: 'left',
+          label: 'JavaScript Practical',
+        },
+        {
           href: 'https://github.com/binhphanhai/frontend-system-design',
           label: 'GitHub',
           position: 'right',

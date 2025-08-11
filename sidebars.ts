@@ -153,6 +153,12 @@ const sidebars: SidebarsConfig = {
       ],
     },
   ],
+  javascriptPracticalSidebar: [
+    "javascript-practical/intro",
+    "javascript-practical/basic-exercises",
+    "javascript-practical/advanced-exercises",
+    "javascript-practical/project-ideas",
+  ],
 };
 
 export default sidebars;
