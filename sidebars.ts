@@ -150,6 +150,7 @@ const sidebars: SidebarsConfig = {
         "behavior-interview/growth-mindset",
         "behavior-interview/self-answer",
         "behavior-interview/self-answer-for-binance",
+        "behavior-interview/companies",
       ],
     },
   ],
