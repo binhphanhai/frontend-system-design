@@ -1,13 +1,14 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
-import type * as Preset from '@docusaurus/preset-classic';
+import { themes as prismThemes } from "prism-react-renderer";
+import type { Config } from "@docusaurus/types";
+import type * as Preset from "@docusaurus/preset-classic";
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Frontend Interview Preparation',
-  tagline: 'Comprehensive guide for frontend interviews, system design, React, and behavioral questions',
-  favicon: 'img/favicon.ico',
+  title: "Frontend Interview Preparation",
+  tagline:
+    "Comprehensive guide for frontend interviews, system design, React, and behavioral questions",
+  favicon: "img/favicon.ico",
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -15,55 +16,55 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://binhphanhai.github.io',
+  url: "https://binhphanhai.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/frontend-system-design/',
+  baseUrl: "/frontend-system-design/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'binhphanhai', // Usually your GitHub org/user name.
-  projectName: 'frontend-system-design', // Usually your repo name.
+  organizationName: "binhphanhai", // Usually your GitHub org/user name.
+  projectName: "frontend-system-design", // Usually your repo name.
 
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: "warn",
+  onBrokenMarkdownLinks: "warn",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en"],
   },
 
   presets: [
     [
-      'classic',
+      "classic",
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: "./sidebars.ts",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/binhphanhai/frontend-system-design/tree/main/Summarize/',
+            "https://github.com/binhphanhai/frontend-system-design/tree/main/Summarize/",
         },
         blog: {
           showReadingTime: true,
           feedOptions: {
-            type: ['rss', 'atom'],
+            type: ["rss", "atom"],
             xslt: true,
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
           // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+          onInlineTags: "warn",
+          onInlineAuthors: "warn",
+          onUntruncatedBlogPosts: "warn",
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       } satisfies Preset.Options,
     ],
@@ -133,48 +134,54 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: 'Frontend Interview Prep',
+      title: "Frontend Interview Prep",
       logo: {
-        alt: 'Frontend Interview Preparation Logo',
-        src: 'img/logo.svg',
+        alt: "Frontend Interview Preparation Logo",
+        src: "img/logo.svg",
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'frontendSystemDesignSidebar',
-          position: 'left',
-          label: 'System Design',
+          type: "docSidebar",
+          sidebarId: "frontendSystemDesignSidebar",
+          position: "left",
+          label: "System Design",
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'frontendInterviewSidebar',
-          position: 'left',
-          label: 'Frontend Interview',
+          type: "docSidebar",
+          sidebarId: "frontendInterviewSidebar",
+          position: "left",
+          label: "Frontend Interview",
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'reactInterviewSidebar',
-          position: 'left',
-          label: 'React Interview',
+          type: "docSidebar",
+          sidebarId: "reactInterviewSidebar",
+          position: "left",
+          label: "React Interview",
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'behaviorInterviewSidebar',
-          position: 'left',
-          label: 'Behavioral Interview',
+          type: "docSidebar",
+          sidebarId: "behaviorInterviewSidebar",
+          position: "left",
+          label: "Behavioral Interview",
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'javascriptPracticalSidebar',
-          position: 'left',
-          label: 'JavaScript Practical',
+          type: "docSidebar",
+          sidebarId: "javascriptPracticalSidebar",
+          position: "left",
+          label: "JavaScript Practical",
         },
         {
-          href: 'https://github.com/binhphanhai/frontend-system-design',
-          label: 'GitHub',
-          position: 'right',
+          type: "docSidebar",
+          sidebarId: "projectDetailSidebar",
+          position: "left",
+          label: "Project Details",
+        },
+        {
+          href: "https://github.com/binhphanhai/frontend-system-design",
+          label: "GitHub",
+          position: "right",
         },
       ],
     },

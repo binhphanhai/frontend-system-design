@@ -159,6 +159,20 @@ const sidebars: SidebarsConfig = {
     "javascript-practical/advanced-exercises",
     "javascript-practical/project-ideas",
   ],
+  projectDetailSidebar: [
+    {
+      type: "category",
+      label: "Project Details",
+      items: [
+        "project-detail/tomteptalk",
+        "project-detail/urchin",
+        "project-detail/landing-site-fo",
+        "project-detail/landing-site-bo",
+        "project-detail/affiliate-framework-fo",
+        "project-detail/affiliate-framework-bo",
+      ],
+    },
+  ],
 };
 
 export default sidebars;
