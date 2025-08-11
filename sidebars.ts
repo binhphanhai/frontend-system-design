@@ -172,6 +172,16 @@ const sidebars: SidebarsConfig = {
         "project-detail/affiliate-framework-bo",
       ],
     },
+    {
+      type: "category",
+      label: "Library Under the Hood",
+      items: [
+        "project-detail/react-virtuoso",
+        "project-detail/react-native",
+        "project-detail/dexie-and-indexed-db",
+        "project-detail/web-socket",
+      ],
+    },
   ],
 };
 
