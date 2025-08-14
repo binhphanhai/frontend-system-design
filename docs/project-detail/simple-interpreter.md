@@ -29,16 +29,44 @@ The Simple Interpreter project is a Vietnamese programming language interpreter 
 
 ### Technology Stack
 
+The following code demonstrates the comprehensive technology stack used in building the Vietnamese programming language interpreter. This stack is carefully chosen to balance performance, maintainability, and browser compatibility.
+
+**What this code does:** Defines the complete technology architecture for the interpreter project.
+**Input:** Configuration object with nested properties for different system components.
+**Output:** A structured overview of all technologies and approaches used.
+**Purpose:** Provides a clear roadmap of technical decisions and architectural choices.
+
 ```javascript
 // Project configuration from package.json perspective
+// This object maps out the entire technical ecosystem of the interpreter
 const projectStack = {
+  // Frontend framework choice - Next.js provides excellent developer experience
+  // with built-in TypeScript support and optimized bundling
   frontend: "Next.js with TypeScript",
+
+  // UI layer - React components with CSS modules for scoped styling
+  // CSS modules prevent style conflicts and improve maintainability
   ui: "React components with CSS modules",
+
+  // Deployment strategy - Static export enables hosting on GitHub Pages
+  // No server required, making the interpreter fully client-side
   deployment: "Static export for GitHub Pages",
+
+  // Core interpreter components - each serves a specific role in the compilation pipeline
   interpreter: {
+    // Lexer: Converts raw text into meaningful tokens (words, operators, etc.)
     lexer: "TypeScript-based tokenization",
+
+    // Parser: Builds a tree structure (AST) from the stream of tokens
+    // Uses recursive descent parsing for readable and maintainable code
     parser: "Recursive descent parser",
+
+    // AST: Intermediate representation that captures program structure
+    // Makes it easy to traverse and manipulate the program before execution
     ast: "Abstract Syntax Tree representation",
+
+    // Executor: Walks through the AST and actually runs the program
+    // Tree-walking is simple to implement and debug
     executor: "Tree-walking interpreter",
   },
 };
@@ -63,23 +91,43 @@ newbie-interpreter/
 
 ### Three-Phase Compilation Pipeline
 
+This section demonstrates the core architecture of the interpreter using a three-phase compilation pipeline. This is the standard approach used by most programming languages and provides clear separation of concerns.
+
+**What this code does:** Implements the main interpreter pipeline that processes Vietnamese source code through three distinct phases.
+**Input:** Raw Vietnamese source code as a string (e.g., "gán a = 10")
+**Output:** Executed result with program output and final variable states
+**Steps:**
+
+1. **Lexical Analysis:** Breaks down text into meaningful tokens (keywords, operators, numbers, etc.)
+2. **Syntax Analysis:** Converts tokens into an Abstract Syntax Tree (AST) representing program structure
+3. **Execution:** Traverses the AST and evaluates the program, producing final results
+
 ```javascript
 // Simplified interpreter pipeline
+// This class orchestrates the entire interpretation process from source code to execution
 class InterpreterPipeline {
   constructor() {
-    this.lexer = new Lexer();
-    this.parser = new Parser();
-    this.interpreter = new Interpreter();
+    // Initialize the three core components of the interpreter
+    // Each component handles a specific phase of the compilation process
+    this.lexer = new Lexer(); // Phase 1: Text → Tokens
+    this.parser = new Parser(); // Phase 2: Tokens → AST
+    this.interpreter = new Interpreter(); // Phase 3: AST → Results
   }
 
   execute(sourceCode) {
     // Phase 1: Lexical Analysis (Text → Tokens)
+    // Convert raw Vietnamese text into a stream of meaningful tokens
+    // Example: "gán a = 10" becomes [GAN, IDENTIFIER(a), ASSIGN, NUMBER(10)]
     const tokens = this.lexer.tokenize(sourceCode);
 
     // Phase 2: Syntax Analysis (Tokens → AST)
+    // Build an Abstract Syntax Tree that represents the program's structure
+    // This validates syntax and creates a tree-like representation of the code
     const ast = this.parser.parse(tokens);
 
     // Phase 3: Execution (AST → Result)
+    // Walk through the AST and actually execute the program
+    // Variables are stored, expressions are evaluated, and output is generated
     const result = this.interpreter.evaluate(ast);
 
     return result;
@@ -87,38 +135,78 @@ class InterpreterPipeline {
 }
 
 // Example Vietnamese code execution
+// This demonstrates a simple program with variable assignment and arithmetic
 const code = `
-gán a = 10
-gán b = 20
-in (a + b)
+gán a = 10    // Assign value 10 to variable 'a'
+gán b = 20    // Assign value 20 to variable 'b'
+in (a + b)    // Print the sum of a and b (should output 30)
 `;
 
+// Create interpreter instance and execute the Vietnamese code
 const interpreter = new InterpreterPipeline();
 const output = interpreter.execute(code); // → 30
+
+// The execution flow:
+// 1. Lexer converts text into tokens: [GAN, IDENTIFIER(a), ASSIGN, NUMBER(10), ...]
+// 2. Parser builds AST with assignment and print statement nodes
+// 3. Interpreter executes: creates variables a=10, b=20, then prints 30
 ```
 
 ### Component Relationships
 
+This section illustrates how the three main components of the interpreter work together in a pipeline. Understanding these relationships is crucial for debugging and extending the interpreter.
+
+**What this code does:** Maps the data flow and responsibilities between interpreter components.
+**Input:** Architecture configuration showing component interfaces and dependencies.
+**Output:** Clear understanding of how data flows through the interpretation pipeline.
+**Purpose:** Provides a blueprint for understanding component interactions and debugging issues.
+
 ```javascript
 // Interpreter component architecture
+// This object defines the clear separation of concerns and data flow between components
 const interpreterArchitecture = {
+  // Starting point: Vietnamese source code as plain text
   input: "Vietnamese source code",
 
+  // LEXER COMPONENT: First phase of interpretation
   lexer: {
+    // Takes raw Vietnamese text character by character
     input: "Raw text",
+
+    // Produces a sequence of tokens (keywords, operators, literals, etc.)
+    // Example: "gán x = 5" → [GAN_TOKEN, IDENTIFIER_TOKEN(x), ASSIGN_TOKEN, NUMBER_TOKEN(5)]
     output: "Token stream",
+
+    // Primary job: Convert text into meaningful symbols that the parser can understand
+    // Handles: keyword recognition, string parsing, number parsing, operator detection
     responsibility: "Character-by-character analysis",
   },
 
+  // PARSER COMPONENT: Second phase of interpretation
   parser: {
+    // Consumes the stream of tokens produced by the lexer
     input: "Token stream",
+
+    // Builds a hierarchical tree structure representing program logic
+    // Each node represents a language construct (statement, expression, etc.)
     output: "Abstract Syntax Tree",
+
+    // Primary job: Ensure syntax is correct and build meaningful program structure
+    // Handles: Grammar validation, precedence rules, AST node creation
     responsibility: "Syntax validation and structure building",
   },
 
+  // INTERPRETER COMPONENT: Third phase of interpretation
   interpreter: {
+    // Works with the structured AST built by the parser
     input: "Abstract Syntax Tree",
+
+    // Produces actual program results: printed output, variable values, etc.
+    // Example: Final result might be { output: ["30"], variables: {a: 10, b: 20} }
     output: "Execution result",
+
+    // Primary job: Actually run the program by walking through the AST
+    // Handles: Variable storage, expression evaluation, statement execution
     responsibility: "Tree traversal and evaluation",
   },
 };
@@ -128,200 +216,279 @@ const interpreterArchitecture = {
 
 ### Token Definition System
 
+The token definition system is the foundation of the lexer, defining all possible meaningful units in the Vietnamese programming language. Each token represents a specific type of language element that the parser can understand.
+
+**What this code does:** Defines an enumeration of all token types and the Token interface structure.
+**Input:** Source code characters that need to be classified into meaningful units.
+**Output:** Typed tokens with position information for error reporting and parsing.
+**Purpose:** Creates a standardized vocabulary that both the lexer and parser can use to communicate.
+
+The enum uses string literals instead of numbers for better debugging and error messages. Each token carries positional information (line/column) for helpful error reporting.
+
 ```typescript
 // Token types for Vietnamese programming language
+// This enum defines every possible type of token our lexer can recognize
 enum TokenType {
-  // Literals
-  NUMBER = "NUMBER",
-  STRING = "STRING",
-  BOOLEAN = "BOOLEAN",
+  // LITERALS: Raw values that appear directly in code
+  NUMBER = "NUMBER", // Numeric literals: 42, 3.14, -7
+  STRING = "STRING", // Text literals: "Xin chào", "Hello World"
+  BOOLEAN = "BOOLEAN", // Boolean literals: đúng (true), sai (false)
 
-  // Identifiers
-  IDENTIFIER = "IDENTIFIER",
+  // IDENTIFIERS: User-defined names for variables, functions, etc.
+  IDENTIFIER = "IDENTIFIER", // Variable names: myVar, userName, tổng
 
-  // Keywords (Vietnamese)
-  GAN = "GAN", // gán (assign)
-  NEU = "NEU", // nếu (if)
-  KHAC = "KHAC", // khác (else)
-  LAP = "LAP", // lặp (loop)
-  HAM = "HAM", // hàm (function)
-  TRA_VE = "TRA_VE", // trả về (return)
-  IN = "IN", // in (print)
+  // KEYWORDS (Vietnamese): Reserved words that have special meaning
+  GAN = "GAN", // gán (assign) - for variable assignment
+  NEU = "NEU", // nếu (if) - conditional statements
+  KHAC = "KHAC", // khác (else) - alternative branch in conditionals
+  LAP = "LAP", // lặp (loop) - for iteration constructs
+  HAM = "HAM", // hàm (function) - function definitions
+  TRA_VE = "TRA_VE", // trả về (return) - return statements
+  IN = "IN", // in (print) - output statements
 
-  // Operators
-  PLUS = "PLUS", // +
-  MINUS = "MINUS", // -
-  MULTIPLY = "MULTIPLY", // *
-  DIVIDE = "DIVIDE", // /
-  ASSIGN = "ASSIGN", // =
-  EQUAL = "EQUAL", // ==
-  NOT_EQUAL = "NOT_EQUAL", // !=
+  // OPERATORS: Symbols that perform operations on values
+  PLUS = "PLUS", // + (addition or string concatenation)
+  MINUS = "MINUS", // - (subtraction or negation)
+  MULTIPLY = "MULTIPLY", // * (multiplication)
+  DIVIDE = "DIVIDE", // / (division)
+  ASSIGN = "ASSIGN", // = (assignment operator)
+  EQUAL = "EQUAL", // == (equality comparison)
+  NOT_EQUAL = "NOT_EQUAL", // != (inequality comparison)
 
-  // Delimiters
-  LPAREN = "LPAREN", // (
-  RPAREN = "RPAREN", // )
-  LBRACE = "LBRACE", // {
-  RBRACE = "RBRACE", // }
-  SEMICOLON = "SEMICOLON", // ;
-  NEWLINE = "NEWLINE", // \n
+  // DELIMITERS: Symbols that structure and separate code elements
+  LPAREN = "LPAREN", // ( (left parenthesis - grouping, function calls)
+  RPAREN = "RPAREN", // ) (right parenthesis)
+  LBRACE = "LBRACE", // { (left brace - code blocks)
+  RBRACE = "RBRACE", // } (right brace)
+  SEMICOLON = "SEMICOLON", // ; (statement terminator)
+  NEWLINE = "NEWLINE", // \n (line breaks - statement separators)
 
-  // Special
-  EOF = "EOF",
+  // SPECIAL: Control tokens for parsing state
+  EOF = "EOF", // End of file marker - signals completion
 }
 
+// Token interface: Structure that holds token information
+// Every token created by the lexer must conform to this interface
 interface Token {
-  type: TokenType;
-  value: string;
-  line: number;
-  column: number;
+  type: TokenType; // What kind of token this is (from enum above)
+  value: string; // The actual text content (e.g., "gán", "42", "myVar")
+  line: number; // Line number where token appears (1-based)
+  column: number; // Column position where token starts (1-based)
 }
+
+// Example tokens that would be created:
+// Input: "gán x = 10"
+// Tokens: [
+//   { type: TokenType.GAN, value: "gán", line: 1, column: 1 },
+//   { type: TokenType.IDENTIFIER, value: "x", line: 1, column: 5 },
+//   { type: TokenType.ASSIGN, value: "=", line: 1, column: 7 },
+//   { type: TokenType.NUMBER, value: "10", line: 1, column: 9 }
+// ]
 ```
 
 ### Lexer Implementation
 
+The Lexer class is responsible for converting raw Vietnamese source code into a stream of tokens. It processes the input character by character, recognizing patterns and classifying them into appropriate token types.
+
+**What this code does:** Implements a character-by-character scanner that transforms source code into tokens.
+**Input:** Raw Vietnamese source code as a string.
+**Output:** An array of Token objects representing all meaningful elements in the code.
+**Key Features:**
+
+- Tracks line and column positions for error reporting
+- Handles Vietnamese Unicode characters properly
+- Supports escape sequences in strings
+- Skips whitespace and comments
+- Provides lookahead capability for multi-character operators
+
 ```typescript
 class Lexer {
-  private text: string;
-  private position: number;
-  private currentChar: string | null;
-  private line: number;
-  private column: number;
+  // Core state variables for tracking position in the source code
+  private text: string; // The complete source code being tokenized
+  private position: number; // Current character index (0-based)
+  private currentChar: string | null; // Character at current position (null if EOF)
+  private line: number; // Current line number (1-based for human-readable errors)
+  private column: number; // Current column position (1-based)
 
   constructor(text: string) {
+    // Initialize lexer with source code
     this.text = text;
     this.position = 0;
+
+    // Set current character to first character, or null if empty string
     this.currentChar = this.text[0] || null;
+
+    // Start position tracking at line 1, column 1 (human-readable coordinates)
     this.line = 1;
     this.column = 1;
   }
 
-  // Character navigation
+  // CHARACTER NAVIGATION METHODS
+  // These methods handle moving through the source code while maintaining position tracking
+
   private advance(): void {
+    // Move to the next character in the source code
+    // This method is crucial for maintaining accurate line/column tracking
+
     if (this.currentChar === "\n") {
+      // When encountering a newline, increment line and reset column
       this.line++;
       this.column = 1;
     } else {
+      // For any other character, just move to the next column
       this.column++;
     }
 
+    // Move to next position in the source code
     this.position++;
+
+    // Update currentChar to the new character, or null if we've reached the end
     this.currentChar =
       this.position < this.text.length ? this.text[this.position] : null;
   }
 
   private peek(): string | null {
+    // Look at the next character without advancing position
+    // This is essential for recognizing multi-character operators like "==" and "!="
     const peekPos = this.position + 1;
     return peekPos < this.text.length ? this.text[peekPos] : null;
   }
 
-  // Skip whitespace and comments
+  // WHITESPACE AND COMMENT HANDLING
+  // These methods skip over characters that don't contribute to the program logic
+
   private skipWhitespace(): void {
+    // Skip over spaces, tabs, and other whitespace characters
+    // NOTE: We preserve newlines because they can be significant in our language
     while (
       this.currentChar &&
-      /\s/.test(this.currentChar) &&
-      this.currentChar !== "\n"
+      /\s/.test(this.currentChar) && // Match any whitespace character
+      this.currentChar !== "\n" // But preserve newlines for statement separation
     ) {
       this.advance();
     }
   }
 
   private skipComment(): void {
+    // Handle single-line comments that start with "//"
+    // Comments extend to the end of the line and are completely ignored
     if (this.currentChar === "/" && this.peek() === "/") {
+      // Skip the entire comment line
       while (this.currentChar && this.currentChar !== "\n") {
         this.advance();
       }
+      // Note: The newline character is left for the main tokenizer to handle
     }
   }
 
-  // Number tokenization
+  // TOKEN CONSTRUCTION METHODS
+  // These methods build specific types of tokens from character sequences
+
   private readNumber(): Token {
+    // Parse numeric literals (integers and floating-point numbers)
+    // Examples: 42, 3.14, 0, 999.999
     const start = { line: this.line, column: this.column };
     let value = "";
 
+    // Keep reading digits and decimal points
     while (this.currentChar && /[\d.]/.test(this.currentChar)) {
       value += this.currentChar;
       this.advance();
     }
 
+    // Return the complete number token with position information
     return {
       type: TokenType.NUMBER,
-      value,
-      line: start.line,
-      column: start.column,
+      value, // String representation: "42", "3.14"
+      line: start.line, // Line where number starts
+      column: start.column, // Column where number starts
     };
   }
 
-  // String tokenization
   private readString(): Token {
+    // Parse string literals enclosed in double quotes
+    // Supports escape sequences for special characters
+    // Examples: "Hello", "Xin chào", "Line 1\nLine 2"
     const start = { line: this.line, column: this.column };
     let value = "";
 
-    this.advance(); // Skip opening quote
+    this.advance(); // Skip opening quote character
 
+    // Read characters until we find the closing quote
     while (this.currentChar && this.currentChar !== '"') {
       if (this.currentChar === "\\") {
-        this.advance();
-        // Handle escape sequences
+        // Handle escape sequences (backslash followed by special character)
+        this.advance(); // Skip the backslash
+
+        // Process the escaped character
         switch (this.currentChar) {
           case "n":
-            value += "\n";
+            value += "\n"; // \n becomes actual newline
             break;
           case "t":
-            value += "\t";
+            value += "\t"; // \t becomes actual tab
             break;
           case "\\":
-            value += "\\";
+            value += "\\"; // \\ becomes single backslash
             break;
           case '"':
-            value += '"';
+            value += '"'; // \" becomes literal quote mark
             break;
           default:
+            // For unknown escape sequences, include the character as-is
             value += this.currentChar;
         }
       } else {
+        // Regular character - add directly to string value
         value += this.currentChar;
       }
       this.advance();
     }
 
-    this.advance(); // Skip closing quote
+    this.advance(); // Skip closing quote character
 
     return {
       type: TokenType.STRING,
-      value,
+      value, // Processed string content (escape sequences resolved)
       line: start.line,
       column: start.column,
     };
   }
 
-  // Identifier and keyword tokenization
   private readIdentifier(): Token {
+    // Parse identifiers and Vietnamese keywords
+    // Supports Vietnamese Unicode characters, which is crucial for our language
+    // Examples: myVar, userName, tổng, gán, nếu, khác
     const start = { line: this.line, column: this.column };
     let value = "";
 
+    // Read all valid identifier characters
+    // Regex includes: a-z, A-Z, Vietnamese characters (À-ỹ), digits (0-9), underscore (_)
     while (this.currentChar && /[a-zA-ZÀ-ỹ0-9_]/.test(this.currentChar)) {
       value += this.currentChar;
       this.advance();
     }
 
-    // Check for Vietnamese keywords
+    // VIETNAMESE KEYWORD RECOGNITION
+    // Check if the identifier is actually a reserved Vietnamese keyword
     const keywordMap = new Map([
-      ["gán", TokenType.GAN],
-      ["nếu", TokenType.NEU],
-      ["khác", TokenType.KHAC],
-      ["lặp", TokenType.LAP],
-      ["hàm", TokenType.HAM],
-      ["trả_về", TokenType.TRA_VE],
-      ["in", TokenType.IN],
-      ["đúng", TokenType.BOOLEAN],
-      ["sai", TokenType.BOOLEAN],
+      ["gán", TokenType.GAN], // Assignment keyword
+      ["nếu", TokenType.NEU], // If conditional keyword
+      ["khác", TokenType.KHAC], // Else keyword
+      ["lặp", TokenType.LAP], // Loop keyword
+      ["hàm", TokenType.HAM], // Function keyword
+      ["trả_về", TokenType.TRA_VE], // Return keyword
+      ["in", TokenType.IN], // Print/output keyword
+      ["đúng", TokenType.BOOLEAN], // Boolean true keyword
+      ["sai", TokenType.BOOLEAN], // Boolean false keyword
     ]);
 
+    // Determine token type: keyword if found in map, otherwise it's an identifier
     const tokenType = keywordMap.get(value) || TokenType.IDENTIFIER;
 
     return {
       type: tokenType,
-      value,
+      value, // The actual text: "gán", "myVar", etc.
       line: start.line,
       column: start.column,
     };
@@ -517,25 +684,40 @@ class Lexer {
 
 ### AST Node Definitions
 
+The Abstract Syntax Tree (AST) represents the hierarchical structure of the parsed program. Each node type corresponds to a different language construct, and the visitor pattern allows for clean separation between tree traversal and operations performed on nodes.
+
+**What this code does:** Defines the class hierarchy for all possible AST nodes in the Vietnamese programming language.
+**Input:** Parsed token sequences that need to be represented as tree structures.
+**Output:** Object-oriented representation of program structure that can be traversed and evaluated.
+**Design Pattern:** Uses the Visitor pattern for clean separation between tree structure and operations.
+
 ```typescript
-// Abstract base class for all AST nodes
+// ABSTRACT BASE CLASS FOR ALL AST NODES
+// This ensures all nodes can be visited by the interpreter using the visitor pattern
 abstract class ASTNode {
+  // Every AST node must implement the accept method for visitor pattern
+  // This allows different visitors (interpreter, pretty-printer, etc.) to process nodes
   abstract accept<T>(visitor: ASTVisitor<T>): T;
 }
 
-// Expression nodes
+// EXPRESSION NODES
+// These represent values and computations that produce results
+
 class NumberLiteral extends ASTNode {
   constructor(public value: number) {
+    // Store the actual numeric value (e.g., 42, 3.14)
     super();
   }
 
   accept<T>(visitor: ASTVisitor<T>): T {
+    // Delegate to visitor's number literal handler
     return visitor.visitNumberLiteral(this);
   }
 }
 
 class StringLiteral extends ASTNode {
   constructor(public value: string) {
+    // Store string content (e.g., "Hello", "Xin chào")
     super();
   }
 
@@ -546,6 +728,7 @@ class StringLiteral extends ASTNode {
 
 class BooleanLiteral extends ASTNode {
   constructor(public value: boolean) {
+    // Store true/false value (đúng/sai in Vietnamese)
     super();
   }
 
@@ -556,6 +739,7 @@ class BooleanLiteral extends ASTNode {
 
 class Identifier extends ASTNode {
   constructor(public name: string) {
+    // Store variable name (e.g., "x", "userName", "tổng")
     super();
   }
 
@@ -566,9 +750,9 @@ class Identifier extends ASTNode {
 
 class BinaryExpression extends ASTNode {
   constructor(
-    public left: ASTNode,
-    public operator: Token,
-    public right: ASTNode
+    public left: ASTNode, // Left operand (can be any expression)
+    public operator: Token, // Operator token (+, -, *, /, ==, !=)
+    public right: ASTNode // Right operand (can be any expression)
   ) {
     super();
   }
@@ -578,9 +762,14 @@ class BinaryExpression extends ASTNode {
   }
 }
 
-// Statement nodes
+// STATEMENT NODES
+// These represent actions or declarations that don't produce values directly
+
 class AssignmentStatement extends ASTNode {
-  constructor(public identifier: Identifier, public value: ASTNode) {
+  constructor(
+    public identifier: Identifier, // Variable being assigned to (e.g., "x", "sum")
+    public value: ASTNode // Expression that produces the value to assign
+  ) {
     super();
   }
 
@@ -591,6 +780,7 @@ class AssignmentStatement extends ASTNode {
 
 class PrintStatement extends ASTNode {
   constructor(public expression: ASTNode) {
+    // Expression to evaluate and print
     super();
   }
 
@@ -601,9 +791,9 @@ class PrintStatement extends ASTNode {
 
 class IfStatement extends ASTNode {
   constructor(
-    public condition: ASTNode,
-    public thenBranch: ASTNode[],
-    public elseBranch?: ASTNode[]
+    public condition: ASTNode, // Boolean expression to test
+    public thenBranch: ASTNode[], // Statements to execute if condition is true
+    public elseBranch?: ASTNode[] // Optional statements for else branch
   ) {
     super();
   }
@@ -613,8 +803,11 @@ class IfStatement extends ASTNode {
   }
 }
 
+// ROOT NODE
+// This represents the entire program as a sequence of statements
 class Program extends ASTNode {
   constructor(public statements: ASTNode[]) {
+    // All top-level statements in the program
     super();
   }
 
@@ -986,52 +1179,87 @@ class Interpreter implements ASTVisitor<any> {
 
 ### Example Programs
 
+These examples demonstrate the Vietnamese programming language features in action. Each example shows how the interpreter processes different types of constructs and produces output.
+
+**What these examples show:** Progressive complexity from basic arithmetic to conditional logic.
+**Purpose:** Demonstrate real-world usage patterns and help developers understand the language syntax.
+**Learning Path:** Start with Example 1 and progress through increasingly complex features.
+
 ```javascript
-// Example 1: Basic arithmetic and variables
+// EXAMPLE 1: Basic arithmetic and variables
+// This example demonstrates variable assignment and arithmetic operations
+// Execution flow: create variables → perform calculation → store result → print output
 const example1 = `
-gán a = 10
-gán b = 20
-gán sum = a + b
-in (sum)  // Output: 30
+gán a = 10        // Assign 10 to variable 'a'
+gán b = 20        // Assign 20 to variable 'b'  
+gán sum = a + b   // Calculate sum: 10 + 20 = 30, assign to 'sum'
+in (sum)          // Print the value of sum
 `;
+// Expected output: 30
+// Variables after execution: {a: 10, b: 20, sum: 30}
 
-// Example 2: String operations
+// EXAMPLE 2: String operations and concatenation
+// Shows how strings work with Vietnamese text and concatenation operator
 const example2 = `
-gán firstName = "Nguyễn"
-gán lastName = "Văn A"
-gán fullName = firstName + " " + lastName
-in (fullName)  // Output: Nguyễn Văn A
+gán firstName = "Nguyễn"               // Vietnamese first name
+gán lastName = "Văn A"                 // Vietnamese last name
+gán fullName = firstName + " " + lastName  // Concatenate with space
+in (fullName)                          // Print complete name
 `;
+// Expected output: "Nguyễn Văn A"
+// Demonstrates: String literals, concatenation, Vietnamese Unicode support
 
-// Example 3: Conditional statements
+// EXAMPLE 3: Conditional statements with Vietnamese keywords
+// Shows if-else logic using Vietnamese conditional keywords
 const example3 = `
-gán age = 18
-nếu (age >= 18) {
-  in ("Đủ tuổi bầu cử")
-} khác {
-  in ("Chưa đủ tuổi bầu cử")
+gán age = 18                    // Set age variable
+nếu (age >= 18) {              // If age is 18 or greater
+  in ("Đủ tuổi bầu cử")        // Print voting age message
+} khác {                       // Else (otherwise)
+  in ("Chưa đủ tuổi bầu cử")   // Print underage message  
 }
 `;
+// Expected output: "Đủ tuổi bầu cử" (Old enough to vote)
+// Shows: Comparison operators, conditional branching, Vietnamese text output
 
-// Example 4: Complex expressions
+// EXAMPLE 4: Complex expressions with operator precedence
+// Demonstrates arithmetic operator precedence and parentheses grouping
 const example4 = `
-gán x = 5
-gán y = 3
-gán result = (x + y) * 2 - 1
-in (result)  // Output: 15
+gán x = 5                          // Base value
+gán y = 3                          // Second value
+gán result = (x + y) * 2 - 1       // Complex calculation with precedence
+in (result)                        // Print final result
 `;
+// Expected output: 15
+// Calculation breakdown: (5 + 3) * 2 - 1 = 8 * 2 - 1 = 16 - 1 = 15
+// Shows: Operator precedence, parentheses grouping, multi-step calculations
 ```
 
 ### Error Handling
 
+A robust error handling system is essential for providing helpful feedback to users when their Vietnamese code contains mistakes. The interpreter implements a hierarchical error system with detailed position information.
+
+**What this code does:** Implements a comprehensive error reporting system with position tracking.
+**Input:** Error conditions detected during lexing, parsing, or execution phases.
+**Output:** Detailed error messages with line/column information for debugging.
+**Benefits:** Users get precise error locations and clear descriptions of what went wrong.
+
 ```typescript
+// BASE ERROR CLASS
+// All interpreter errors inherit from this class to provide consistent error handling
 class InterpreterError extends Error {
-  constructor(message: string, public line?: number, public column?: number) {
+  constructor(
+    message: string, // Human-readable error description
+    public line?: number, // Line number where error occurred (optional)
+    public column?: number // Column position where error occurred (optional)
+  ) {
     super(message);
     this.name = "InterpreterError";
   }
 }
 
+// RUNTIME ERROR CLASS
+// Errors that occur during program execution (division by zero, undefined variables, etc.)
 class RuntimeError extends InterpreterError {
   constructor(message: string, line?: number, column?: number) {
     super(`Runtime Error: ${message}`, line, column);
@@ -1039,6 +1267,8 @@ class RuntimeError extends InterpreterError {
   }
 }
 
+// SYNTAX ERROR CLASS
+// Errors in program structure detected during parsing phase
 class SyntaxError extends InterpreterError {
   constructor(message: string, line?: number, column?: number) {
     super(`Syntax Error: ${message}`, line, column);
@@ -1046,17 +1276,35 @@ class SyntaxError extends InterpreterError {
   }
 }
 
-// Usage in interpreter
+// ERROR HANDLING IN PRACTICE
+// This shows how to use the error system when executing Vietnamese code
 try {
+  // Attempt to interpret the Vietnamese program
   const result = interpreter.interpret(program);
   console.log("Output:", result.output.join("\n"));
 } catch (error) {
   if (error instanceof InterpreterError) {
+    // Handle known interpreter errors with detailed location info
     console.error(`${error.name} at line ${error.line}: ${error.message}`);
+
+    // Example output: "Runtime Error at line 3: Undefined variable: tổng"
+    // Example output: "Syntax Error at line 1: Expected ')' after expression"
   } else {
+    // Handle unexpected system errors
     console.error("Unexpected error:", error.message);
   }
 }
+
+// COMMON ERROR SCENARIOS:
+// 1. Runtime Errors:
+//    - "Undefined variable: myVar" (using undefined variable)
+//    - "Division by zero" (mathematical error)
+//    - "Cannot add string and number" (type mismatch)
+//
+// 2. Syntax Errors:
+//    - "Expected '=' after identifier" (missing assignment operator)
+//    - "Unexpected token: }" (mismatched braces)
+//    - "Expected ')' after expression" (unclosed parentheses)
 ```
 
 ## Implementation Details
@@ -1142,69 +1390,99 @@ class OptimizedInterpreter extends Interpreter {
 
 ### Web Integration Layer
 
+The Browser Integration layer adapts the core interpreter for web environments, providing a user-friendly interface that handles DOM manipulation, error display, and real-time feedback.
+
+**What this code does:** Creates a web-friendly wrapper around the core interpreter that handles UI interactions.
+**Input:** Vietnamese source code from web interface (textarea, editor, etc.)
+**Output:** Formatted results displayed in HTML elements with error handling
+**Key Features:** DOM integration, error visualization, real-time execution, state display
+
 ```typescript
-// Browser-specific interpreter wrapper
+// BROWSER-SPECIFIC INTERPRETER WRAPPER
+// This class bridges the gap between the core interpreter and web browser environment
 class BrowserInterpreter {
-  private interpreter: Interpreter;
-  private outputElement: HTMLElement;
+  private interpreter: Interpreter; // Core interpreter instance
+  private outputElement: HTMLElement; // DOM element for displaying results
 
   constructor(outputElementId: string) {
+    // Initialize the core interpreter
     this.interpreter = new Interpreter();
+
+    // Get reference to output DOM element (throws if not found)
     this.outputElement = document.getElementById(outputElementId)!;
   }
 
   public execute(code: string): void {
     try {
-      // Clear previous output
+      // STEP 1: Clear previous execution results
+      // This ensures clean state for each execution
       this.outputElement.innerHTML = "";
 
-      // Lexical analysis
+      // STEP 2: Lexical analysis - Convert text to tokens
       const lexer = new Lexer(code);
       const tokens = lexer.tokenize();
 
-      // Parsing
+      // STEP 3: Parsing - Build Abstract Syntax Tree
       const parser = new Parser(tokens);
       const program = parser.parse();
 
-      // Execution
+      // STEP 4: Execution - Run the program and collect results
       const result = this.interpreter.interpret(program);
 
-      // Display output
-      this.displayOutput(result.output);
-      this.displayEnvironment(result.environment);
+      // STEP 5: Display results in web interface
+      this.displayOutput(result.output); // Show program output
+      this.displayEnvironment(result.environment); // Show variable states
     } catch (error) {
+      // Handle and display any errors that occurred during execution
       this.displayError(error);
     }
   }
 
+  // DISPLAY METHODS FOR WEB INTERFACE
+  // These methods create DOM elements to show execution results to users
+
   private displayOutput(output: string[]): void {
+    // Create a container for program output (from 'in' statements)
     const outputDiv = document.createElement("div");
     outputDiv.className = "interpreter-output";
+
+    // Join all output lines with newlines for display
     outputDiv.textContent = output.join("\n");
+
+    // Add to the main output container
     this.outputElement.appendChild(outputDiv);
   }
 
   private displayEnvironment(env: Map<string, any>): void {
+    // Create a container to show current variable states
     const envDiv = document.createElement("div");
     envDiv.className = "interpreter-environment";
 
+    // Add a title for the variables section
     const title = document.createElement("h4");
     title.textContent = "Variables:";
     envDiv.appendChild(title);
 
+    // Display each variable and its current value
     env.forEach((value, name) => {
       const varDiv = document.createElement("div");
-      varDiv.textContent = `${name}: ${value}`;
+      varDiv.textContent = `${name}: ${value}`; // Format: "variableName: value"
       envDiv.appendChild(varDiv);
     });
 
+    // Add the variables display to the main output
     this.outputElement.appendChild(envDiv);
   }
 
   private displayError(error: any): void {
+    // Create a container for error messages with distinct styling
     const errorDiv = document.createElement("div");
-    errorDiv.className = "interpreter-error";
+    errorDiv.className = "interpreter-error"; // CSS class for error styling (red text, etc.)
+
+    // Display the error message
     errorDiv.textContent = error.message;
+
+    // Add error to the output (errors are shown prominently)
     this.outputElement.appendChild(errorDiv);
   }
 }

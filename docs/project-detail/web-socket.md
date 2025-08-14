@@ -46,79 +46,129 @@ As defined in the [WebSocket API specification](https://developer.mozilla.org/en
 
 ### Basic Client Implementation
 
+This section demonstrates the fundamental WebSocket client implementation using the browser's native WebSocket API. The following code establishes a connection to a WebSocket server and handles the basic lifecycle events.
+
+**What this code does:**
+
+1. Creates a WebSocket connection to the specified server
+2. Sets up event listeners for all WebSocket states (open, message, error, close)
+3. Sends a greeting message when the connection is established
+4. Logs received messages and connection status changes
+
+**Input:** WebSocket server URL (ws://localhost:8080)
+**Output:** Console logs showing connection status and received messages
+
 ```javascript
-// Create a new WebSocket connection
+// Create a new WebSocket connection to the server
+// The URL scheme is 'ws://' for unencrypted or 'wss://' for encrypted connections
 const socket = new WebSocket("ws://localhost:8080");
 
-// Connection opened
+// Event: Connection successfully established
 socket.addEventListener("open", (event) => {
   console.log("Connected to WebSocket server");
+  // Send an initial message to the server to confirm connectivity
   socket.send("Hello Server!");
 });
 
-// Listen for messages
+// Event: Message received from the server
 socket.addEventListener("message", (event) => {
+  // event.data contains the message payload (string or binary data)
   console.log("Message from server:", event.data);
 });
 
-// Handle errors
+// Event: Connection error occurred
 socket.addEventListener("error", (event) => {
+  // Log any connection or communication errors
   console.error("WebSocket error:", event);
 });
 
-// Connection closed
+// Event: Connection closed by either client or server
 socket.addEventListener("close", (event) => {
+  // event.code: numeric code indicating close reason
+  // event.reason: human-readable close reason
   console.log("Connection closed:", event.code, event.reason);
 });
 ```
 
 ### Enhanced WebSocket Client Class
 
+The following code demonstrates a production-ready WebSocket client class that handles reconnection, message queuing, and event management. This class provides a robust foundation for real-world applications requiring reliable WebSocket communication.
+
+**What this class provides:**
+
+1. **Automatic Reconnection**: Handles connection drops and retries with exponential backoff
+2. **Message Queuing**: Buffers messages when disconnected and sends them upon reconnection
+3. **Event Management**: Custom event system for handling connection states and messages
+4. **Connection State Management**: Tracks and manages WebSocket connection states
+5. **Error Handling**: Comprehensive error handling with retry logic
+
+**Key Features:**
+
+- Configurable reconnection attempts and intervals
+- Message queue persistence during disconnections
+- Custom event listeners for application-specific handling
+- Connection state validation before sending messages
+
+**Input:** WebSocket URL, optional protocols array, configuration options
+**Output:** Reliable WebSocket connection with automatic reconnection and message queuing
+
 ```javascript
 class WebSocketClient {
   constructor(url, protocols = []) {
-    this.url = url;
-    this.protocols = protocols;
-    this.socket = null;
-    this.reconnectAttempts = 0;
-    this.maxReconnectAttempts = 5;
-    this.reconnectInterval = 1000;
-    this.messageQueue = [];
-    this.eventListeners = {};
+    // Connection configuration
+    this.url = url; // WebSocket server URL
+    this.protocols = protocols; // Optional subprotocols
+    this.socket = null; // Current WebSocket instance
+
+    // Reconnection management
+    this.reconnectAttempts = 0; // Current number of reconnection attempts
+    this.maxReconnectAttempts = 5; // Maximum reconnection attempts before giving up
+    this.reconnectInterval = 1000; // Base reconnection delay in milliseconds
+
+    // Message handling
+    this.messageQueue = []; // Queue for messages sent while disconnected
+    this.eventListeners = {}; // Custom event listeners registry
   }
 
   connect() {
     try {
+      // Create new WebSocket instance with configured URL and protocols
       this.socket = new WebSocket(this.url, this.protocols);
       this.setupEventListeners();
     } catch (error) {
+      // Handle immediate connection errors (invalid URL, etc.)
       console.error("Failed to create WebSocket:", error);
       this.handleReconnect();
     }
   }
 
   setupEventListeners() {
+    // Event: Connection successfully opened
     this.socket.onopen = (event) => {
       console.log("WebSocket connected");
-      this.reconnectAttempts = 0;
-      this.processMessageQueue();
-      this.emit("open", event);
+      this.reconnectAttempts = 0; // Reset reconnection counter on successful connection
+      this.processMessageQueue(); // Send any queued messages from disconnection period
+      this.emit("open", event); // Notify application of successful connection
     };
 
+    // Event: Message received from server
     this.socket.onmessage = (event) => {
-      const data = this.parseMessage(event.data);
-      this.emit("message", data);
+      const data = this.parseMessage(event.data); // Parse JSON or return raw data
+      this.emit("message", data); // Forward parsed message to application
     };
 
+    // Event: WebSocket error occurred
     this.socket.onerror = (event) => {
       console.error("WebSocket error:", event);
-      this.emit("error", event);
+      this.emit("error", event); // Forward error to application for handling
     };
 
+    // Event: Connection closed
     this.socket.onclose = (event) => {
       console.log("WebSocket closed:", event.code, event.reason);
-      this.emit("close", event);
+      this.emit("close", event); // Notify application of connection closure
 
+      // Attempt reconnection if closure was not clean (unexpected disconnection)
       if (!event.wasClean) {
         this.handleReconnect();
       }
@@ -126,89 +176,111 @@ class WebSocketClient {
   }
 
   send(data) {
+    // Check if WebSocket is currently connected and ready
     if (this.isConnected()) {
-      const message = this.formatMessage(data);
-      this.socket.send(message);
+      const message = this.formatMessage(data); // Convert data to appropriate format
+      this.socket.send(message); // Send immediately if connected
     } else {
+      // Queue message for later delivery when connection is restored
       this.messageQueue.push(data);
+      console.log("Message queued (disconnected):", data);
     }
   }
 
   isConnected() {
+    // Verify socket exists and is in OPEN state (readyState === 1)
     return this.socket && this.socket.readyState === WebSocket.OPEN;
   }
 
   parseMessage(data) {
     try {
+      // Attempt to parse as JSON for structured data
       return JSON.parse(data);
     } catch {
+      // Return raw data if not valid JSON (could be plain text or binary)
       return data;
     }
   }
 
   formatMessage(data) {
+    // Convert objects to JSON strings, leave primitives as-is
     return typeof data === "object" ? JSON.stringify(data) : data;
   }
 
   processMessageQueue() {
+    // Send all queued messages upon reconnection
     while (this.messageQueue.length > 0) {
-      const message = this.messageQueue.shift();
-      this.send(message);
+      const message = this.messageQueue.shift(); // Remove from queue and send
+      this.send(message); // Recursive call, but now connected
     }
   }
 
   handleReconnect() {
+    // Implement exponential backoff reconnection strategy
     if (this.reconnectAttempts < this.maxReconnectAttempts) {
       this.reconnectAttempts++;
       console.log(`Reconnecting... Attempt ${this.reconnectAttempts}`);
 
+      // Exponential backoff: delay increases with each attempt
       setTimeout(() => {
         this.connect();
       }, this.reconnectInterval * this.reconnectAttempts);
     } else {
       console.error("Max reconnection attempts reached");
-      this.emit("maxReconnectAttemptsReached");
+      this.emit("maxReconnectAttemptsReached"); // Notify application of permanent failure
     }
   }
 
   on(event, callback) {
+    // Register event listener for custom events
     if (!this.eventListeners[event]) {
-      this.eventListeners[event] = [];
+      this.eventListeners[event] = []; // Initialize event array if first listener
     }
-    this.eventListeners[event].push(callback);
+    this.eventListeners[event].push(callback); // Add callback to event listeners
   }
 
   off(event, callback) {
+    // Remove specific event listener
     if (this.eventListeners[event]) {
       this.eventListeners[event] = this.eventListeners[event].filter(
-        (cb) => cb !== callback
+        (cb) => cb !== callback // Keep all callbacks except the one to remove
       );
     }
   }
 
   emit(event, data) {
+    // Trigger all listeners for a specific event
     if (this.eventListeners[event]) {
-      this.eventListeners[event].forEach((callback) => callback(data));
+      this.eventListeners[event].forEach((callback) => {
+        try {
+          callback(data); // Call each registered callback with event data
+        } catch (error) {
+          console.error(`Error in event listener for ${event}:`, error);
+        }
+      });
     }
   }
 
   close(code = 1000, reason = "Normal closure") {
+    // Gracefully close WebSocket connection
     if (this.socket) {
-      this.socket.close(code, reason);
+      this.socket.close(code, reason); // Send close frame with specified code and reason
     }
   }
 
   getState() {
+    // Return human-readable connection state
     if (!this.socket) return "UNINITIALIZED";
 
+    // Map WebSocket readyState constants to descriptive strings
     switch (this.socket.readyState) {
-      case WebSocket.CONNECTING:
+      case WebSocket.CONNECTING: // 0: Connection is being established
         return "CONNECTING";
-      case WebSocket.OPEN:
+      case WebSocket.OPEN: // 1: Connection is open and ready
         return "OPEN";
-      case WebSocket.CLOSING:
+      case WebSocket.CLOSING: // 2: Connection is being closed
         return "CLOSING";
-      case WebSocket.CLOSED:
+      case WebSocket.CLOSED: // 3: Connection is closed
         return "CLOSED";
       default:
         return "UNKNOWN";
@@ -216,22 +288,31 @@ class WebSocketClient {
   }
 }
 
-// Usage example
+// Usage example demonstrating the enhanced WebSocket client
 const client = new WebSocketClient("ws://localhost:8080");
 
+// Set up event handlers before connecting
 client.on("open", () => {
   console.log("Connected successfully");
+  // Send a structured message upon connection
   client.send({ type: "greeting", message: "Hello from client!" });
 });
 
 client.on("message", (data) => {
   console.log("Received:", data);
+  // Handle different message types based on your application logic
 });
 
 client.on("error", (error) => {
   console.error("Connection error:", error);
 });
 
+client.on("maxReconnectAttemptsReached", () => {
+  console.error("Failed to reconnect after maximum attempts");
+  // Implement fallback logic or notify user
+});
+
+// Initiate the connection
 client.connect();
 ```
 
@@ -239,63 +320,104 @@ client.connect();
 
 ### Protocol Overview
 
-WebSockets operate over TCP and use HTTP/1.1 for the initial handshake. Once established, the connection switches to the WebSocket protocol, enabling bidirectional communication with minimal overhead.
+This section explores the technical details of the WebSocket protocol, from the initial HTTP upgrade handshake to the frame-level communication format. Understanding these fundamentals is crucial for implementing robust WebSocket applications and debugging connection issues.
+
+**Protocol Architecture:**
+
+1. **HTTP Upgrade Handshake**: Initial negotiation using standard HTTP headers
+2. **Protocol Switching**: Transition from HTTP to WebSocket binary protocol
+3. **Frame-Based Communication**: Structured message format with minimal overhead
+4. **Connection Persistence**: Long-lived bidirectional communication channel
+
+WebSockets operate over TCP and use HTTP/1.1 for the initial handshake. Once established, the connection switches to the WebSocket protocol, enabling bidirectional communication with minimal overhead. This hybrid approach ensures compatibility with existing web infrastructure while providing the performance benefits of a persistent connection.
 
 ### HTTP to WebSocket Upgrade Process
 
+The WebSocket handshake is a carefully orchestrated HTTP upgrade process that establishes the WebSocket connection while maintaining compatibility with HTTP infrastructure. The following example shows the complete request-response cycle.
+
+**Handshake Process Steps:**
+
+1. **Client Request**: HTTP GET request with WebSocket upgrade headers
+2. **Server Validation**: Server validates headers and generates accept key
+3. **Protocol Switch**: Server responds with 101 status code to confirm upgrade
+4. **Connection Established**: Both parties switch to WebSocket frame protocol
+
+**Input:** HTTP GET request with WebSocket headers
+**Output:** HTTP 101 response confirming protocol upgrade
+
 ```
 Client Request:
-GET /chat HTTP/1.1
-Host: server.example.com
-Upgrade: websocket
-Connection: Upgrade
-Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
-Sec-WebSocket-Version: 13
-Sec-WebSocket-Protocol: chat, superchat
-Origin: http://example.com
+GET /chat HTTP/1.1                              # Standard HTTP GET request
+Host: server.example.com                        # Target server hostname
+Upgrade: websocket                              # Request protocol upgrade to WebSocket
+Connection: Upgrade                             # Indicate connection should be upgraded
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==     # Random 16-byte value (base64 encoded)
+Sec-WebSocket-Version: 13                      # WebSocket protocol version (RFC 6455)
+Sec-WebSocket-Protocol: chat, superchat        # Optional: preferred subprotocols
+Origin: http://example.com                      # Origin header for security validation
 
 Server Response:
-HTTP/1.1 101 Switching Protocols
-Upgrade: websocket
-Connection: Upgrade
-Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
-Sec-WebSocket-Protocol: chat
+HTTP/1.1 101 Switching Protocols               # Successful protocol upgrade
+Upgrade: websocket                              # Confirm upgrade to WebSocket
+Connection: Upgrade                             # Confirm connection upgrade
+Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=  # SHA-1 hash of key + magic string
+Sec-WebSocket-Protocol: chat                   # Selected subprotocol from client's list
 ```
 
 ### WebSocket Header Analysis
 
+The following code demonstrates how to implement WebSocket handshake validation and key generation according to RFC 6455 specifications. This implementation shows the cryptographic process used to validate WebSocket connections and prevent connection hijacking.
+
+**What this code demonstrates:**
+
+1. **Security Key Generation**: Creates random 16-byte keys for handshake validation
+2. **Accept Key Validation**: Implements the SHA-1 hashing algorithm for server response validation
+3. **Header Parsing**: Extracts and validates WebSocket-specific headers
+4. **Protocol Compliance**: Ensures adherence to RFC 6455 WebSocket standard
+
+**Key Security Features:**
+
+- Random key generation prevents replay attacks
+- SHA-1 with magic string ensures server WebSocket capability
+- Header validation prevents malicious upgrade attempts
+
+**Input:** HTTP headers from WebSocket handshake
+**Output:** Validated connection parameters and security keys
+
 ```javascript
-// WebSocket handshake validation
+// WebSocket handshake validation and key generation utilities
 class WebSocketHandshake {
   static generateKey() {
-    // Generate 16-byte random value and encode as base64
-    const bytes = new Uint8Array(16);
-    crypto.getRandomValues(bytes);
-    return btoa(String.fromCharCode(...bytes));
+    // Generate cryptographically secure 16-byte random value for handshake
+    const bytes = new Uint8Array(16); // 16 bytes = 128 bits of entropy
+    crypto.getRandomValues(bytes); // Use secure random number generator
+    return btoa(String.fromCharCode(...bytes)); // Encode as base64 string
   }
 
   static validateAcceptKey(clientKey, serverAccept) {
+    // RFC 6455 mandated magic string for WebSocket accept key generation
     const magicString = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
-    const concatenated = clientKey + magicString;
+    const concatenated = clientKey + magicString; // Combine client key with magic string
 
-    // SHA-1 hash and base64 encode
+    // Compute SHA-1 hash and base64 encode (as per RFC 6455)
     return crypto.subtle
       .digest("SHA-1", new TextEncoder().encode(concatenated))
       .then((hashBuffer) => {
-        const hashArray = new Uint8Array(hashBuffer);
-        const expectedAccept = btoa(String.fromCharCode(...hashArray));
-        return expectedAccept === serverAccept;
+        const hashArray = new Uint8Array(hashBuffer); // Convert ArrayBuffer to Uint8Array
+        const expectedAccept = btoa(String.fromCharCode(...hashArray)); // Base64 encode
+        return expectedAccept === serverAccept; // Validate server's accept key
       });
   }
 
   static parseUpgradeHeaders(headers) {
+    // Extract and normalize WebSocket-specific headers from HTTP request
     return {
-      upgrade: headers.get("Upgrade")?.toLowerCase(),
-      connection: headers.get("Connection")?.toLowerCase(),
-      key: headers.get("Sec-WebSocket-Key"),
-      version: headers.get("Sec-WebSocket-Version"),
-      protocol: headers.get("Sec-WebSocket-Protocol"),
-      extensions: headers.get("Sec-WebSocket-Extensions"),
+      upgrade: headers.get("Upgrade")?.toLowerCase(), // Should be "websocket"
+      connection: headers.get("Connection")?.toLowerCase(), // Should contain "upgrade"
+      key: headers.get("Sec-WebSocket-Key"), // Client's random key
+      version: headers.get("Sec-WebSocket-Version"), // Should be "13"
+      protocol: headers.get("Sec-WebSocket-Protocol"), // Optional subprotocols
+      extensions: headers.get("Sec-WebSocket-Extensions"), // Optional extensions
     };
   }
 }
@@ -305,62 +427,94 @@ class WebSocketHandshake {
 
 ### Client-Side Connection Process
 
+This section demonstrates advanced client-side connection management with timeout handling, heartbeat mechanisms, and comprehensive state tracking. The implementation provides robust connection establishment with proper cleanup and error handling.
+
+**Connection Management Features:**
+
+1. **Timeout Protection**: Prevents hanging connections with configurable timeouts
+2. **State Tracking**: Monitors connection lifecycle with descriptive states
+3. **Heartbeat System**: Maintains connection health with periodic ping/pong
+4. **Promise-Based API**: Modern async/await compatible connection interface
+5. **Resource Cleanup**: Proper timer and event listener cleanup
+
+**Connection States:**
+
+- `IDLE`: Initial state before connection attempt
+- `CONNECTING`: WebSocket handshake in progress
+- `CONNECTED`: Connection established and ready
+- `ERROR`: Connection failed or encountered error
+- `CLOSED`: Connection terminated
+
+**Input:** WebSocket URL and configuration options
+**Output:** Promise resolving to established WebSocket connection
+
 ```javascript
 class WebSocketConnection {
   constructor(url, options = {}) {
-    this.url = url;
+    this.url = url; // WebSocket server URL
     this.options = {
-      protocols: options.protocols || [],
-      timeout: options.timeout || 30000,
-      ...options,
+      protocols: options.protocols || [], // Optional WebSocket subprotocols
+      timeout: options.timeout || 30000, // Connection timeout in milliseconds
+      ...options, // Additional configuration options
     };
-    this.connectionState = "IDLE";
+    this.connectionState = "IDLE"; // Initial connection state
   }
 
   async connect() {
+    // Return Promise for modern async/await compatibility
     return new Promise((resolve, reject) => {
-      this.connectionState = "CONNECTING";
+      this.connectionState = "CONNECTING"; // Update state to indicate connection attempt
 
+      // Create WebSocket with configured URL and protocols
       const socket = new WebSocket(this.url, this.options.protocols);
+
+      // Set up connection timeout to prevent hanging
       const timeout = setTimeout(() => {
-        socket.close();
+        socket.close(); // Force close on timeout
+        this.connectionState = "ERROR";
         reject(new Error("Connection timeout"));
       }, this.options.timeout);
 
+      // Handle successful connection establishment
       socket.onopen = () => {
-        clearTimeout(timeout);
-        this.connectionState = "CONNECTED";
-        this.socket = socket;
-        this.setupHeartbeat();
-        resolve(socket);
+        clearTimeout(timeout); // Cancel timeout timer
+        this.connectionState = "CONNECTED"; // Update connection state
+        this.socket = socket; // Store socket reference
+        this.setupHeartbeat(); // Initialize heartbeat mechanism
+        resolve(socket); // Resolve promise with socket
       };
 
+      // Handle connection errors
       socket.onerror = (error) => {
-        clearTimeout(timeout);
-        this.connectionState = "ERROR";
-        reject(error);
+        clearTimeout(timeout); // Cancel timeout timer
+        this.connectionState = "ERROR"; // Update state to error
+        reject(error); // Reject promise with error
       };
 
+      // Handle connection closure
       socket.onclose = () => {
-        clearTimeout(timeout);
-        this.connectionState = "CLOSED";
-        this.cleanup();
+        clearTimeout(timeout); // Cancel timeout timer
+        this.connectionState = "CLOSED"; // Update state to closed
+        this.cleanup(); // Clean up resources
       };
     });
   }
 
   setupHeartbeat() {
+    // Establish periodic heartbeat to maintain connection health
     this.heartbeatInterval = setInterval(() => {
+      // Only send ping if connection is open and ready
       if (this.socket?.readyState === WebSocket.OPEN) {
-        this.socket.send(JSON.stringify({ type: "ping" }));
+        this.socket.send(JSON.stringify({ type: "ping" })); // Send ping message
       }
-    }, 30000); // Send ping every 30 seconds
+    }, 30000); // Send ping every 30 seconds to detect stale connections
   }
 
   cleanup() {
+    // Clean up resources and timers to prevent memory leaks
     if (this.heartbeatInterval) {
-      clearInterval(this.heartbeatInterval);
-      this.heartbeatInterval = null;
+      clearInterval(this.heartbeatInterval); // Stop heartbeat timer
+      this.heartbeatInterval = null; // Clear reference
     }
   }
 }
@@ -448,6 +602,26 @@ class WebSocketServer extends EventEmitter {
 
 ### WebSocket Frame Format
 
+WebSocket communication uses a binary frame format that provides efficient message transmission with minimal overhead. Understanding this frame structure is essential for implementing custom WebSocket protocols or debugging connection issues.
+
+**Frame Structure Purpose:**
+
+1. **Efficient Encoding**: Minimal overhead for small and large messages
+2. **Message Fragmentation**: Support for splitting large messages across multiple frames
+3. **Security Masking**: Client-to-server frames are masked to prevent cache poisoning
+4. **Control Frames**: Built-in support for ping/pong and connection management
+5. **Extensibility**: Reserved bits for future protocol extensions
+
+**Frame Components:**
+
+- **FIN bit**: Indicates if this is the final frame in a message
+- **RSV bits**: Reserved for extensions (must be 0 if no extension negotiated)
+- **Opcode**: Defines frame type (text, binary, close, ping, pong)
+- **MASK bit**: Indicates if payload is masked (required for client-to-server frames)
+- **Payload Length**: Variable-length field supporting messages up to 64-bit size
+- **Masking Key**: 32-bit key for payload masking (if MASK bit is set)
+- **Payload Data**: The actual message content
+
 ```
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
@@ -471,40 +645,69 @@ class WebSocketServer extends EventEmitter {
 
 ### Frame Processing Implementation
 
+The following implementation demonstrates how to create, parse, and manipulate WebSocket frames according to RFC 6455 specifications. This low-level frame handling is typically abstracted by WebSocket libraries but is crucial for understanding the protocol internals.
+
+**What this implementation provides:**
+
+1. **Frame Creation**: Build different types of WebSocket frames (text, binary, control)
+2. **Payload Masking**: Implement client-side masking as required by the protocol
+3. **Frame Serialization**: Convert frame objects to binary wire format
+4. **Opcode Management**: Handle different frame types with appropriate opcodes
+5. **Security Compliance**: Ensure proper masking for client-to-server communication
+
+**Frame Types and Opcodes:**
+
+- `0x0`: Continuation frame (for fragmented messages)
+- `0x1`: Text frame (UTF-8 encoded text data)
+- `0x2`: Binary frame (arbitrary binary data)
+- `0x8`: Close frame (connection termination)
+- `0x9`: Ping frame (connection keep-alive)
+- `0xA`: Pong frame (response to ping)
+
+**Input:** Message data and frame type parameters
+**Output:** Properly formatted WebSocket frame ready for transmission
+
 ```javascript
 class WebSocketFrame {
   constructor() {
-    this.fin = false;
-    this.rsv1 = false;
-    this.rsv2 = false;
-    this.rsv3 = false;
-    this.opcode = 0;
-    this.masked = false;
-    this.payloadLength = 0;
-    this.maskingKey = null;
-    this.payload = null;
+    // Frame header flags
+    this.fin = false; // Final fragment flag
+    this.rsv1 = false; // Reserved bit 1 (extension use)
+    this.rsv2 = false; // Reserved bit 2 (extension use)
+    this.rsv3 = false; // Reserved bit 3 (extension use)
+    this.opcode = 0; // Frame type (4 bits)
+    this.masked = false; // Payload masking flag
+
+    // Payload information
+    this.payloadLength = 0; // Length of payload data
+    this.maskingKey = null; // 32-bit masking key (if masked)
+    this.payload = null; // Actual payload data
   }
 
+  // WebSocket frame opcodes as defined in RFC 6455
   static OPCODES = {
-    CONTINUATION: 0x0,
-    TEXT: 0x1,
-    BINARY: 0x2,
-    CLOSE: 0x8,
-    PING: 0x9,
-    PONG: 0xa,
+    CONTINUATION: 0x0, // Continuation frame for fragmented messages
+    TEXT: 0x1, // Text data frame (UTF-8 encoded)
+    BINARY: 0x2, // Binary data frame
+    CLOSE: 0x8, // Connection close frame
+    PING: 0x9, // Ping frame for keep-alive
+    PONG: 0xa, // Pong frame (response to ping)
   };
 
   static createTextFrame(data, masked = true) {
+    // Create a new text frame with UTF-8 encoded data
     const frame = new WebSocketFrame();
-    frame.fin = true;
-    frame.opcode = WebSocketFrame.OPCODES.TEXT;
-    frame.masked = masked;
-    frame.payload = Buffer.from(data, "utf8");
-    frame.payloadLength = frame.payload.length;
+    frame.fin = true; // Mark as final frame
+    frame.opcode = WebSocketFrame.OPCODES.TEXT; // Set text opcode
+    frame.masked = masked; // Apply masking if required
+    frame.payload = Buffer.from(data, "utf8"); // Encode text as UTF-8
+    frame.payloadLength = frame.payload.length; // Set payload length
 
+    // Apply masking for client-to-server frames (security requirement)
     if (masked) {
-      frame.maskingKey = crypto.randomBytes(4);
+      frame.maskingKey = crypto.randomBytes(4); // Generate random 32-bit key
       frame.payload = WebSocketFrame.maskPayload(
+        // Apply XOR masking
         frame.payload,
         frame.maskingKey
       );
@@ -514,16 +717,19 @@ class WebSocketFrame {
   }
 
   static createBinaryFrame(data, masked = true) {
+    // Create a new binary frame for arbitrary data
     const frame = new WebSocketFrame();
-    frame.fin = true;
-    frame.opcode = WebSocketFrame.OPCODES.BINARY;
-    frame.masked = masked;
-    frame.payload = Buffer.isBuffer(data) ? data : Buffer.from(data);
-    frame.payloadLength = frame.payload.length;
+    frame.fin = true; // Mark as final frame
+    frame.opcode = WebSocketFrame.OPCODES.BINARY; // Set binary opcode
+    frame.masked = masked; // Apply masking if required
+    frame.payload = Buffer.isBuffer(data) ? data : Buffer.from(data); // Ensure Buffer format
+    frame.payloadLength = frame.payload.length; // Set payload length
 
+    // Apply masking for client-to-server frames
     if (masked) {
-      frame.maskingKey = crypto.randomBytes(4);
+      frame.maskingKey = crypto.randomBytes(4); // Generate random masking key
       frame.payload = WebSocketFrame.maskPayload(
+        // Apply XOR masking
         frame.payload,
         frame.maskingKey
       );
@@ -533,34 +739,38 @@ class WebSocketFrame {
   }
 
   static createPingFrame(data = Buffer.alloc(0)) {
+    // Create ping frame for connection keep-alive
     const frame = new WebSocketFrame();
-    frame.fin = true;
-    frame.opcode = WebSocketFrame.OPCODES.PING;
-    frame.payload = data;
-    frame.payloadLength = data.length;
+    frame.fin = true; // Ping frames are always complete
+    frame.opcode = WebSocketFrame.OPCODES.PING; // Set ping opcode
+    frame.payload = data; // Optional ping payload
+    frame.payloadLength = data.length; // Set payload length
     return frame;
   }
 
   static createPongFrame(data = Buffer.alloc(0)) {
+    // Create pong frame in response to ping
     const frame = new WebSocketFrame();
-    frame.fin = true;
-    frame.opcode = WebSocketFrame.OPCODES.PONG;
-    frame.payload = data;
-    frame.payloadLength = data.length;
+    frame.fin = true; // Pong frames are always complete
+    frame.opcode = WebSocketFrame.OPCODES.PONG; // Set pong opcode
+    frame.payload = data; // Echo ping payload
+    frame.payloadLength = data.length; // Set payload length
     return frame;
   }
 
   static maskPayload(payload, maskingKey) {
-    const masked = Buffer.alloc(payload.length);
+    // Apply XOR masking to payload data as required by RFC 6455
+    const masked = Buffer.alloc(payload.length); // Allocate buffer for masked data
     for (let i = 0; i < payload.length; i++) {
-      masked[i] = payload[i] ^ maskingKey[i % 4];
+      masked[i] = payload[i] ^ maskingKey[i % 4]; // XOR with rotating masking key
     }
     return masked;
   }
 
   toBuffer() {
-    let headerLength = 2;
-    let payloadLengthBytes = 0;
+    // Serialize the frame to binary format for transmission
+    let headerLength = 2; // Minimum header size (2 bytes)
+    let payloadLengthBytes = 0; // Additional bytes for extended length
 
     // Determine payload length representation
     if (this.payloadLength < 126) {
@@ -1016,13 +1226,33 @@ server.start();
 
 ### Request-Response Pattern
 
+WebSocket connections are bidirectional, but sometimes you need request-response semantics similar to HTTP. This pattern implements RPC (Remote Procedure Call) functionality over WebSocket connections, enabling asynchronous method calls with promise-based responses.
+
+**RPC Pattern Benefits:**
+
+1. **Asynchronous Operations**: Non-blocking remote method calls
+2. **Promise-Based API**: Modern async/await compatibility
+3. **Request Tracking**: Automatic correlation of requests and responses
+4. **Timeout Handling**: Prevents hanging requests with configurable timeouts
+5. **Error Propagation**: Proper error handling across the connection
+
+**How it works:**
+
+1. Client sends request with unique ID and method name
+2. Server processes request and sends response with matching ID
+3. Client correlates response with pending request using ID
+4. Promise resolves with result or rejects with error
+
+**Input:** Method name, parameters, optional timeout
+**Output:** Promise resolving to method result or rejecting with error
+
 ```javascript
 class WebSocketRPC {
   constructor(socket) {
-    this.socket = socket;
-    this.pendingRequests = new Map();
-    this.requestId = 0;
-    this.setupMessageHandler();
+    this.socket = socket; // WebSocket connection instance
+    this.pendingRequests = new Map(); // Track ongoing requests by ID
+    this.requestId = 0; // Counter for unique request IDs
+    this.setupMessageHandler(); // Initialize response handling
   }
 
   setupMessageHandler() {
@@ -1086,12 +1316,40 @@ try {
 
 ### Pub/Sub Pattern
 
+The Publish/Subscribe pattern enables event-driven communication where clients can subscribe to specific channels and receive real-time updates. This pattern is ideal for implementing features like live notifications, chat rooms, or real-time data feeds.
+
+**Pub/Sub Pattern Benefits:**
+
+1. **Decoupled Communication**: Publishers and subscribers don't need direct knowledge of each other
+2. **Scalable Broadcasting**: One message can reach multiple subscribers efficiently
+3. **Channel-Based Filtering**: Clients only receive messages from subscribed channels
+4. **Dynamic Subscriptions**: Subscribe and unsubscribe from channels at runtime
+5. **Event-Driven Architecture**: Reactive programming model for real-time applications
+
+**How it works:**
+
+1. Client subscribes to one or more channels
+2. Server maintains subscription mappings for each client
+3. When events occur, server publishes to relevant channels
+4. All subscribers to a channel receive the published message
+5. Clients can unsubscribe to stop receiving updates
+
+**Use Cases:**
+
+- Live chat applications with multiple rooms
+- Real-time notifications and alerts
+- Live data feeds (stock prices, sports scores)
+- Collaborative editing with multi-user updates
+
+**Input:** Channel name and subscription callback
+**Output:** Real-time messages from subscribed channels
+
 ```javascript
 class WebSocketPubSub {
   constructor(socket) {
-    this.socket = socket;
-    this.subscriptions = new Map();
-    this.setupMessageHandler();
+    this.socket = socket; // WebSocket connection instance
+    this.subscriptions = new Map(); // Channel subscriptions registry
+    this.setupMessageHandler(); // Initialize message routing
   }
 
   setupMessageHandler() {
@@ -1183,13 +1441,42 @@ unsubscribe();
 
 ### Secure WebSocket Implementation
 
+WebSocket security requires careful consideration of authentication, authorization, and protection against various attack vectors. This implementation demonstrates comprehensive security measures for production WebSocket applications.
+
+**Security Measures Implemented:**
+
+1. **Secure Transport**: Always use WSS (WebSocket Secure) for encrypted connections
+2. **Authentication**: Token-based authentication with proper validation
+3. **CSRF Protection**: Cross-Site Request Forgery tokens for additional security
+4. **Message Validation**: Strict validation of incoming message structure
+5. **Token Refresh**: Automatic handling of authentication token renewal
+6. **Input Sanitization**: Prevention of malicious message content
+
+**Security Threats Addressed:**
+
+- **Man-in-the-Middle Attacks**: WSS encryption prevents eavesdropping
+- **Cross-Site WebSocket Hijacking**: Origin validation and CSRF tokens
+- **Authentication Bypass**: Proper token validation and refresh
+- **Message Injection**: Strict message structure validation
+- **Denial of Service**: Rate limiting and connection management
+
+**Authentication Flow:**
+
+1. Client authenticates with credentials to obtain tokens
+2. WebSocket connection includes authentication headers
+3. Server validates tokens before accepting connection
+4. Ongoing token refresh maintains session security
+
+**Input:** User credentials and security configuration
+**Output:** Secure WebSocket connection with validated authentication
+
 ```javascript
 class SecureWebSocketClient {
   constructor(url, options = {}) {
-    this.url = url;
-    this.options = options;
-    this.authToken = null;
-    this.csrfToken = null;
+    this.url = url; // WebSocket server URL
+    this.options = options; // Security configuration options
+    this.authToken = null; // JWT or similar authentication token
+    this.csrfToken = null; // Cross-Site Request Forgery token
   }
 
   async connect(credentials) {
@@ -1532,14 +1819,42 @@ class WebSocketOptimizer {
 
 ### Real-Time Chat Application
 
+This comprehensive chat application demonstrates practical WebSocket usage with advanced features like typing indicators, user presence, and room management. The implementation showcases real-world patterns and best practices for building production-ready chat systems.
+
+**Chat Application Features:**
+
+1. **Multi-Room Support**: Users can join different chat rooms
+2. **Real-Time Messaging**: Instant message delivery and display
+3. **User Presence**: Track online users in each room
+4. **Typing Indicators**: Show when users are typing
+5. **Message History**: Maintain local message cache
+6. **Connection Management**: Robust connection handling with reconnection
+
+**Application Architecture:**
+
+- **Client-Side**: Manages UI, local state, and WebSocket communication
+- **Message Types**: Structured message protocol for different actions
+- **Event Handling**: Comprehensive event system for all chat features
+- **State Management**: Track users, messages, and room information
+
+**Message Protocol:**
+
+- `join`: User joins a chat room
+- `message`: Text message in a room
+- `typing`/`stopTyping`: Typing indicator status
+- `userJoined`/`userLeft`: User presence updates
+
+**Input:** Username, room name, and message content
+**Output:** Real-time chat interface with live updates
+
 ```javascript
 class ChatApplication {
   constructor() {
-    this.socket = null;
-    this.messages = [];
-    this.users = new Map();
-    this.currentRoom = null;
-    this.typing = new Set();
+    this.socket = null; // WebSocket connection instance
+    this.messages = []; // Local message history cache
+    this.users = new Map(); // Active users in current room
+    this.currentRoom = null; // Currently active chat room
+    this.typing = new Set(); // Users currently typing
   }
 
   async connect(username, room) {
@@ -1963,15 +2278,35 @@ console.log("WebSocket debug data:", logs);
 
 ### Connection Management Best Practices
 
+This section outlines essential best practices for WebSocket development and highlights common mistakes that can lead to unreliable connections, memory leaks, or security vulnerabilities. Following these patterns will ensure robust, production-ready WebSocket applications.
+
+**Key Best Practices:**
+
+1. **Proper Lifecycle Management**: Handle all connection states gracefully
+2. **Resource Cleanup**: Always clean up timers, listeners, and references
+3. **Error Handling**: Implement comprehensive error handling and recovery
+4. **Connection Timeouts**: Prevent hanging connections with timeouts
+5. **Graceful Shutdown**: Properly close connections with appropriate codes
+
+**Common Pitfalls to Avoid:**
+
+- Forgetting to handle connection errors and cleanup
+- Not implementing reconnection logic for production use
+- Missing proper event listener management
+- Inadequate message validation and error handling
+- Poor connection state management
+
+**Comparison: Good vs Bad Practices**
+
 ```javascript
-// ✅ Good: Proper connection lifecycle management
+// ✅ GOOD: Proper connection lifecycle management
 class RobustWebSocketClient {
   constructor(url, options = {}) {
-    this.url = url;
-    this.options = options;
-    this.socket = null;
-    this.reconnectEnabled = true;
-    this.eventListeners = new Map();
+    this.url = url; // Store connection parameters
+    this.options = options; // Configuration options
+    this.socket = null; // WebSocket instance reference
+    this.reconnectEnabled = true; // Control reconnection behavior
+    this.eventListeners = new Map(); // Track event listeners for cleanup
   }
 
   async connect() {
@@ -2017,23 +2352,35 @@ class RobustWebSocketClient {
   }
 }
 
-// ❌ Bad: No error handling or connection management
+// ❌ BAD: No error handling or connection management
 class BadWebSocketClient {
   constructor(url) {
-    this.socket = new WebSocket(url); // Can throw immediately
-    // No error handling, no reconnection logic
+    this.socket = new WebSocket(url); // Can throw immediately - no try/catch
+    // Missing: Error handling, reconnection logic, state management
+    // Missing: Timeout protection, resource cleanup
+    // Missing: Proper event listener setup
   }
 }
 ```
 
 ### Message Handling Best Practices
 
+Proper message handling is crucial for building reliable WebSocket applications. This section demonstrates the difference between robust message processing and common mistakes that can lead to application crashes or security vulnerabilities.
+
+**Message Handling Best Practices:**
+
+1. **Input Validation**: Always validate message structure and content
+2. **Error Isolation**: Catch and handle parsing errors gracefully
+3. **Middleware Support**: Implement extensible message processing pipeline
+4. **Type Safety**: Ensure message types are properly defined and handled
+5. **Async Processing**: Support asynchronous message handlers
+
 ```javascript
-// ✅ Good: Structured message handling with validation
+// ✅ GOOD: Structured message handling with validation
 class MessageHandler {
   constructor() {
-    this.handlers = new Map();
-    this.middleware = [];
+    this.handlers = new Map(); // Message type to handler mapping
+    this.middleware = []; // Message processing middleware
   }
 
   addHandler(type, handler) {
@@ -2079,11 +2426,13 @@ class MessageHandler {
   }
 }
 
-// ❌ Bad: No error handling or validation
+// ❌ BAD: No error handling or validation
 class BadMessageHandler {
   handleMessage(data) {
-    const message = JSON.parse(data); // Can throw
-    this.handlers[message.type](message); // Can be undefined
+    const message = JSON.parse(data); // Can throw on invalid JSON
+    this.handlers[message.type](message); // Can be undefined - will crash
+    // Missing: Error handling, input validation, null checks
+    // Missing: Async support, middleware, proper error isolation
   }
 }
 ```
