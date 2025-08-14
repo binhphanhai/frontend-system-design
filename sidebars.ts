@@ -156,9 +156,9 @@ const sidebars: SidebarsConfig = {
   ],
   javascriptPracticalSidebar: [
     "javascript-practical/intro",
-    "javascript-practical/basic-exercises",
-    "javascript-practical/advanced-exercises",
-    "javascript-practical/project-ideas",
+    "javascript-practical/javascript-exercises",
+    "javascript-practical/quiz-exercises",
+    "javascript-practical/react-exercises",
   ],
   projectDetailSidebar: [
     {

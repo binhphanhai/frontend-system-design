@@ -1,3 +1,3 @@
-# JavaScript Practical Overview
+# Practical Overview
 
-This section is dedicated to practical JavaScript exercises and projects to help you learn by doing.
+This section is dedicated to practical exercises and projects to help you learn by doing.

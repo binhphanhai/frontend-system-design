@@ -170,7 +170,7 @@ const config: Config = {
           type: "docSidebar",
           sidebarId: "javascriptPracticalSidebar",
           position: "left",
-          label: "JavaScript Practical",
+          label: "GFE 75",
         },
         {
           type: "docSidebar",
