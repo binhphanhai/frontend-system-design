@@ -1,4 +1,4 @@
-# Simple Interpreter: Building a Vietnamese Programming Language
+# Simple Interpreter: Vietnamese Programming Language Cheatsheet
 
 ## Table of Contents
 
@@ -16,25 +16,27 @@
 
 ## Introduction
 
-The Simple Interpreter project is a Vietnamese programming language interpreter built with Next.js and TypeScript that runs entirely in the browser. As shown in the [newbie-interpreter GitHub repository](https://github.com/binhphanhai/newbie-interpreter), this project demonstrates how to create a complete programming language interpreter from scratch, featuring an interactive code editor, real-time interpretation, and client-side execution.
-
-### Project Goals
-
-- **Educational**: Demonstrate interpreter construction principles
-- **Accessible**: Vietnamese language keywords for local developers
-- **Interactive**: Real-time code execution in the browser
-- **Portable**: No server required, fully client-side implementation
+- Vietnamese programming language interpreter (Next.js + TypeScript)
+- Runs fully in browser (client-side)
+- Based on [newbie-interpreter GitHub](https://github.com/binhphanhai/newbie-interpreter)
+- Features: interactive code editor, real-time execution
+- Goals:
+  - Educational: Show interpreter construction
+  - Accessible: Vietnamese keywords
+  - Interactive: Real-time browser execution
+  - Portable: No server needed
 
 ## Project Overview
 
 ### Technology Stack
-
-The following code demonstrates the comprehensive technology stack used in building the Vietnamese programming language interpreter. This stack is carefully chosen to balance performance, maintainability, and browser compatibility.
-
-**What this code does:** Defines the complete technology architecture for the interpreter project.
-**Input:** Configuration object with nested properties for different system components.
-**Output:** A structured overview of all technologies and approaches used.
-**Purpose:** Provides a clear roadmap of technical decisions and architectural choices.
+- Next.js + TypeScript frontend
+- React components + CSS modules
+- Static export (GitHub Pages)
+- Interpreter core:
+  - Lexer: TypeScript tokenization
+  - Parser: Recursive descent
+  - AST: Abstract Syntax Tree
+  - Executor: Tree-walking interpreter
 
 ```javascript
 // Project configuration from package.json perspective
@@ -90,17 +92,11 @@ newbie-interpreter/
 ## Interpreter Architecture
 
 ### Three-Phase Compilation Pipeline
-
-This section demonstrates the core architecture of the interpreter using a three-phase compilation pipeline. This is the standard approach used by most programming languages and provides clear separation of concerns.
-
-**What this code does:** Implements the main interpreter pipeline that processes Vietnamese source code through three distinct phases.
-**Input:** Raw Vietnamese source code as a string (e.g., "gán a = 10")
-**Output:** Executed result with program output and final variable states
-**Steps:**
-
-1. **Lexical Analysis:** Breaks down text into meaningful tokens (keywords, operators, numbers, etc.)
-2. **Syntax Analysis:** Converts tokens into an Abstract Syntax Tree (AST) representing program structure
-3. **Execution:** Traverses the AST and evaluates the program, producing final results
+- 1. Lexical Analysis: Text → Tokens
+- 2. Syntax Analysis: Tokens → AST
+- 3. Execution: AST → Results
+- Input: Vietnamese code string (e.g. "gán a = 10")
+- Output: Program output + variable states
 
 ```javascript
 // Simplified interpreter pipeline
@@ -153,13 +149,10 @@ const output = interpreter.execute(code); // → 30
 ```
 
 ### Component Relationships
-
-This section illustrates how the three main components of the interpreter work together in a pipeline. Understanding these relationships is crucial for debugging and extending the interpreter.
-
-**What this code does:** Maps the data flow and responsibilities between interpreter components.
-**Input:** Architecture configuration showing component interfaces and dependencies.
-**Output:** Clear understanding of how data flows through the interpretation pipeline.
-**Purpose:** Provides a blueprint for understanding component interactions and debugging issues.
+- Data flow: Source code → Lexer → Parser → Interpreter
+- Lexer: Text → Token stream (keywords, operators, etc.)
+- Parser: Token stream → AST (program structure)
+- Interpreter: AST → Execution result (output, variables)
 
 ```javascript
 // Interpreter component architecture
@@ -215,15 +208,9 @@ const interpreterArchitecture = {
 ## Lexical Analysis (Tokenization)
 
 ### Token Definition System
-
-The token definition system is the foundation of the lexer, defining all possible meaningful units in the Vietnamese programming language. Each token represents a specific type of language element that the parser can understand.
-
-**What this code does:** Defines an enumeration of all token types and the Token interface structure.
-**Input:** Source code characters that need to be classified into meaningful units.
-**Output:** Typed tokens with position information for error reporting and parsing.
-**Purpose:** Creates a standardized vocabulary that both the lexer and parser can use to communicate.
-
-The enum uses string literals instead of numbers for better debugging and error messages. Each token carries positional information (line/column) for helpful error reporting.
+- Enum for all token types (literals, identifiers, keywords, operators, delimiters, special)
+- Token interface: type, value, line, column
+- Example: "gán x = 10" → [GAN, IDENTIFIER(x), ASSIGN, NUMBER(10)]
 
 ```typescript
 // Token types for Vietnamese programming language
@@ -287,19 +274,9 @@ interface Token {
 ```
 
 ### Lexer Implementation
-
-The Lexer class is responsible for converting raw Vietnamese source code into a stream of tokens. It processes the input character by character, recognizing patterns and classifying them into appropriate token types.
-
-**What this code does:** Implements a character-by-character scanner that transforms source code into tokens.
-**Input:** Raw Vietnamese source code as a string.
-**Output:** An array of Token objects representing all meaningful elements in the code.
-**Key Features:**
-
-- Tracks line and column positions for error reporting
-- Handles Vietnamese Unicode characters properly
-- Supports escape sequences in strings
-- Skips whitespace and comments
-- Provides lookahead capability for multi-character operators
+- Converts Vietnamese code to tokens (character by character)
+- Tracks line/column for errors
+- Handles Unicode, escape sequences, whitespace, comments, lookahead
 
 ```typescript
 class Lexer {
@@ -683,13 +660,9 @@ class Lexer {
 ## Parsing and AST Generation
 
 ### AST Node Definitions
-
-The Abstract Syntax Tree (AST) represents the hierarchical structure of the parsed program. Each node type corresponds to a different language construct, and the visitor pattern allows for clean separation between tree traversal and operations performed on nodes.
-
-**What this code does:** Defines the class hierarchy for all possible AST nodes in the Vietnamese programming language.
-**Input:** Parsed token sequences that need to be represented as tree structures.
-**Output:** Object-oriented representation of program structure that can be traversed and evaluated.
-**Design Pattern:** Uses the Visitor pattern for clean separation between tree structure and operations.
+- AST = tree structure for program
+- Node types: NumberLiteral, StringLiteral, BooleanLiteral, Identifier, BinaryExpression, AssignmentStatement, PrintStatement, IfStatement, Program
+- Uses Visitor pattern for traversal
 
 ```typescript
 // ABSTRACT BASE CLASS FOR ALL AST NODES
@@ -818,6 +791,9 @@ class Program extends ASTNode {
 ```
 
 ### Parser Implementation
+- Consumes tokens, builds AST
+- Grammar: assignment, print, if/else, expressions, precedence
+- Throws errors for unexpected tokens
 
 ```typescript
 class Parser {
@@ -1028,6 +1004,10 @@ class Parser {
 ## Interpreter Execution
 
 ### Visitor Pattern for AST Traversal
+- Interpreter implements ASTVisitor
+- Walks AST, evaluates nodes
+- Handles: assignment, print, if/else, binary ops, literals, identifiers
+- Helper: isTruthy, isEqual, checkNumberOperands, stringify
 
 ```typescript
 interface ASTVisitor<T> {
@@ -1178,12 +1158,10 @@ class Interpreter implements ASTVisitor<any> {
 ## Language Features
 
 ### Example Programs
-
-These examples demonstrate the Vietnamese programming language features in action. Each example shows how the interpreter processes different types of constructs and produces output.
-
-**What these examples show:** Progressive complexity from basic arithmetic to conditional logic.
-**Purpose:** Demonstrate real-world usage patterns and help developers understand the language syntax.
-**Learning Path:** Start with Example 1 and progress through increasingly complex features.
+- Example 1: Arithmetic, variables
+- Example 2: String operations, concatenation
+- Example 3: If/else with Vietnamese keywords
+- Example 4: Operator precedence, parentheses
 
 ```javascript
 // EXAMPLE 1: Basic arithmetic and variables
@@ -1236,13 +1214,10 @@ in (result)                        // Print final result
 ```
 
 ### Error Handling
-
-A robust error handling system is essential for providing helpful feedback to users when their Vietnamese code contains mistakes. The interpreter implements a hierarchical error system with detailed position information.
-
-**What this code does:** Implements a comprehensive error reporting system with position tracking.
-**Input:** Error conditions detected during lexing, parsing, or execution phases.
-**Output:** Detailed error messages with line/column information for debugging.
-**Benefits:** Users get precise error locations and clear descriptions of what went wrong.
+- Hierarchical error system: InterpreterError (base), RuntimeError, SyntaxError
+- Tracks line/column for precise messages
+- Usage: try/catch, print error with location
+- Common errors: undefined variable, division by zero, type mismatch, syntax issues
 
 ```typescript
 // BASE ERROR CLASS
@@ -1310,6 +1285,8 @@ try {
 ## Implementation Details
 
 ### Memory Management
+- Environment class: variable storage, supports parent scopes
+- Methods: define, get, set
 
 ```typescript
 class Environment {
@@ -1354,6 +1331,8 @@ class Environment {
 ```
 
 ### Performance Optimization
+- OptimizedInterpreter: memoization for repeated expressions
+- Caches results of binary expressions
 
 ```typescript
 class OptimizedInterpreter extends Interpreter {
@@ -1389,13 +1368,10 @@ class OptimizedInterpreter extends Interpreter {
 ## Browser Integration
 
 ### Web Integration Layer
-
-The Browser Integration layer adapts the core interpreter for web environments, providing a user-friendly interface that handles DOM manipulation, error display, and real-time feedback.
-
-**What this code does:** Creates a web-friendly wrapper around the core interpreter that handles UI interactions.
-**Input:** Vietnamese source code from web interface (textarea, editor, etc.)
-**Output:** Formatted results displayed in HTML elements with error handling
-**Key Features:** DOM integration, error visualization, real-time execution, state display
+- BrowserInterpreter: wraps core interpreter for web
+- Handles DOM, error display, real-time feedback
+- Methods: execute, displayOutput, displayEnvironment, displayError
+- Example React component usage
 
 ```typescript
 // BROWSER-SPECIFIC INTERPRETER WRAPPER
@@ -1527,6 +1503,8 @@ const InterpreterComponent: React.FC = () => {
 ## Best Practices
 
 ### Code Organization
+- Modular interpreter design: InterpreterModule, ModularInterpreter
+- Register modules, execute code, debug option
 
 ```typescript
 // Modular interpreter design
@@ -1572,6 +1550,7 @@ class ModularInterpreter {
 ```
 
 ### Testing Strategy
+- Unit tests for interpreter: arithmetic, string concat, conditionals
 
 ```typescript
 // Unit tests for interpreter components
@@ -1611,32 +1590,10 @@ describe("Vietnamese Interpreter", () => {
 
 ## Conclusion
 
-The Simple Interpreter project demonstrates the complete process of building a programming language interpreter from scratch. By implementing lexical analysis, parsing, and execution phases, this project showcases how to create a functional programming language with Vietnamese keywords that runs entirely in the browser.
-
-### Key Achievements
-
-1. **Complete Interpreter Pipeline**: Lexer → Parser → AST → Interpreter
-2. **Vietnamese Language Support**: Localized keywords and error messages
-3. **Browser Integration**: Client-side execution with real-time feedback
-4. **Educational Value**: Clear demonstration of interpreter construction principles
-5. **Extensible Architecture**: Modular design for adding new language features
-
-### Technical Highlights
-
-- **TypeScript Implementation**: Type-safe interpreter with excellent developer experience
-- **Visitor Pattern**: Clean AST traversal and evaluation
-- **Error Handling**: Comprehensive error reporting with line/column information
-- **Performance Optimization**: Memoization and efficient parsing strategies
-- **Web Integration**: Seamless browser execution without server dependencies
-
-As shown in the [newbie-interpreter repository](https://github.com/binhphanhai/newbie-interpreter), this project serves as an excellent foundation for understanding interpreter design and implementation, while providing a practical tool for Vietnamese-speaking developers to learn programming concepts in their native language.
-
-### Further Development
-
-- **Function Definitions**: Add support for user-defined functions
-- **Loop Constructs**: Implement `lặp` (loop) statements
-- **Array Operations**: Support for list data structures
-- **Module System**: Import/export functionality
-- **Standard Library**: Built-in functions for common operations
-
-The project demonstrates that building a programming language interpreter is an achievable goal with proper architectural design and systematic implementation of each component.
+- Full interpreter pipeline: Lexer → Parser → AST → Interpreter
+- Vietnamese keywords, localized errors
+- Browser-based, real-time feedback
+- Modular, extensible, educational
+- TypeScript, Visitor pattern, error handling, memoization
+- See [newbie-interpreter repo](https://github.com/binhphanhai/newbie-interpreter) for more
+- Further: functions, loops, arrays, modules, stdlib
